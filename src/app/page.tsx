@@ -1,113 +1,135 @@
-import Image from 'next/image'
+"use client";
+import { useRef } from "react";
 
 export default function Home() {
+
+  const inputFileRef = useRef<HTMLInputElement>(null);
+
+  async function handleUploadDraft() {
+    if (!inputFileRef.current?.files) {
+      throw new Error("No file selected");
+    }
+
+    const file = inputFileRef.current.files[0];
+    try {
+      const response = await fetch(`/api/generate?filename=${file.name}`, {
+        method: 'POST',
+        body: file,
+      });
+
+      console.log("response", response)
+
+
+      if (!response.ok) {
+        console.log("errMsg", await response.json());
+        throw new Error('处理失败，请检查文件是否正确');
+      }
+
+      // 前端下载文件
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+  
+      // 执行下载 for react
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'draft_info.json');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error);
+      alert('处理失败，请检查文件是否正确');
+    }
+    
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <header className="relative">
+      <div className="flex justify-center items-center min-h-screen">
+        <img
+          src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26e_Background%20Hero.svg"
+          alt=""
+          className="absolute -z-10 inline-block h-full w-full object-cover"
+        />
+        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 pb-4 text-4xl font-bold text-white md:text-6xl">
+              剪映一键关键帧
+            </h1>
+            <div className="mx-auto mb-3 max-w-[528px] md:mb-6 lg:mb-8">
+              <p className="text-xl text-[#636262]">
+                一键设定剪映视频关键帧，轻松添加转场动画。
+              </p>
+            </div>
+
+            <a
+              href="#"
+              className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white relative"
+            >
+              <span>选择剪映草稿文件</span>
+              <input
+                type="file"
+                className="opacity-0 absolute inset-x-0 inset-y-0"
+                accept="application/json, .*"
+                ref={inputFileRef}
+                onChange={handleUploadDraft}
+              />
+            </a>
+          </div>
+
+          <section className="relative">
+            <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-24">
+              <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12 lg:mb-16">
+                <p className="text-sm font-bold uppercase text-[#c9fd02]">
+                  只 需 三 步
+                </p>
+                <h2 className="mb-4 mt-6 text-3xl font-extrabold text-white md:text-5xl">
+                  怎么使用
+                </h2>
+                {/* <p className="mx-auto mt-4 max-w-[528px] text-[#aeaeae]">
+                  Lorem ipsum dolor sit amet consectetur adipiscing elit ut
+                  aliquam,purus sit amet luctus magna fringilla urna
+                </p> */}
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                    <p className="text-xl font-bold">1</p>
+                  </div>
+                  <p className="text-xl font-semibold text-white">
+                    点击“选择剪映草稿文件”按钮
+                  </p>
+                  <p className="text-sm text-[#636262]">
+                    点击上方的“选择剪映草稿文件”按钮，选择你的剪映草稿文件。
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                    <p className="text-xl font-bold">2</p>
+                  </div>
+                  <p className="text-xl font-semibold text-white">
+                    选择你的剪映草稿文件
+                  </p>
+                  <p className="text-sm text-[#636262]">
+                    在你的操作系统中找到草稿文件夹，选择 `draft_info.json` 文件。
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                    <p className="text-xl font-bold">3</p>
+                  </div>
+                  <p className="text-xl font-semibold text-white">
+                    等待自动下载到电脑中
+                  </p>
+                  <p className="text-sm text-[#636262]">
+                    等待处理完成后，会自动下载到你的电脑中。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </header>
+  );
 }
