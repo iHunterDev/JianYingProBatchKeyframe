@@ -97,7 +97,7 @@ export default function Home() {
                     点击“选择剪映草稿文件”按钮
                   </p>
                   <p className="text-sm text-[#636262]">
-                    点击上方的“选择剪映草稿文件”按钮，选择你的剪映草稿文件。
+                    点击上方的“选择剪映草稿文件”按钮，选择你的剪映草稿文件。（注意：需要关闭剪映再操作）
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
@@ -108,7 +108,7 @@ export default function Home() {
                     选择你的剪映草稿文件
                   </p>
                   <p className="text-sm text-[#636262]">
-                    在你的操作系统中找到草稿文件夹，选择 `draft_info.json`
+                    找到草稿文件夹，选择 `draft_info.json` 或 `draft_content.json`
                     文件。
                   </p>
                 </div>
@@ -120,7 +120,7 @@ export default function Home() {
                     等待自动下载到电脑中
                   </p>
                   <p className="text-sm text-[#636262]">
-                    等待处理完成后，会自动下载到你的电脑中。
+                    等待处理完成后，会自动下载到你的电脑中。替换掉原来对应的并且重新打开剪映。
                   </p>
                 </div>
               </div>
