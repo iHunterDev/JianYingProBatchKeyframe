@@ -30,7 +30,7 @@ export default function Home() {
       // 执行下载 for react
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "draft_info.json");
+      link.setAttribute("download", file.name);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
