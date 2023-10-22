@@ -1,0 +1,15 @@
+{
+  "Home": {
+    "Title": "One-Click Keyframe for JianyingPro",
+    "Description": "Set keyframes for JianyingPro videos with just one click, and easily add transition animations.",
+    "TutorialStep": "Only Three Steps",
+    "HowUse": "How to Use",
+    "TutorialStep1Title": "Click the 'Select JianyingPro Draft File' button",
+    "TutorialStep1Description": "Click the 'Select JianyingPro Draft File' button above to choose your JianyingPro draft file. (Note: Please close JianyingPro before proceeding.)",
+    "TutorialStep2Title": "Choose your JianyingPro draft file",
+    "TutorialStep2Description": "Locate your draft folder and select the 'draft_info.json' or 'draft_content.json' file.",
+    "TutorialStep3Title": "Wait for automatic download to your computer",
+    "TutorialStep3Description": "After the processing is complete, it will be automatically downloaded to your computer. Replace the corresponding file and reopen JianyingPro.",
+    "SelectDraft": "Select JianyingPro Draft File"
+  }
+}

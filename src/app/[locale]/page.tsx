@@ -1,7 +1,8 @@
 import SelectDraft from "./components/SelectDraft";
+import {useTranslations} from 'next-intl';
 
 export default function Home() {
-  
+  const t = useTranslations('Home')
 
   return (
     <header className="relative">
@@ -14,11 +15,11 @@ export default function Home() {
         <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 pb-4 text-4xl font-bold text-white md:text-6xl">
-              剪映一键关键帧
+              {t('Title')}
             </h1>
             <div className="mx-auto mb-3 max-w-[528px] md:mb-6 lg:mb-8">
               <p className="text-xl text-[#636262]">
-                一键设定剪映视频关键帧，轻松添加转场动画。
+                {t('Description')}
               </p>
             </div>
 
@@ -30,10 +31,10 @@ export default function Home() {
             <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-24">
               <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12 lg:mb-16">
                 <p className="text-sm font-bold uppercase text-[#c9fd02]">
-                  只 需 三 步
+                  {t('TutorialStep')}
                 </p>
                 <h2 className="mb-4 mt-6 text-3xl font-extrabold text-white md:text-5xl">
-                  怎么使用
+                  {t('HowUse')}
                 </h2>
                 {/* <p className="mx-auto mt-4 max-w-[528px] text-[#aeaeae]">
                   Lorem ipsum dolor sit amet consectetur adipiscing elit ut
@@ -46,10 +47,10 @@ export default function Home() {
                     <p className="text-xl font-bold">1</p>
                   </div>
                   <p className="text-xl font-semibold text-white">
-                    点击“选择剪映草稿文件”按钮
+                    {t('TutorialStep1Title')}
                   </p>
                   <p className="text-sm text-[#636262]">
-                    点击上方的“选择剪映草稿文件”按钮，选择你的剪映草稿文件。（注意：需要关闭剪映再操作）
+                    {t('TutorialStep1Description')}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
@@ -57,11 +58,10 @@ export default function Home() {
                     <p className="text-xl font-bold">2</p>
                   </div>
                   <p className="text-xl font-semibold text-white">
-                    选择你的剪映草稿文件
+                    {t('TutorialStep2Title')}
                   </p>
                   <p className="text-sm text-[#636262]">
-                    找到草稿文件夹，选择 `draft_info.json` 或 `draft_content.json`
-                    文件。
+                    {t('TutorialStep2Description')}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
@@ -69,10 +69,10 @@ export default function Home() {
                     <p className="text-xl font-bold">3</p>
                   </div>
                   <p className="text-xl font-semibold text-white">
-                    等待自动下载到电脑中
+                    {t('TutorialStep3Title')}
                   </p>
                   <p className="text-sm text-[#636262]">
-                    等待处理完成后，会自动下载到你的电脑中。替换掉原来对应的并且重新打开剪映。
+                    {t('TutorialStep3Description')}
                   </p>
                 </div>
               </div>

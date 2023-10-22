@@ -1,9 +1,10 @@
 "use client";
 import { useRef } from "react";
+import {useTranslations} from 'next-intl';
 
 export default function SelectDraft() {
   const inputFileRef = useRef<HTMLInputElement>(null);
-
+  const t = useTranslations('Home')
   async function handleUploadDraft() {
     if (!inputFileRef.current?.files) {
       throw new Error("No file selected");
@@ -45,7 +46,7 @@ export default function SelectDraft() {
       href="#"
       className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white relative"
     >
-      <span>选择剪映草稿文件</span>
+      <span>{t('SelectDraft')}</span>
       <input
         type="file"
         className="opacity-0 absolute inset-x-0 inset-y-0"
