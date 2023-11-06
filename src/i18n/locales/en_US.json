@@ -10,6 +10,7 @@
     "TutorialStep2Description": "Locate your draft folder and select the 'draft_info.json' or 'draft_content.json' file.",
     "TutorialStep3Title": "Wait for automatic download to your computer",
     "TutorialStep3Description": "After the processing is complete, it will be automatically downloaded to your computer. Replace the corresponding file and reopen JianyingPro.",
-    "SelectDraft": "Select JianyingPro Draft File"
+    "SelectDraft": "Select JianyingPro Draft File",
+    "ChangeLanguage": "Change Language"
   }
 }

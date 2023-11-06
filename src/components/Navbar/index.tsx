@@ -1,6 +1,16 @@
 import Link from 'next/link'
+import ChangeLanguage from '../ChangeLanguage'
+import ChangeLanguageItem from '../ChangeLanguage/ChangeLanguageItem'
+import { useTranslations } from 'next-intl';
 
-export default function Navbar() {
+type Props = {
+  locale: string
+}
+
+export default function Navbar({ locale: currentLocale } : Props) {
+  const t = useTranslations('Home')
+  const { locales, localesName } = require('../../i18n/i18n-config')
+
   return (
     <section>
       <div className="h-auto bg-black text-white">
@@ -14,8 +24,14 @@ export default function Navbar() {
               /> */}
             </a>
             <div className="mt-14 flex flex-col space-y-8 lg:mt-0 lg:flex lg:flex-row lg:space-x-1 lg:space-y-0">
-              <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href="zh_CN">🇨🇳中文</Link>
-              <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href="en_US">🇺🇸English (US)</Link>
+              {/* {locales.map((langName: string) => {
+                return <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href={langName}>{localesName[langName]}</Link>
+              })} */}
+              <ChangeLanguage label={t('ChangeLanguage') + ' : ' + localesName[currentLocale] }>
+                {locales.map((langName: string) => {
+                  return <ChangeLanguageItem><Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href={langName}>{localesName[langName]}</Link></ChangeLanguageItem>
+                })}
+              </ChangeLanguage>
             </div>
           </div>
         </nav>

@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
+    "flowbite": "^2.0.0",
+    "flowbite-react": "^0.6.4",
     "next": "13.5.5",
     "next-intl": "^3.0.0-beta.19",
     "react": "^18",

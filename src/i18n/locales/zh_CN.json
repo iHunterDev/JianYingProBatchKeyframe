@@ -10,6 +10,7 @@
     "TutorialStep2Description": "找到草稿文件夹，选择 `draft_info.json` 或 `draft_content.json` 文件。",
     "TutorialStep3Title": "等待自动下载到电脑中",
     "TutorialStep3Description": "等待处理完成后，会自动下载到你的电脑中。替换掉原来对应的并且重新打开剪映。",
-    "SelectDraft": "选择剪映草稿文件"
+    "SelectDraft": "选择剪映草稿文件",
+    "ChangeLanguage": "切换语言"
   }
 }
