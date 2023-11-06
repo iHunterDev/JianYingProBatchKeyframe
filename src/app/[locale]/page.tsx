@@ -8,13 +8,13 @@ export default function Home() {
   return (
     <header className="relative">
       <div className="flex justify-center items-center min-h-screen">
-        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-          <Image
-            src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26e_Background%20Hero.svg"
-            alt=""
-            className="absolute -z-10 inline-block h-full w-full object-cover"
-          />
-        </div>
+        <Image
+          src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26e_Background%20Hero.svg"
+          alt=""
+          width={100}
+          height={100}
+          className="absolute -z-10 inline-block h-full w-full object-cover"
+        />
 
         <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
           <div className="mx-auto max-w-3xl text-center">
