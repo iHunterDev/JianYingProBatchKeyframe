@@ -20,6 +20,7 @@ export async function generateMetadata({ params: { locale } }: Props) : Promise<
   return {
     title: t("Home.Title"),
     description: t("Home.Description"),
+    keywords: t("Home.Keywords"),
   };
 }
 
