@@ -167,8 +167,8 @@ export default function Home() {
                 </div> */}
                 <p className="max-[479px]:text-sm">
                   Made with 😆 by{" "}
-                  <a href="https://twitter.com/HunterZhuo" target="_blank">
-                    HunterZhuo
+                  <a href="https://twitter.com/iHunterDev" target="_blank">
+                    iHunterDev
                   </a>
                   . Powered by{" "}
                   <a href="https://vercel.com/" target="_blank">
