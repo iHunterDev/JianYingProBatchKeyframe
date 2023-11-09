@@ -13,5 +13,35 @@
     "TutorialStep3Description": "After the processing is complete, it will be automatically downloaded to your computer. Replace the corresponding file and reopen JianyingPro.",
     "SelectDraft": "Select JianyingPro Draft File",
     "ChangeLanguage": "Change Language"
+  },
+  "Faq": {
+    "FaqTitle": "Frequently Asked",
+    "FaqDescription": " ",
+    "List": [
+      {
+        "Question": "What is the One-Click Keyframe feature in Jianying Pro?",
+        "Answer": "The One-Click Keyframe feature in Jianying Pro is a video editing tool used to create animation effects or transformation effects. It helps enhance visual effects or emphasize specific points in video clips. Jianying Pro's One-Click Keyframe feature simplifies this complex process by allowing users to select the desired starting and ending positions for the animation, automatically creating keyframes."
+      },
+      {
+        "Question": "How to use the One-Click Keyframe feature in Jianying Pro?",
+        "Answer": "Open the video clip you want to edit in the Jianying Pro app, find and click on the keyframe icon at the bottom. Then, set the starting and ending keyframes at specific points in the video. Once done, you can adjust the animation effects between keyframes, such as translation, scaling, and more. Finally, preview and save your changes. That's how you use the One-Click Keyframe feature in Jianying Pro."
+      },
+      {
+        "Question": "What effects can be created using Jianying Pro's One-Click Keyframe?",
+        "Answer": "With Jianying Pro's One-Click Keyframe, you can create various animation effects like translation, rotation, scaling, and more. Additionally, you can change opacity as needed or create multiple animation effects within the same video clip. These features give you greater flexibility to enhance the visual effects of your video and improve the audience's viewing experience."
+      },
+      {
+        "Question": "How to delete keyframes in Jianying Pro?",
+        "Answer": "If you have created keyframes in Jianying Pro but later find that you don't need them, you can follow these steps to delete keyframes: Open the video editing page, find and click on the keyframe icon at the bottom. Then, locate the keyframe you want to delete and click to select it, and finally, click the delete button."
+      },
+      {
+        "Question": "What are the limitations of Jianying Pro's One-Click Keyframe feature?",
+        "Answer": "While Jianying Pro's One-Click Keyframe feature is powerful, it does have some limitations. For example, it may not be suitable for all types of video editing and is more geared towards creating animation effects rather than extensive video editing. Additionally, complex animation effects may require more time and effort to create, especially for beginners."
+      },
+      {
+        "Question": "Do all versions of Jianying Pro have the One-Click Keyframe feature?",
+        "Answer": "Jianying Pro is an efficient and practical video editing app that continuously introduces new features to provide users with a better experience. The One-Click Keyframe feature is a recent addition and may not be available in all versions. It is recommended that users keep their app updated to access the latest features and optimizations."
+      }
+    ]
   }
 }

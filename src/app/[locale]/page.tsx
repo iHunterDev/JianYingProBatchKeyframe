@@ -1,6 +1,7 @@
 import SelectDraft from "./components/SelectDraft";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import FAQSection from "./components/FAQSection";
 
 export default function Home() {
   const t = useTranslations("Home");
@@ -79,6 +80,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <FAQSection></FAQSection>
 
           <footer className="bg-center text-white">
             <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
