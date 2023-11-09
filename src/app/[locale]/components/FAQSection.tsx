@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 
 const FAQSection = () => {
   const t = useTranslations("Faq");
-  console.log(t.raw("List"));
   return (
     <section>
       <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
@@ -27,7 +26,7 @@ const FAQSection = () => {
           </div>;
         })}
 
-        {/* <p className="text-center">Can’t find the answer you’re looking for? Reach out to our <a href="#">customer support team</a>.</p> */}
+        <p className="text-center text-[#636262]">{t('Contact')} <a href="https://twitter.com/iHunterDev" className="text-[#c9fd02]">Twitter</a>.</p>
       </div>
     </section>
   );
