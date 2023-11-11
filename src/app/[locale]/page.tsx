@@ -2,6 +2,7 @@ import SelectDraft from "./components/SelectDraft";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import FAQSection from "./components/FAQSection";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations("Home");
@@ -126,6 +127,27 @@ export default function Home() {
                   </a>
                 </div> */}
                 <div className="mb-8 mt-8 w-48 border-b border-solid border-b-white"></div>
+                <div className="flex gap-1">
+                  <Link
+                    className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
+                    href="./"
+                  >
+                    {t("JianyingProOneClickKeyframe")}
+                  </Link>
+                  <Link
+                    className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
+                    href="./"
+                  >
+                    {t("JianyingProBatchKeyframeinOneSecond")}
+                  </Link>
+                  <Link
+                    className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
+                    href="./"
+                  >
+                    {t("JianyingProAutomaticKeyframing")}
+                  </Link>
+                </div>
+
                 {/* <div className="mb-12 grid w-full max-w-[208px] grid-flow-col grid-cols-4 gap-3">
                   <a
                     href="#"

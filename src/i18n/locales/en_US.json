@@ -12,7 +12,9 @@
     "TutorialStep3Title": "Wait for automatic download to your computer",
     "TutorialStep3Description": "After the processing is complete, it will be automatically downloaded to your computer. Replace the corresponding file and reopen JianyingPro.",
     "SelectDraft": "Select JianyingPro Draft File",
-    "ChangeLanguage": "Change Language"
+    "JianyingProOneClickKeyframe": "Jianying Pro One-Click Keyframe",
+    "JianyingProBatchKeyframeinOneSecond": "Jianying Pro Batch Keyframe in One Second",
+    "JianyingProAutomaticKeyframing": "Jianying Pro Automatic Keyframing"
   },
   "Faq": {
     "FaqTitle": "Frequently Asked",

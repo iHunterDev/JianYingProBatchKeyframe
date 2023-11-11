@@ -27,7 +27,11 @@ export default function Navbar({ locale: currentLocale } : Props) {
               {/* {locales.map((langName: string) => {
                 return <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href={langName}>{localesName[langName]}</Link>
               })} */}
-              <ChangeLanguage label={t('ChangeLanguage') + ' : ' + localesName[currentLocale] }>
+
+              <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href="./">{ t('JianyingProOneClickKeyframe') }</Link>
+              <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href="./">{ t('JianyingProBatchKeyframeinOneSecond') }</Link>
+              <Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href="./">{ t('JianyingProAutomaticKeyframing') }</Link>
+              <ChangeLanguage label={ localesName[currentLocale] }>
                 {locales.map((langName: string, index: number) => {
                   return <ChangeLanguageItem key={index}><Link className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4" href={langName}>{localesName[langName]}</Link></ChangeLanguageItem>
                 })}
