@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
@@ -14,6 +15,7 @@
     "flowbite-react": "^0.6.4",
     "next": "13.5.5",
     "next-intl": "^3.0.0-beta.19",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
     "uuid": "^9.0.1"
