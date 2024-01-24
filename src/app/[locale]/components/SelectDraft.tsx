@@ -6,12 +6,13 @@ export default function SelectDraft() {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const t = useTranslations('Home')
   async function handleUploadDraft() {
-    if (!inputFileRef.current?.files) {
-      throw new Error("No file selected");
-    }
-
-    const file = inputFileRef.current.files[0];
     try {
+      if (!inputFileRef.current?.files) {
+        throw new Error("No file selected");
+      }
+
+      const file = inputFileRef.current.files[0];
+      
       const response = await fetch(`/api/generate?filename=${file.name}`, {
         method: "POST",
         body: file,
@@ -35,9 +36,9 @@ export default function SelectDraft() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      alert("处理失败，请检查文件是否正确");
+      alert(error.message);
     }
   }
 
