@@ -60,7 +60,7 @@ function handleDraft(data) {
     let videoWidth = data.materials.videos[i].width;
     // videoWidth += 8; // 由于素材的宽度问题补充一下差距不然后面算出来的结果会有问题
     let videoHeight = data.materials.videos[i].height;
-    videoHeight += 4; // 由于素材的宽度问题补充一下差距不然后面算出来的结果会有问题
+    // videoHeight += 4; // 由于素材的宽度问题补充一下差距不然后面算出来的结果会有问题
 
     // 获取视频长度 视频中获取的 10800000000
     // 从关键帧获取到 time_offset 10000000
