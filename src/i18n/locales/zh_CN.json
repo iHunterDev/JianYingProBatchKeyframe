@@ -14,7 +14,9 @@
     "SelectDraft": "选择剪映草稿文件",
     "JianyingProOneClickKeyframe": "剪映一键关键帧",
     "JianyingProBatchKeyframeinOneSecond": "剪映一秒批量打关键帧",
-    "JianyingProAutomaticKeyframing": "剪映自动打关键帧"
+    "JianyingProAutomaticKeyframing": "剪映自动打关键帧",
+    "Donate": "捐赠",
+    "Home": "首页"
   },
   "Faq": {
     "FaqTitle": "常见问题",
@@ -46,5 +48,17 @@
       }
     ],
     "Contact": "找不到你要找的答案？请联系我们的"
+  },
+  "Donate": {
+    "BuyTheAuthorACupOfCoffee": "请作者喝杯咖啡",
+    "OneCoffee": "一杯咖啡",
+    "OneMilkyTea": "一杯奶茶",
+    "Custom": "定制",
+    "DonateOneCoffeeDescription": "如果你喜欢他，就请他喝杯咖啡吧",
+    "DonateOneMilkyTeaDescription": "如果你喜欢他，就请他喝杯奶茶吧",
+    "DonateCustomDescription": "如果你喜欢他，就请他喝杯咖啡或奶茶吧",
+    "DonateUnit": "杯",
+    "DonatePlatformAfdian": "使用 爱发电",
+    "DonatePlatformBuyMeACoffee": "使用 BuyMeACoffee"
   }
 }

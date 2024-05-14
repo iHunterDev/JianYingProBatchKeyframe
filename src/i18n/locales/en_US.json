@@ -14,7 +14,9 @@
     "SelectDraft": "Select JianyingPro Draft File",
     "JianyingProOneClickKeyframe": "Jianying Pro One-Click Keyframe",
     "JianyingProBatchKeyframeinOneSecond": "Jianying Pro Batch Keyframe in One Second",
-    "JianyingProAutomaticKeyframing": "Jianying Pro Automatic Keyframing"
+    "JianyingProAutomaticKeyframing": "Jianying Pro Automatic Keyframing",
+    "Donate": "Donate",
+    "Home": "Home"
   },
   "Faq": {
     "FaqTitle": "Frequently Asked",
@@ -46,5 +48,17 @@
       }
     ],
     "Contact": "Can’t find the answer you’re looking for? Reach out to our"
+  },
+  "Donate": {
+    "BuyTheAuthorACupOfCoffee": "Buy the Author a Cup of Coffee",
+    "OneCoffee": "One Coffee",
+    "OneMilkyTea": "One Milky Tea",
+    "Custom": "Custom",
+    "DonateOneCoffeeDescription": "if you like him, please buy him a cup of coffee",
+    "DonateOneMilkyTeaDescription": "if you like him, please buy him a cup of milky tea",
+    "DonateCustomDescription": "if you like him, please donate custom amount",
+    "DonateUnit": "cup",
+    "DonatePlatformAfdian": "Use Afdian",
+    "DonatePlatformBuyMeACoffee": "Use BuyMeACoffee"
   }
 }

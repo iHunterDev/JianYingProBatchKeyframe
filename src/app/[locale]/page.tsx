@@ -2,7 +2,7 @@ import SelectDraft from "./components/SelectDraft";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import FAQSection from "./components/FAQSection";
-import Link from "next/link";
+
 
 export default function Home() {
   const t = useTranslations("Home");
