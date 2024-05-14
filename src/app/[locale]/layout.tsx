@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { locales } from "@/i18n/i18n-config";
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import Navbar from "@/components/Navbar";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+        <Footer></Footer>
         <Analytics />
         <GoogleAnalytics />
       </body>
