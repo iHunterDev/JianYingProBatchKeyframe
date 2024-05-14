@@ -16,7 +16,8 @@
     "JianyingProBatchKeyframeinOneSecond": "Jianying Pro Batch Keyframe in One Second",
     "JianyingProAutomaticKeyframing": "Jianying Pro Automatic Keyframing",
     "Donate": "Donate",
-    "Home": "Home"
+    "Home": "Home",
+    "Copilot": "Copilot"
   },
   "Faq": {
     "FaqTitle": "Frequently Asked",
@@ -60,5 +61,10 @@
     "DonateUnit": "cup",
     "DonatePlatformAfdian": "Use Afdian",
     "DonatePlatformBuyMeACoffee": "Use BuyMeACoffee"
+  },
+  "Copilot": {
+    "FastSimpleAndSecure": "Fast, simple, and secure",
+    "CopilotDescription": "Discover me upcoming tool that makes everything easier: one-click to complete Keyframe! No more tedious manual efforts—just a simple web interface and a lightweight client to control your files. Plus, with every action backed up, you can rest easy knowing your data is safe.",
+    "ComingSoon": "Coming Soon"
   }
 }

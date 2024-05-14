@@ -16,7 +16,8 @@
     "JianyingProBatchKeyframeinOneSecond": "剪映一秒批量打关键帧",
     "JianyingProAutomaticKeyframing": "剪映自动打关键帧",
     "Donate": "捐赠",
-    "Home": "首页"
+    "Home": "首页",
+    "Copilot": "客户端"
   },
   "Faq": {
     "FaqTitle": "常见问题",
@@ -60,5 +61,10 @@
     "DonateUnit": "杯",
     "DonatePlatformAfdian": "使用 爱发电",
     "DonatePlatformBuyMeACoffee": "使用 BuyMeACoffee"
+  },
+  "Copilot": {
+    "FastSimpleAndSecure": "快速，简单，安全",
+    "CopilotDescription": "发现我即将推出的工具，让一切变得更简单：一键完成关键帧！再也不用繁琐的手动操作——只需一个简单的网页界面和一个轻量级客户端来控制您的文件。而且，每次操作都会备份，确保您的数据安全。",
+    "ComingSoon": "即将推出"
   }
 }

@@ -36,6 +36,13 @@ export default function Navbar({ locale: currentLocale }: Props) {
                 {t("Home")}
               </Link>
               <Link
+                className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4 relative"
+                href={"/"+ currentLocale + "/copilot"}
+              >
+                {t("Copilot")}
+                <span className="absolute top-2 text-xs bg-red-600 p-1 rounded-md">New</span>
+              </Link>
+              <Link
                 className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
                 href={"/"+ currentLocale + "/donate"}
               >
