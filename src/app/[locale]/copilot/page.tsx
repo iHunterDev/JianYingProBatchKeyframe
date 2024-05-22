@@ -23,11 +23,18 @@ export default function Copilot() {
               {t("CopilotDescription")}
             </p>
             <a
-                href="#"
-                className="] mr-5 inline-block rounded-full bg-[#c9fd02] px-6 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white md:mr-6 lg:mr-8"
-              >
-                {t("ComingSoon")}
-              </a>
+              href="#"
+              className="mr-5 inline-block rounded-full bg-[#c9fd02] px-6 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white md:mr-6 lg:mr-8"
+            >
+              {t("ComingSoon")}
+            </a>
+
+            <a
+              href="#"
+              className="inline-block rounded-full text-white border border-solid border-[#636262] px-6 py-4 font-bold"
+            >
+              {t("GetSourceCode")}
+            </a>
 
             {/* <div className="flex items-center">
               <a
