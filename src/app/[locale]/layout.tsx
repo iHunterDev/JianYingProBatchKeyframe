@@ -8,6 +8,7 @@ import { locales } from "@/i18n/i18n-config";
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import Navbar from "@/components/Navbar";
 import Footer from "./components/Footer";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <NextTopLoader />
         <Navbar locale={locale}></Navbar>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
