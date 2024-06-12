@@ -7,7 +7,7 @@ export default function DashboardComponent() {
   const t = useTranslations("CopilotDashboard");
 
   // 获取草稿列表
-  const [drafts, setDrafts] = useState([]);
+  const [drafts, setDrafts]: any = useState([]);
   useEffect(() => {
     const fetchDrafts = async () => {
       const response = await fetch(window.localStorage.getItem("copilot_api_url") + "/api/v1/drafts");
@@ -39,7 +39,8 @@ export default function DashboardComponent() {
   }
 
   // 一键处理草稿
-  async function handleProcessDraft(event) {
+  async function handleProcessDraft(event: React.MouseEvent<HTMLButtonElement>) {
+    console.log("handleProcessDraft", event);
     event.preventDefault();
 
     // 获取选中的草稿内容
@@ -105,7 +106,7 @@ export default function DashboardComponent() {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected value={""}>{t("SelectDraft")}</option>
-          {drafts.map((draft) => (
+          {drafts.map((draft: any) => (
             <option key={draft.draft_json_file} value={draft.draft_json_file}>
               {draft.draft_name}
             </option>
