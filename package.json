@@ -19,6 +19,8 @@
     "nextjs-toploader": "^1.6.12",
     "react": "^18",
     "react-dom": "^18",
+    "react-loading": "^2.0.3",
+    "sweetalert2": "^11.11.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

@@ -67,5 +67,15 @@
     "CopilotDescription": "发现我即将推出的工具，让一切变得更简单：一键完成关键帧！再也不用繁琐的手动操作——只需一个简单的网页界面和一个轻量级客户端来控制您的文件。而且，每次操作都会备份，确保您的数据安全。",
     "ComingSoon": "即将推出",
     "GetSourceCode": "获取源码"
+  },
+  "CopilotDashboard": {
+    "CheckingCopilotTips": "正在检测客户端是否启动...",
+    "CheckingCopilotHelpTips": "加载不出来？点这里",
+    "DownloadClient": "下载客户端",
+    "SelectDraft": "选择一个草稿",
+    "UnselectedDraftTitle": "请选择一个草稿文件",
+    "AddSuccessTitle": "添加成功",
+    "AddSuccessText": "请在剪映中打开草稿查看效果",
+    "AddButton": "一键处理草稿"
   }
 }

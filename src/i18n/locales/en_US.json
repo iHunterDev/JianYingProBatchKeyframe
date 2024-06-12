@@ -67,5 +67,15 @@
     "CopilotDescription": "Discover me upcoming tool that makes everything easier: one-click to complete Keyframe! No more tedious manual efforts—just a simple web interface and a lightweight client to control your files. Plus, with every action backed up, you can rest easy knowing your data is safe.",
     "ComingSoon": "Coming Soon",
     "GetSourceCode": "Get the source code"
+  },
+  "CopilotDashboard": {
+    "CheckingCopilotTips": "Checking whether client is started...",
+    "CheckingCopilotHelpTips": "Can't load? click here",
+    "DownloadClient": "Download Client",
+    "SelectDraft": "Select a draft",
+    "UnselectedDraftTitle": "Please select a draft file",
+    "AddSuccessTitle": "Add successfully",
+    "AddSuccessText": "Please open the draft in jianyingPro to see the effect",
+    "AddButton": "Process Drafts"
   }
 }
