@@ -65,7 +65,7 @@
   "Copilot": {
     "FastSimpleAndSecure": "快速，简单，安全",
     "CopilotDescription": "发现我即将推出的工具，让一切变得更简单：一键完成关键帧！再也不用繁琐的手动操作——只需一个简单的网页界面和一个轻量级客户端来控制您的文件。而且，每次操作都会备份，确保您的数据安全。",
-    "ComingSoon": "即将推出",
+    "DownloadClient": "下载客户端",
     "GetSourceCode": "获取源码"
   },
   "CopilotDashboard": {

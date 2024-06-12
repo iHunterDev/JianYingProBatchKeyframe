@@ -26,7 +26,7 @@ export default function Copilot() {
               href="#"
               className="mr-5 inline-block rounded-full bg-[#c9fd02] px-6 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white md:mr-6 lg:mr-8"
             >
-              {t("ComingSoon")}
+              {t("DownloadClient")}
             </a>
 
             <a
