@@ -10,7 +10,7 @@ export default function DashboardComponent() {
   const [drafts, setDrafts] = useState([]);
   useEffect(() => {
     const fetchDrafts = async () => {
-      const response = await fetch("http://localhost:8080/api/v1/drafts");
+      const response = await fetch(window.localStorage.getItem("copilot_api_url") + "/api/v1/drafts");
       const data = await response.json();
       console.log("fetchDrafts", data);
       setDrafts(data.data);
@@ -53,7 +53,7 @@ export default function DashboardComponent() {
       return;
     }
 
-    const response = await fetch(`http://localhost:8080/api/v1/draft?draft_json_file=${selectedDraft}`);
+    const response = await fetch(window.localStorage.getItem("copilot_api_url") + `/api/v1/draft?draft_json_file=${selectedDraft}`);
     const result = await response.json();
     // console.log("handleProcessDraft", result.data.draft_info);
 
@@ -71,7 +71,7 @@ export default function DashboardComponent() {
     // console.log("processedDraft", processedDraft);
 
     // 保存处理后的草稿
-    const saveResponse = await fetch(`http://localhost:8080/api/v1/draft`, {
+    const saveResponse = await fetch(window.localStorage.getItem("copilot_api_url") + `/api/v1/draft`, {
       method: "POST",
       body: JSON.stringify({
         draft_json_file: selectedDraft,

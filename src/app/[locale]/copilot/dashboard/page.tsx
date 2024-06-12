@@ -23,7 +23,7 @@ export default function CopilotDashboard() {
 
   useEffect(() => {
     const checkCopilotStatus = async () => {
-      const response = await fetch("http://localhost:8080");
+      const response = await fetch(window.localStorage.getItem("copilot_api_url") as string);
       const data = await response.text();
       console.log(data);
 
