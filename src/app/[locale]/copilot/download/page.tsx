@@ -47,7 +47,21 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.talkloop.top/static/jianyingpro-batch-keyframe-copilot%2Fmacos%2Fjianyingpro-batch-keyframe-copilot.app.zip"
+                  href="https://s3.talkloop.top/static/jianyingpro-batch-keyframe-copilot%2Fmacos%2Fjianyingpro-batch-keyframe-copilot_arm64.zip"
+                  target="_blank"
+                  className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
+                >
+                  {tCopilotDwonload("Download")}
+                </a>
+              </div>
+              <div className="w-full rounded-xl bg-[#131313] p-8">
+                <div className="flex cursor-pointer justify-between">
+                  <p className="mb-4 text-xl font-bold text-[#ffffff]">
+                    MacOS (Intel)
+                  </p>
+                </div>
+                <a
+                  href="https://s3.talkloop.top/static/jianyingpro-batch-keyframe-copilot%2Fmacos%2Fjianyingpro-batch-keyframe-copilot_amd64.zip"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
