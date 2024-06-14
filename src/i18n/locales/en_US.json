@@ -64,7 +64,7 @@
   },
   "Copilot": {
     "FastSimpleAndSecure": "Fast, simple, and secure",
-    "CopilotDescription": "Discover me upcoming tool that makes everything easier: one-click to complete Keyframe! No more tedious manual efforts—just a simple web interface and a lightweight client to control your files. Plus, with every action backed up, you can rest easy knowing your data is safe.",
+    "CopilotDescription": "makes everything easier: one-click to complete Keyframe! No more tedious manual efforts—just a simple web interface and a lightweight client to control your files. Plus, with every action backed up, you can rest easy knowing your data is safe.",
     "DownloadClient": "Download Copilot",
     "GetSourceCode": "Get the source code"
   },
@@ -77,5 +77,8 @@
     "AddSuccessTitle": "Add successfully",
     "AddSuccessText": "Please open the draft in jianyingPro to see the effect",
     "AddButton": "Process Drafts"
+  },
+  "CopilotDwonload": {
+    "Download": "Download"
   }
 }
