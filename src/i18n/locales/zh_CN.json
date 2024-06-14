@@ -76,7 +76,9 @@
     "UnselectedDraftTitle": "请选择一个草稿文件",
     "AddSuccessTitle": "添加成功",
     "AddSuccessText": "请在剪映中打开草稿查看效果",
-    "AddButton": "一键处理草稿"
+    "AddButton": "一键处理草稿",
+    "WarningNotice": "注意：",
+    "WarningNoticeText": "当前客户端版本属于公测阶段，可能存在一些问题，如遇问题请联系作者。 E-mail: feedback@keyframeai.top"
   },
   "CopilotDwonload": {
     "Download": "下载"

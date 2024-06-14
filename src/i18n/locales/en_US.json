@@ -76,7 +76,9 @@
     "UnselectedDraftTitle": "Please select a draft file",
     "AddSuccessTitle": "Add successfully",
     "AddSuccessText": "Please open the draft in jianyingPro to see the effect",
-    "AddButton": "Process Drafts"
+    "AddButton": "Process Drafts",
+    "WarningNotice": "Warning:",
+    "WarningNoticeText": "The current client version is in the public test phase, and there may be some problems. If you encounter any problems, please contact the author. E-mail: feedback@keyframeai.top"
   },
   "CopilotDwonload": {
     "Download": "Download"

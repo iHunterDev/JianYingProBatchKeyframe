@@ -12,8 +12,7 @@ export default function CopilotDashboard() {
     if (!window.localStorage.getItem("copilot_api_url")) {
       window.localStorage.setItem("copilot_api_url", "http://localhost:9507");
     }
-  })
-  
+  });
 
   // 检测是否开启 Copilot
   // 如果没开启则提示去启动，否则则显示 Copilot Dashboard
@@ -23,7 +22,9 @@ export default function CopilotDashboard() {
 
   useEffect(() => {
     const checkCopilotStatus = async () => {
-      const response = await fetch(window.localStorage.getItem("copilot_api_url") as string);
+      const response = await fetch(
+        window.localStorage.getItem("copilot_api_url") as string
+      );
       const data = await response.text();
       console.log(data);
 
@@ -67,7 +68,10 @@ export default function CopilotDashboard() {
               {t("CheckingCopilotTips")}
             </p>
             <p className="text-center text-sm text-white">
-              {t("CheckingCopilotHelpTips")} <a href="./" className="hover:text-[#c9fd02] underline">{t("DownloadClient")}</a>
+              {t("CheckingCopilotHelpTips")}{" "}
+              <a href="./" className="hover:text-[#c9fd02] underline">
+                {t("DownloadClient")}
+              </a>
             </p>
           </div>
         )}

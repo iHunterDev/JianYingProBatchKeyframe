@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default function DashboardComponent() {
   const t = useTranslations("CopilotDashboard");
@@ -10,7 +10,9 @@ export default function DashboardComponent() {
   const [drafts, setDrafts]: any = useState([]);
   useEffect(() => {
     const fetchDrafts = async () => {
-      const response = await fetch(window.localStorage.getItem("copilot_api_url") + "/api/v1/drafts");
+      const response = await fetch(
+        window.localStorage.getItem("copilot_api_url") + "/api/v1/drafts"
+      );
       const data = await response.json();
       console.log("fetchDrafts", data);
       setDrafts(data.data);
@@ -39,7 +41,9 @@ export default function DashboardComponent() {
   }
 
   // 一键处理草稿
-  async function handleProcessDraft(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleProcessDraft(
+    event: React.MouseEvent<HTMLButtonElement>
+  ) {
     console.log("handleProcessDraft", event);
     event.preventDefault();
 
@@ -49,39 +53,47 @@ export default function DashboardComponent() {
     if (!selectedDraft) {
       Swal.fire({
         title: t("UnselectedDraftTitle"),
-        icon: "warning"
+        icon: "warning",
       });
       return;
     }
 
-    const response = await fetch(window.localStorage.getItem("copilot_api_url") + `/api/v1/draft?draft_json_file=${selectedDraft}`);
+    const response = await fetch(
+      window.localStorage.getItem("copilot_api_url") +
+        `/api/v1/draft?draft_json_file=${selectedDraft}`
+    );
     const result = await response.json();
     // console.log("handleProcessDraft", result.data.draft_info);
 
-
     // 处理草稿
-    const processedResponse = await fetch(`/api/generate?filename=draft_info.json`, {
-      method: "POST",
-      body: JSON.stringify(result.data.draft_info),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const processedResponse = await fetch(
+      `/api/generate?filename=draft_info.json`,
+      {
+        method: "POST",
+        body: JSON.stringify(result.data.draft_info),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const processedDraft = await processedResponse.json();
     // console.log("processedDraft", processedDraft);
 
     // 保存处理后的草稿
-    const saveResponse = await fetch(window.localStorage.getItem("copilot_api_url") + `/api/v1/draft`, {
-      method: "POST",
-      body: JSON.stringify({
-        draft_json_file: selectedDraft,
-        draft_info: processedDraft
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const saveResponse = await fetch(
+      window.localStorage.getItem("copilot_api_url") + `/api/v1/draft`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          draft_json_file: selectedDraft,
+          draft_info: processedDraft,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const saveDraft = await saveResponse.json();
     // console.log("saveDraft", saveDraft);
@@ -89,12 +101,17 @@ export default function DashboardComponent() {
     Swal.fire({
       title: t("AddSuccessTitle"),
       text: t("AddSuccessText"),
-      icon: "success"
+      icon: "success",
     });
-
   }
   return (
     <div className="max-w-md mx-auto flex flex-col gap-y-10">
+      <div
+        className="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+        role="alert"
+      >
+        <span className="font-medium">{t("WarningNotice")}</span> {t("WarningNoticeText")}
+      </div>
       <div>
         <label className="block mb-2 text-sm font-medium text-white">
           {t("SelectDraft")}
@@ -105,7 +122,9 @@ export default function DashboardComponent() {
           value={selectedDraft}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected value={""}>{t("SelectDraft")}</option>
+          <option selected value={""}>
+            {t("SelectDraft")}
+          </option>
           {drafts.map((draft: any) => (
             <option key={draft.draft_json_file} value={draft.draft_json_file}>
               {draft.draft_name}
