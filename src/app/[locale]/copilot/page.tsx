@@ -66,6 +66,66 @@ export default function Copilot() {
           </div>
         </div>
       </div>
+
+      <section className="relative">
+        {/* Background Image */}
+        <img
+          src="https://assets.website-files.com/646f65e37fe0275cfb808405/646f68133fc5cb4e29ed28f9_How%20It%20Works%20BG.svg"
+          alt=""
+          className="absolute inset-[0%] -z-[1] inline-block h-full w-full object-cover"
+        />
+        {/* Container */}
+        <div className="mx-auto w-full max-w-7xl px-5 pb-16 md:px-10 md:pb-24 lg:pb-32">
+          {/* Heading Div */}
+          <div className="mx-auto max-w-3xl text-center md:my-12 lg:my-16">
+            <p className="text-sm font-bold uppercase text-[#c9fd02]">
+              {t("TutorialStep")}
+            </p>
+            <h2 className="mb-4 mt-6 text-3xl font-extrabold text-white md:text-5xl">
+              {t("HowUse")}
+            </h2>
+          </div>
+          {/* How it Works */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {/* Item */}
+            <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+              <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                <p className="text-xl font-bold">1</p>
+              </div>
+              <p className="text-xl font-semibold text-white">
+                {t("TutorialStep1Title")}
+              </p>
+              <p className="text-sm text-[#636262]">
+                {t("TutorialStep1Description")}
+              </p>
+            </div>
+            {/* Item */}
+            <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+              <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                <p className="text-xl font-bold">2</p>
+              </div>
+              <p className="text-xl font-semibold text-white">
+                {t("TutorialStep2Title")}
+              </p>
+              <p className="text-sm text-[#636262]">
+                {t("TutorialStep2Description")}
+              </p>
+            </div>
+            {/* Item */}
+            <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
+              <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
+                <p className="text-xl font-bold">3</p>
+              </div>
+              <p className="text-xl font-semibold text-white">
+                {t("TutorialStep3Title")}
+              </p>
+              <p className="text-sm text-[#636262]">
+                {t("TutorialStep3Description")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   );
 }

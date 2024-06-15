@@ -66,7 +66,15 @@
     "FastSimpleAndSecure": "Fast, simple, and secure",
     "CopilotDescription": "makes everything easier: one-click to complete Keyframe! No more tedious manual efforts—just a simple web interface and a lightweight client to control your files. Plus, with every action backed up, you can rest easy knowing your data is safe.",
     "DownloadClient": "Download Copilot",
-    "GetSourceCode": "Get the source code"
+    "GetSourceCode": "Get the source code",
+    "TutorialStep": "Only Three Steps",
+    "HowUse": "How to Use",
+    "TutorialStep1Title": "Download and run the Copilot",
+    "TutorialStep1Description": "Download the client and open it to start the service.",
+    "TutorialStep2Title": "Open copilot dashboard",
+    "TutorialStep2Description": "follow Copilot's prompts to open the dashboard, or Open Copilot's dashboard in the browser: https://keyframeai.top/copilot/dashboard.",
+    "TutorialStep3Title": "Select a draft and Processing",
+    "TutorialStep3Description": "Select a draft in the console and click the \"Process Drafts\" button. Copilot will automatically process the draft and generate animation effects."
   },
   "CopilotDashboard": {
     "CheckingCopilotTips": "Checking whether Copilot is started...",

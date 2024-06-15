@@ -66,7 +66,15 @@
     "FastSimpleAndSecure": "快速，简单，安全",
     "CopilotDescription": "让一切变得更简单：一键完成关键帧！再也不用繁琐的手动操作——只需一个简单的网页界面和一个轻量级客户端来控制您的文件。而且，每次操作都会备份，确保您的数据安全。",
     "DownloadClient": "下载客户端",
-    "GetSourceCode": "获取源码"
+    "GetSourceCode": "获取源码",
+    "TutorialStep": "只 需 三 步",
+    "HowUse": "怎么使用",
+    "TutorialStep1Title": "下载并运行客户端",
+    "TutorialStep1Description": "下载客户端并打开启动服务。",
+    "TutorialStep2Title": "打开客户端操作台",
+    "TutorialStep2Description": "按照客户端的提示打开操作台，或在浏览器中打开客户端的操作台： https://keyframeai.top/copilot/dashboard",
+    "TutorialStep3Title": "选择草稿并处理",
+    "TutorialStep3Description": "在控制台中选择草稿并点击 “一键处理草稿” 按钮，客户端将自动处理草稿并生成动画效果。"
   },
   "CopilotDashboard": {
     "CheckingCopilotTips": "正在检测客户端是否启动...",
