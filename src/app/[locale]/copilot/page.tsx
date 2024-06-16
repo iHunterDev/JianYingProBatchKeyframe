@@ -30,7 +30,7 @@ export default function Copilot() {
             </a>
 
             <a
-              href="#"
+              href="https://github.com/iHunterDev/JianYingProBatchKeyframeCopilot"
               className="inline-block rounded-full text-white border border-solid border-[#636262] px-6 py-4 font-bold"
             >
               {t("GetSourceCode")}
