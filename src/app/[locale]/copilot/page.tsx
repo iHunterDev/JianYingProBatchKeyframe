@@ -132,10 +132,6 @@ export default function Copilot() {
         <iframe
           src="//player.bilibili.com/player.html?isOutside=true&aid=112620736676126&bvid=BV1vSViepEyU&cid=500001583118850&p=1"
           scrolling="no"
-          border="0"
-          frameborder="no"
-          framespacing="0"
-          allowfullscreen="true"
           className="w-full h-96"
         ></iframe>
       </section>
