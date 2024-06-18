@@ -126,6 +126,19 @@ export default function Copilot() {
           </div>
         </div>
       </section>
+
+      <section className="relative w-3/5 mx-auto py-10">
+        <h2 className="mb-4 mt-6 text-3xl font-extrabold text-white md:text-5xl text-center">{t("HowUse")}</h2>
+        <iframe
+          src="//player.bilibili.com/player.html?isOutside=true&aid=112620736676126&bvid=BV1vSViepEyU&cid=500001583118850&p=1"
+          scrolling="no"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+          className="w-full h-96"
+        ></iframe>
+      </section>
     </section>
   );
 }
