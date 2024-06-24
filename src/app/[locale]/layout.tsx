@@ -51,7 +51,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <PlausibleProvider
           domain="keyframeai.top"
-          customDomain="plausible.talkloop.top"
+          customDomain="https://plausible.talkloop.top"
         >
           <NextTopLoader />
           <Navbar locale={locale}></Navbar>
