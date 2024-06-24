@@ -62,6 +62,7 @@ export default async function RootLayout({
           <Analytics />
           <GoogleAnalytics />
         </PlausibleProvider>
+        <script src="//code.tidio.co/z97mtltypcvskz4reuzgfwzycwcrrv9n.js" async></script>
       </body>
     </html>
   );
