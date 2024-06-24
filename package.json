@@ -15,6 +15,7 @@
     "flowbite-react": "^0.6.4",
     "next": "^14.2.3",
     "next-intl": "^3.0.0-beta.19",
+    "next-plausible": "^3.12.0",
     "next-sitemap": "^4.2.3",
     "nextjs-toploader": "^1.6.12",
     "react": "^18",

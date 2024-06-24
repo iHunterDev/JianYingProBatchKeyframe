@@ -8,14 +8,17 @@ import { locales } from "@/i18n/i18n-config";
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import Navbar from "@/components/Navbar";
 import Footer from "./components/Footer";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
+import PlausibleProvider from "next-plausible";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
-  params: { locale: string }
-}
-export async function generateMetadata({ params: { locale } }: Props) : Promise<Metadata> {
+  params: { locale: string };
+};
+export async function generateMetadata({
+  params: { locale },
+}: Props): Promise<Metadata> {
   const messages = (await import(`../../i18n/locales/${locale}.json`)).default;
   const t = createTranslator({ locale, messages });
 
@@ -46,14 +49,19 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextTopLoader />
-        <Navbar locale={locale}></Navbar>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-        <Footer></Footer>
-        <Analytics />
-        <GoogleAnalytics />
+        <PlausibleProvider
+          domain="keyframeai.top"
+          customDomain="plausible.talkloop.top"
+        >
+          <NextTopLoader />
+          <Navbar locale={locale}></Navbar>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+          <Footer></Footer>
+          <Analytics />
+          <GoogleAnalytics />
+        </PlausibleProvider>
       </body>
     </html>
   );
