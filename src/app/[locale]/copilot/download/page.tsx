@@ -33,7 +33,7 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot%2Fwindows%2Fjianyingpro-batch-keyframe-copilot-amd64-installer.exe"
+                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/windows/prod/x64/jianyingpro-batch-keyframe-copilot-amd64-installer.exe"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
@@ -47,7 +47,7 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot%2Fmacos%2Fjianyingpro-batch-keyframe-copilot_arm64.zip"
+                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/arm64/jianyingpro-batch-keyframe-copilot.app.zip"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
@@ -61,7 +61,7 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot%2Fmacos%2Fjianyingpro-batch-keyframe-copilot_amd64.zip"
+                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/amd64/jianyingpro-batch-keyframe-copilot.app.zip"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
