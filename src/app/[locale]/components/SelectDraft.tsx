@@ -22,7 +22,7 @@ export default function SelectDraft() {
 
       if (!response.ok) {
         console.log("errMsg", await response.json());
-        throw new Error("处理失败，请检查文件是否正确（注意：如果你的剪映升级到了 6.0 版本草稿被剪映加密了，必须要降低版本才能使用，目前测试 5.8 版本可以使用，稍后我们将提供 5.8 版本的剪映下载）");
+        throw new Error("处理失败，请检查文件是否正确（注意：如果你的剪映升级到了 6.0 版本草稿被剪映加密了，必须要降低版本才能使用，目前测试 5.8 版本可以使用，可以从首页的顶部按钮下载5.8.0版本的剪映）");
       }
 
       // 前端下载文件
