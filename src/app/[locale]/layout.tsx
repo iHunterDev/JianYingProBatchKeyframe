@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import { Analytics } from "@vercel/analytics/react";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { notFound } from "next/navigation";
 import { locales } from "@/i18n/i18n-config";
@@ -59,7 +58,6 @@ export default async function RootLayout({
             {children}
           </NextIntlClientProvider>
           <Footer></Footer>
-          <Analytics />
           <GoogleAnalytics />
         </PlausibleProvider>
         <script src="//code.tidio.co/z97mtltypcvskz4reuzgfwzycwcrrv9n.js" async></script>
