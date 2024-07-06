@@ -1,5 +1,23 @@
 import { useTranslations } from "next-intl";
 
+import type { Metadata } from "next";
+import { createTranslator } from "next-intl";
+
+type Props = {
+  params: { locale: string };
+};
+export async function generateMetadata({
+  params: { locale },
+}: Props): Promise<Metadata> {
+  const messages = (await import(`../../../i18n/locales/${locale}.json`)).default;
+  const t = createTranslator({ locale, messages });
+
+  return {
+    title: t("Home.Copilot") + " - " + t("Home.Title"),
+    description: t("Home.Copilot") + " - " + t("Home.Title"),
+  };
+}
+
 export default function Copilot() {
   const t = useTranslations("Copilot");
   return (

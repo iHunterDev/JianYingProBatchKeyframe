@@ -1,5 +1,21 @@
 import { useTranslations } from "next-intl";
+import type { Metadata } from "next";
+import { createTranslator } from "next-intl";
 
+type Props = {
+  params: { locale: string };
+};
+export async function generateMetadata({
+  params: { locale },
+}: Props): Promise<Metadata> {
+  const messages = (await import(`../../../i18n/locales/${locale}.json`)).default;
+  const t = createTranslator({ locale, messages });
+
+  return {
+    title: t("Donate.BuyTheAuthorACupOfCoffee") + " - " + t("Home.Title"),
+    description: t("Donate.BuyTheAuthorACupOfCoffee") + " - " + t("Home.Title"),
+  };
+}
 
 export default function DonatePage() {
   const t = useTranslations("Donate");
