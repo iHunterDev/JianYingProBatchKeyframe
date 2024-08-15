@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "./components/Footer";
 import NextTopLoader from "nextjs-toploader";
 import PlausibleProvider from "next-plausible";
+import TawkChat from "@/components/TawkChat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,7 +61,7 @@ export default async function RootLayout({
           <Footer></Footer>
           <GoogleAnalytics />
         </PlausibleProvider>
-        <script src="//code.tidio.co/z97mtltypcvskz4reuzgfwzycwcrrv9n.js" async></script>
+        <TawkChat />
       </body>
     </html>
   );
