@@ -1,0 +1,435 @@
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body code,
+.markdown-body table,
+.markdown-body th,
+.markdown-body td {
+  all: unset;
+  display: revert;
+}
+
+/* Reset heading styles */
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+
+.markdown-body h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+  margin: 1.33em 0;
+}
+
+.markdown-body h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0;
+}
+
+/* Reset paragraph styles */
+.markdown-body p {
+  margin: 1em 0;
+}
+
+/* Reset list styles */
+.markdown-body ul {
+  list-style-type: disc;
+  margin-left: 1.5em;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+  margin-left: 1.5em;
+}
+
+/* Reset blockquote styles */
+.markdown-body blockquote {
+  margin: 1em 0;
+  padding-left: 1.5em;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+/* Reset code and pre styles */
+.markdown-body pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  margin: 1em 0;
+  white-space: pre;
+}
+
+.markdown-body code {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* Reset table styles */
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid #dfe2e5;
+  padding: 0.5em;
+}
+
+.markdown-body th {
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+/* Reset anchor styles */
+.markdown-body a {
+  color: #0366d6;
+  text-decoration: underline;
+}
+
+.markdown-body a:visited {
+  color: #6f42c1;
+}
+
+.markdown-body a:hover {
+  color: #0056b3;
+}
+
+/* Reset image styles */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* markdown dark style */
+.markdown-body {
+  background: #000;
+  font-family: Georgia, Palatino, serif;
+  color: #EEE;
+  line-height: 1;
+  padding: 30px;
+  margin: auto;
+  max-width: 42em;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  font-weight: 400;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body p {
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.markdown-body h1 {
+  font-size: 48px;
+}
+
+.markdown-body h2 {
+  font-size: 36px;
+  margin: 24px 0 6px;
+}
+
+.markdown-body h3 {
+  font-size: 24px;
+}
+
+.markdown-body h4 {
+  font-size: 21px;
+}
+
+.markdown-body h5 {
+  font-size: 18px;
+}
+
+.markdown-body a {
+  color: #61BFC1;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body a:visited {
+  color: #466B6C;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin: 0;
+}
+
+.markdown-body li {
+  line-height: 24px;
+}
+
+.markdown-body li ul,
+.markdown-body li ol {
+  margin-left: 24px;
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol {
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 540px;
+}
+
+.markdown-body pre {
+  padding: 0px 24px;
+  max-width: 800px;
+  white-space: pre-wrap;
+}
+
+.markdown-body code {
+  font-family: Consolas, Monaco, Andale Mono, monospace;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.markdown-body aside {
+  display: block;
+  float: right;
+  width: 390px;
+}
+
+.markdown-body blockquote {
+  border-left: .5em solid #eee;
+  padding: 0 2em;
+  margin-left: 0;
+  max-width: 476px;
+}
+
+.markdown-body blockquote cite {
+  font-size: 14px;
+  line-height: 20px;
+  color: #bfbfbf;
+}
+
+.markdown-body blockquote cite:before {
+  content: '\2014 \00A0';
+}
+
+.markdown-body blockquote p {
+  color: #666;
+  max-width: 460px;
+}
+
+.markdown-body hr {
+  width: 540px;
+  text-align: left;
+  margin: 0 auto 0 0;
+  color: #999;
+}
+
+/* Code below this line is copyright Twitter Inc. */
+
+.markdown-body button,
+.markdown-body input,
+.markdown-body select,
+.markdown-body textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+
+.markdown-body button,
+.markdown-body input {
+  line-height: normal;
+  *overflow: visible;
+}
+
+.markdown-body button::-moz-focus-inner,
+.markdown-body input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body button,
+.markdown-body input[type="button"],
+.markdown-body input[type="reset"],
+.markdown-body input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+.markdown-body input[type=checkbox],
+.markdown-body input[type=radio] {
+  cursor: pointer;
+}
+
+/* override default chrome & firefox settings */
+.markdown-body input:not([type="image"]),
+.markdown-body textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.markdown-body input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.markdown-body input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.markdown-body label,
+.markdown-body input,
+.markdown-body select,
+.markdown-body textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 18px;
+}
+
+.markdown-body input[type=checkbox],
+.markdown-body input[type=radio] {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.markdown-body input[type=text],
+.markdown-body input[type=password],
+.markdown-body textarea,
+.markdown-body select {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  height: 18px;
+  color: #808080;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.markdown-body select,
+.markdown-body input[type=file] {
+  height: 27px;
+  line-height: 27px;
+}
+
+.markdown-body textarea {
+  height: auto;
+}
+
+/* grey out placeholders */
+.markdown-body :-moz-placeholder {
+  color: #bfbfbf;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+.markdown-body input[type=text],
+.markdown-body input[type=password],
+.markdown-body select,
+.markdown-body textarea {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-body input[type=text]:focus,
+.markdown-body input[type=password]:focus,
+.markdown-body textarea:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+.markdown-body button {
+  display: inline-block;
+  padding: 4px 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd)); /* 旧的 Webkit */
+  background-image: -webkit-linear-gradient(to bottom, #049cdb, #0064cd); /* 新的 Webkit */
+  background-image: -moz-linear-gradient(to bottom, #049cdb, #0064cd); /* Firefox */
+  background-image: -o-linear-gradient(to bottom, #049cdb, #0064cd); /* Opera */
+  background-image: -ms-linear-gradient(to bottom, #049cdb, #0064cd); /* Internet Explorer */
+  background-image: linear-gradient(to bottom, #049cdb, #0064cd); /* 标准语法 */  
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #004b9a;
+  border-bottom-color: #003f81;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  border-color: #0064cd #0064cd #003f81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.markdown-body button:hover {
+  color: #fff;
+  background-position: 0 -15px;
+  text-decoration: none;
+}
+
+.markdown-body button:active {
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.markdown-body button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
