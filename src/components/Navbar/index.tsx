@@ -15,20 +15,6 @@ export default function Navbar({ locale: currentLocale }: Props) {
 
   return (
     <section>
-      <section className="relative bg-[#cccccc] h-20">
-  <div className="absolute left-1/2 top-0 flex w-full -translate-x-1/2 flex-col items-center bg-black p-8 md:flex-row md:justify-between">
-    {/* Heading Div */}
-    <div className="flex max-w-lg flex-row items-center">
-      <img src="https://assets.website-files.com/63904f663019b0d8edf8d57c/6399786f0e0572a14cc94914_Ellipse%2030.svg" alt="" className="mr-4 inline-block h-8 w-8 rounded-full object-cover" />
-      <p className="text-sm text-[#c9fd02]">{t("Notification")}</p>
-    </div>
-
-    {/* <!-- Get Started Button --> */}
-    <div className="mt-4 flex flex-row items-center justify-center gap-4 md:mt-0">
-      <a href="https://caiyun.139.com/m/i?2f2Tf9XM1p6b4" target="_blank" className="inline-block rounded-xl border border-black bg-white px-10 py-3 font-semibold text-[#1353fe] [box-shadow:rgb(19,_83,_254)_6px_6px]" rel="noopener noreferrer">{t("Download")}</a>
-    </div>
-  </div>
-</section>
       <div className="h-auto bg-black text-white">
         <nav className="font-inter mx-auto h-auto w-full max-w-[1600px] lg:relative lg:top-0">
           <div className="flex flex-col px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-4 xl:px-20">
