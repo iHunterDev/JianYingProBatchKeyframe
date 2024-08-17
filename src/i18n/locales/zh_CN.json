@@ -92,7 +92,7 @@
     "AddSuccessText": "请在剪映中打开草稿查看效果",
     "AddButton": "一键处理草稿",
     "WarningNotice": "注意：",
-    "WarningNoticeText": "当前客户端版本属于公测阶段，可能存在一些问题，如遇问题请联系作者。 E-mail: feedback@keyframeai.top"
+    "WarningNoticeText": "当前客户端版本属于公测阶段，可能存在一些问题，如遇问题请联系我们。 可以通过左下角的在线客服或者 E-mail: feedback@keyframeai.top 联系我们"
   },
   "CopilotDwonload": {
     "Download": "下载"
