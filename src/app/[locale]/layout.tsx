@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import NextTopLoader from "nextjs-toploader";
 import PlausibleProvider from "next-plausible";
 import TawkChat from "@/components/TawkChat";
+import NativeBanner from "@/components/Monetag/NativeBanner";
+import InPagePush from "@/components/Monetag/InPagePush";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +64,8 @@ export default async function RootLayout({
           <GoogleAnalytics />
         </PlausibleProvider>
         <TawkChat />
+        <NativeBanner />
+        <InPagePush />
       </body>
     </html>
   );
