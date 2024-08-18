@@ -65,7 +65,7 @@ export default async function RootLayout({
         </PlausibleProvider>
         <TawkChat />
         <NativeBanner />
-        <InPagePush />
+        {/* <InPagePush /> */}
       </body>
     </html>
   );
