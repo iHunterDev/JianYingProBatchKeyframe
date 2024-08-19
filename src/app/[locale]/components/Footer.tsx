@@ -116,8 +116,8 @@ export default function Footer() {
               iHunterDev
             </a>
             . Powered by{" "}
-            <a href="https://vercel.com/" target="_blank">
-              Vercel
+            <a href="https://my.racknerd.com/aff.php?aff=12207" target="_blank">
+              RackNerd
             </a>
             ,{" "}
             <a href="https://www.cloudflare.com/" target="_blank">
