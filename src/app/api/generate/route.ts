@@ -58,9 +58,7 @@ function handleDraft(data) {
 
     // 获取素材宽高
     let videoWidth = data.materials.videos[i].width;
-    // videoWidth += 8; // 由于素材的宽度问题补充一下差距不然后面算出来的结果会有问题
     let videoHeight = data.materials.videos[i].height;
-    // videoHeight += 4; // 由于素材的宽度问题补充一下差距不然后面算出来的结果会有问题
 
     // 获取视频长度 视频中获取的 10800000000
     // 从关键帧获取到 time_offset 10000000
@@ -78,10 +76,24 @@ function handleDraft(data) {
     // 添加 position 关键帧
     //+-----------------------
     // 计算关键帧需要用到的xy偏移数据
-    let x_left = ((scaleWidth - videoWidth) * 2) / canvasWidth;
+    let x_left = ((scaleWidth - videoWidth)) / canvasWidth;
     let x_right = -x_left;
-    let y_top = (-(scaleHeight - videoHeight) * 2) / canvasHeight;
+    let y_top = (-(scaleHeight - videoHeight)) / canvasHeight;
     let y_bottom = -y_top;
+
+    // print data
+    // console.log("scaleWidth", scaleWidth);
+    // console.log("scaleHeight", scaleHeight);
+    // console.log("videoWidth", videoWidth);
+    // console.log("videoHeight", videoHeight);
+    // console.log("canvasWidth", canvasWidth);
+    // console.log("canvasHeight", canvasHeight);
+    // console.log("x_left", x_left);
+    // console.log("x_right", x_right);
+    // console.log("y_top", y_top);
+    // console.log("y_bottom", y_bottom);
+
+    // todo: add transform to the keyframe data
 
     // 生成xy关键帧数据
     let KFTypePositionDaata = generateKeyFrames(
