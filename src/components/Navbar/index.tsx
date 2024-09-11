@@ -56,7 +56,7 @@ export default function Navbar({ locale: currentLocale }: Props) {
               </Link>
               <Link
                 className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
-                href={"/"+ currentLocale + "/changelog"}
+                href={"/"+ currentLocale + "/roadmap"}
               >
                 {t("Roadmap")}
               </Link>
