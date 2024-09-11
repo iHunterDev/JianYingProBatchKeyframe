@@ -55,6 +55,12 @@ export default function Navbar({ locale: currentLocale }: Props) {
                 {t("Changelog")}
               </Link>
               <Link
+                className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
+                href={"/"+ currentLocale + "/changelog"}
+              >
+                {t("Roadmap")}
+              </Link>
+              <Link
                 className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4 flex items-center gap-1"
                 href="https://github.com/iHunterDev/JianYingProBatchKeyframe"
                 target="_blank"
