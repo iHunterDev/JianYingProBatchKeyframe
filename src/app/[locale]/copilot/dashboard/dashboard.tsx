@@ -70,7 +70,9 @@ export default function DashboardComponent() {
       `/api/generate?filename=draft_info.json`,
       {
         method: "POST",
-        body: JSON.stringify(result.data.draft_info),
+        body: JSON.stringify({
+          draft: result.data.draft_info,
+        }),
         headers: {
           "Content-Type": "application/json",
         },

@@ -26,13 +26,14 @@ export async function POST(request: NextRequest) {
     );
     // console.log("mergedChunk", mergedChunk)
     const requestBody = new TextDecoder("utf-8").decode(mergedChunk);
-    // console.log("requestBody", requestBody)
+    console.log("requestBody", requestBody)
 
-    const draftInfoData = JSON.parse(requestBody);
-    // console.log(draftInfoData)
+    // Draft processor data
+    const draftProcessorData = JSON.parse(requestBody);
+    // console.log(draftProcessorData)
 
-    const generateDraft = handleDraft(draftInfoData);
-    console.log("generateDraft", generateDraft);
+    const generateDraft = handleDraft(draftProcessorData.draft);
+    // console.log("generateDraft", generateDraft);
     return NextResponse.json(generateDraft, {
       status: 200,
     });
