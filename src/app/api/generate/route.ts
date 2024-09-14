@@ -79,9 +79,9 @@ function handleDraft(data) {
     // 添加 position 关键帧
     //+-----------------------
     // 计算关键帧需要用到的xy偏移数据
-    let x_left = ((scaleWidth - videoWidth)) / canvasWidth;
+    let x_left = ((scaleWidth - canvasWidth)) / canvasWidth;
     let x_right = -x_left;
-    let y_top = (-(scaleHeight - videoHeight)) / canvasHeight;
+    let y_top = (-(scaleHeight - canvasHeight)) / canvasHeight;
     let y_bottom = -y_top;
 
     // print data
@@ -336,26 +336,34 @@ function getTransition(effect_id) {
  * @param {number} targetHeight - 目标高度
  * @param {number} sourceWidth - 素材宽度
  * @param {number} sourceHeight - 素材高度
- * @returns {number} - 缩放比例，保留一位小数
+ * @returns {number} 缩放比例
  */
 function calculateScale(targetWidth, targetHeight, sourceWidth, sourceHeight) {
   let scaledWidth, scaledHeight;
+  let scale;
 
   // 判断目标的宽高哪个是短边
   if (targetHeight < targetWidth) {
-      // 高度是短边：将素材等比例缩放到目标高度，计算等比例缩放后的素材宽高
-      scaledHeight = targetHeight;
+      // 高度是短边，等比例缩放素材到目标高度
       scaledWidth = (targetHeight / sourceHeight) * sourceWidth;
+      scaledHeight = targetHeight;
   } else {
-      // 宽度是短边：将素材等比例缩放到目标宽度，计算等比例缩放后的素材宽高
-      scaledWidth = targetWidth;
+      // 宽度是短边，等比例缩放素材到目标宽度
       scaledHeight = (targetWidth / sourceWidth) * sourceHeight;
+      scaledWidth = targetWidth;
   }
 
-  // 计算短边的放大比例，并使用 Math.ceil 进1取整，保留一位小数
-  let scale = Math.ceil((scaledWidth / sourceWidth) * 10) / 10 + 1;
+  // 根据短边计算宽或高的放大比例，进1取整并保留一位小数
+  if (scaledWidth < targetWidth) {
+      // 如果宽是短边，则计算宽度的放大比例
+      scale = Math.ceil((targetWidth / scaledWidth) * 10) / 10;
+  } else {
+      // 如果高是短边，则计算高度的放大比例
+      scale = Math.ceil((targetHeight / scaledHeight) * 10) / 10;
+  }
 
-  // 返回最终的缩放比例
   return scale;
 }
 
+// 示例调用
+// console.log(calculateScale(500, 300, 400, 200)); // 输出类似：1.7
