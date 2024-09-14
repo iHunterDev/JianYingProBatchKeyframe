@@ -66,12 +66,14 @@ function handleDraft(data) {
     let duration = data.materials.videos[i].duration;
 
     // 放大倍速
-    currentSegments.clip.scale.x = 1.3;
-    currentSegments.clip.scale.y = 1.3;
+    let scaleRatio = calculateScale(canvasWidth, canvasHeight, videoWidth, videoHeight);
+    let scaleBase = 1.3; // 关键帧缩放基础倍数
+    currentSegments.clip.scale.x = scaleRatio * scaleBase;
+    currentSegments.clip.scale.y = scaleRatio * scaleBase;
 
     // 计算缩放后的宽高
-    let scaleWidth = videoWidth * currentSegments.clip.scale.x;
-    let scaleHeight = videoHeight * currentSegments.clip.scale.y;
+    let scaleWidth = canvasWidth * scaleBase;
+    let scaleHeight = canvasHeight * scaleBase;
 
     //+-----------------------
     // 添加 position 关键帧
@@ -327,3 +329,33 @@ function getTransition(effect_id) {
   };
   return transitionList[effect_id];
 }
+
+/**
+ * 计算缩放比例倍
+ * @param {number} targetWidth - 目标宽度
+ * @param {number} targetHeight - 目标高度
+ * @param {number} sourceWidth - 素材宽度
+ * @param {number} sourceHeight - 素材高度
+ * @returns {number} - 缩放比例，保留一位小数
+ */
+function calculateScale(targetWidth, targetHeight, sourceWidth, sourceHeight) {
+  let scaledWidth, scaledHeight;
+
+  // 判断目标的宽高哪个是短边
+  if (targetHeight < targetWidth) {
+      // 高度是短边：将素材等比例缩放到目标高度，计算等比例缩放后的素材宽高
+      scaledHeight = targetHeight;
+      scaledWidth = (targetHeight / sourceHeight) * sourceWidth;
+  } else {
+      // 宽度是短边：将素材等比例缩放到目标宽度，计算等比例缩放后的素材宽高
+      scaledWidth = targetWidth;
+      scaledHeight = (targetWidth / sourceWidth) * sourceHeight;
+  }
+
+  // 计算短边的放大比例，并使用 Math.ceil 进1取整，保留一位小数
+  let scale = Math.ceil((scaledWidth / sourceWidth) * 10) / 10 + 1;
+
+  // 返回最终的缩放比例
+  return scale;
+}
+
