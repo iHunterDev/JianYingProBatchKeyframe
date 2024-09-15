@@ -2,6 +2,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { InAnimations } from "@/jianying/effects/animations";
+import { Transitions } from "@/jianying/effects/transitions";
 
 export async function POST(request: NextRequest) {
   // const body = await request.body?.getReader().read()
@@ -114,14 +116,71 @@ function handleDraft(data) {
     //+-----------------------
     // 添加 Transition 关键帧
     //+-----------------------
-    let transitionData = getTransition(11387229);
-    transitionData.id;
+    // let transitionData = getTransition(11387229);
+    // transitionData.id;
 
     // 添加到素材中
-    data.materials.transitions.push(transitionData);
+    // data.materials.transitions.push(transitionData);
 
     // 将转场添加到视频片段中
-    currentSegments.extra_material_refs.splice(1, 0, transitionData.id);
+    // currentSegments.extra_material_refs.splice(1, 0, transitionData.id);
+
+
+    //+-----------------------
+    // 添加入场 material_animations 关键帧
+    //+-----------------------
+    let inAnimation = getRandomMaterialAnimations();
+
+/**
+// 没有设置过入场动画的数据
+[]
+
+// 已经存在过入场动画的数据
+[
+    {
+        "animations": [
+            {
+                "anim_adjust_params": null,
+                "category_id": "in",
+                "category_name": "入场",
+                "duration": 500000,
+                "id": "624705",
+                "material_type": "video",
+                "name": "渐显",
+                "panel": "video",
+                "path": "/Users/wenzhuo/Library/Containers/com.lemon.lvpro/Data/Movies/JianyingPro/User Data/Cache/effect/624705/ee269b77e45a2466bd3e9cab0cff7137",
+                "platform": "all",
+                "request_id": "2024091516421720A619E8C1381BFF2B23",
+                "resource_id": "6798320778182922760",
+                "start": 0,
+                "type": "in"
+            }
+        ],
+        "id": "D5B4CCEA-82BE-4295-8404-C33208A78B7D",
+        "multi_language_current": "none",
+        "type": "sticker_animation"
+    }
+]
+
+// 存在过动画但是又删除了入场动画
+[
+    {
+        "animations": [],
+        "id": "D5B4CCEA-82BE-4295-8404-C33208A78B7D",
+        "multi_language_current": "none",
+        "type": "sticker_animation"
+    }
+]
+*/
+    // 添加到素材中
+    // 初始化结构
+    data.materials.material_animations[i] = getMaterialAnimationLayout();
+    console.log("data.materials.material_animations[i]", data.materials.material_animations[i]);
+
+    data.materials.material_animations[i].animations.push(inAnimation);
+    console.log("data.materials.material_animations[i].animations.push", data.materials.material_animations[i]);
+
+    currentSegments.extra_material_refs.splice(1, 0, data.materials.material_animations[i].id);
   }
 
   return data;
@@ -311,22 +370,7 @@ function getRandomInt(min, max) {
 
 // 获取转场
 function getTransition(effect_id) {
-  let transitionList = {
-    "11387229": {
-      category_id: "40427",
-      category_name: "叠化",
-      duration: 1200000,
-      effect_id: "11387229",
-      id: uuidv4().toLocaleUpperCase(),
-      is_overlap: true,
-      name: "雾化",
-      // path: "/Users/wenzhuo/Library/Containers/com.lemon.lvpro/Data/Movies/JianyingPro/User Data/Cache/effect/11387229/37f78b14efd59eacef1a2090ab81e785",
-      platform: "all",
-      request_id: "202309291644056EE2BA652126078C5561",
-      resource_id: "7216171159589491259",
-      type: "transition",
-    },
-  };
+  let transitionList = Transitions;
   return transitionList[effect_id];
 }
 
@@ -367,3 +411,27 @@ function calculateScale(targetWidth, targetHeight, sourceWidth, sourceHeight) {
 
 // 示例调用
 // console.log(calculateScale(500, 300, 400, 200)); // 输出类似：1.7
+
+
+// 获取动画结构
+function getMaterialAnimationLayout() {
+  return {
+    animations: [],
+    id: uuidv4().toLocaleUpperCase(),
+    multi_language_current: "none",
+    type: "sticker_animation",
+  };
+}
+
+// 获取入场动画
+function getMaterialAnimations(effect_id) {
+  return InAnimations[effect_id];
+}
+
+
+// 随机获取入场动画
+function getRandomMaterialAnimations() {
+  const InAnimationsArr = Object.values(InAnimations);
+  let randomAnimations = InAnimationsArr[Math.floor(Math.random() * InAnimationsArr.length)];
+  return randomAnimations;
+}
