@@ -240,7 +240,7 @@ export default function DashboardComponent() {
             type="number"
             value={inAnimationSpeed}
             required
-            onInput={(e) => setInAnimationSpeed(e.target.value)}
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInAnimationSpeed(e.target.value)}
           />
         </div>
       </div>

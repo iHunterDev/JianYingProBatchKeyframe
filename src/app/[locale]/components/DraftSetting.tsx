@@ -100,14 +100,14 @@ export default function DraftSetting() {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="inAnimationSpeed"
-                    value="入场动画速度（单位：毫秒）"
+                    value="入场动画速度（单位：微秒 1s = 1000000µs）"
                   />
                 </div>
                 <TextInput
                   type="number"
                   value={inAnimationSpeed}
                   required
-                  onInput={(e) => setInAnimationSpeed(e.target.value)}
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInAnimationSpeed(e.target.value)}
                 />
               </div>
             </div>
