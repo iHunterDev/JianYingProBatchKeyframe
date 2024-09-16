@@ -40,10 +40,16 @@ export default function SelectDraft() {
       // 解析读取到的 JSON 数据
       const jsonData = JSON.parse(fileContent);
 
+      // 获取草稿处理设置
+      const options = JSON.parse(localStorage.getItem("draftOptions") || "{}");
+
       // 将 JSON 数据通过 fetch 发送到后端
       const response = await fetch(`/api/generate?filename=${file.name}`, {
         method: "POST",
         body: JSON.stringify({
+          options: {
+            ...options
+          },
           draft: jsonData, // 发送解析后的 JSON 数据
         }),
         headers: {

@@ -2,6 +2,7 @@ import SelectDraft from "./components/SelectDraft";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import FAQSection from "./components/FAQSection";
+import DraftSetting from "./components/DraftSetting";
 
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
             </div>
 
             <SelectDraft></SelectDraft>
+            <DraftSetting></DraftSetting>
           </div>
 
           <section className="relative">
