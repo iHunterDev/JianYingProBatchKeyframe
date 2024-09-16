@@ -25,9 +25,9 @@ export default function DraftSetting() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem("isRandomInAnimation", isRandomInAnimation);
+      localStorage.setItem("isRandomInAnimation", isRandomInAnimation.toString());
       localStorage.setItem("inAnimation", inAnimation);
-      localStorage.setItem("inAnimationSpeed", inAnimationSpeed);
+      localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
 
       localStorage.setItem("draftOptions", JSON.stringify({
         isRandomInAnimation,

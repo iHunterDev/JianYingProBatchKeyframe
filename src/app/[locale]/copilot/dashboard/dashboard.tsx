@@ -43,9 +43,9 @@ export default function DashboardComponent() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem("isRandomInAnimation", isRandomInAnimation);
+      localStorage.setItem("isRandomInAnimation", isRandomInAnimation.toString());
       localStorage.setItem("inAnimation", inAnimation);
-      localStorage.setItem("inAnimationSpeed", inAnimationSpeed);
+      localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
 
       localStorage.setItem(
         "draftOptions",
@@ -122,6 +122,14 @@ export default function DashboardComponent() {
 
     const processedDraft = await processedResponse.json();
     // console.log("processedDraft", processedDraft);
+    if (processedDraft.errMsg) {
+      Swal.fire({
+        title: "Error",
+        text: processedDraft.errMsg,
+        icon: "error",
+      });
+      return;
+    }
 
     // 保存处理后的草稿
     const saveResponse = await fetch(
@@ -139,13 +147,14 @@ export default function DashboardComponent() {
     );
 
     const saveDraft = await saveResponse.json();
-    // console.log("saveDraft", saveDraft);
-
+   
     Swal.fire({
       title: t("AddSuccessTitle"),
       text: t("AddSuccessText"),
       icon: "success",
     });
+
+    
   }
   return (
     <div className="max-w-md mx-auto flex flex-col gap-y-10 ">

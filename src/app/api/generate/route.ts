@@ -6,14 +6,6 @@ import { InAnimations } from "@/jianying/effects/animations";
 import { Transitions } from "@/jianying/effects/transitions";
 
 export async function POST(request: NextRequest) {
-  // const body = await request.body?.getReader().read()
-  // const draftInfoJson = new TextDecoder("utf-8").decode(body.value)
-  // console.log(draftInfoJson)
-  // const draftInfoData = JSON.parse(draftInfoJson);
-  // console.log(draftInfoData)
-  // const response = new NextResponse(request.body)
-  // return response
-
   const chunks: Uint8Array[] = [];
   const reader = request.body?.getReader();
   try {
@@ -28,29 +20,33 @@ export async function POST(request: NextRequest) {
     );
     // console.log("mergedChunk", mergedChunk)
     const requestBody = new TextDecoder("utf-8").decode(mergedChunk);
-    console.log("requestBody", requestBody)
+    console.log("requestBody", requestBody);
 
     // Draft processor data
     const draftProcessorData = JSON.parse(requestBody);
     // console.log(draftProcessorData)
 
-    const generateDraft = handleDraft(draftProcessorData.draft);
+    const generateDraft = handleDraft(
+      draftProcessorData.draft,
+      draftProcessorData.options
+    );
     // console.log("generateDraft", generateDraft);
     return NextResponse.json(generateDraft, {
       status: 200,
     });
   } catch (error) {
-    return NextResponse.json({
-      errMsg: error.message,
-    }, {
-      status: 500
-    });
+    return NextResponse.json(
+      {
+        errMsg: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
-
-  
 }
 
-function handleDraft(data) {
+function handleDraft(data, options) {
   for (let i = 0; i < data.tracks[0].segments.length; i++) {
     // 获取主轴上的视频片段
     let currentSegments = data.tracks[0].segments[i];
@@ -68,7 +64,12 @@ function handleDraft(data) {
     let duration = data.materials.videos[i].duration;
 
     // 放大倍速
-    let scaleRatio = calculateScale(canvasWidth, canvasHeight, videoWidth, videoHeight);
+    let scaleRatio = calculateScale(
+      canvasWidth,
+      canvasHeight,
+      videoWidth,
+      videoHeight
+    );
     let scaleBase = 1.3; // 关键帧缩放基础倍数
     currentSegments.clip.scale.x = scaleRatio * scaleBase;
     currentSegments.clip.scale.y = scaleRatio * scaleBase;
@@ -81,9 +82,9 @@ function handleDraft(data) {
     // 添加 position 关键帧
     //+-----------------------
     // 计算关键帧需要用到的xy偏移数据
-    let x_left = ((scaleWidth - canvasWidth)) / canvasWidth;
+    let x_left = (scaleWidth - canvasWidth) / canvasWidth;
     let x_right = -x_left;
-    let y_top = (-(scaleHeight - canvasHeight)) / canvasHeight;
+    let y_top = -(scaleHeight - canvasHeight) / canvasHeight;
     let y_bottom = -y_top;
 
     // print data
@@ -97,8 +98,6 @@ function handleDraft(data) {
     // console.log("x_right", x_right);
     // console.log("y_top", y_top);
     // console.log("y_bottom", y_bottom);
-
-    // todo: add transform to the keyframe data
 
     // 生成xy关键帧数据
     let KFTypePositionDaata = generateKeyFrames(
@@ -125,13 +124,25 @@ function handleDraft(data) {
     // 将转场添加到视频片段中
     // currentSegments.extra_material_refs.splice(1, 0, transitionData.id);
 
-
     //+-----------------------
     // 添加入场 material_animations 关键帧
     //+-----------------------
-    let inAnimation = getRandomMaterialAnimations();
+    let inAnimation;
 
-/**
+    if (options && options.isRandomInAnimation) {
+      inAnimation = getRandomMaterialAnimations();
+    } else if (options && options.inAnimation) {
+      inAnimation = getMaterialAnimations(options.inAnimation);
+    } else {
+      throw new Error("缺少入场动画参数");
+    }
+
+    // 如果有设置入场动画速度，则使用设置的入场动画速度
+    if (options && options.inAnimationSpeed) {
+      inAnimation.duration = Number(options.inAnimationSpeed);
+    }
+
+    /**
 // 没有设置过入场动画的数据
 []
 
@@ -175,12 +186,16 @@ function handleDraft(data) {
     // 添加到素材中
     // 初始化结构
     data.materials.material_animations[i] = getMaterialAnimationLayout();
-    console.log("data.materials.material_animations[i]", data.materials.material_animations[i]);
+    // console.log("data.materials.material_animations[i]", data.materials.material_animations[i]);
 
     data.materials.material_animations[i].animations.push(inAnimation);
-    console.log("data.materials.material_animations[i].animations.push", data.materials.material_animations[i]);
+    // console.log("data.materials.material_animations[i].animations.push", data.materials.material_animations[i]);
 
-    currentSegments.extra_material_refs.splice(1, 0, data.materials.material_animations[i].id);
+    currentSegments.extra_material_refs.splice(
+      1,
+      0,
+      data.materials.material_animations[i].id
+    );
   }
 
   return data;
@@ -388,22 +403,22 @@ function calculateScale(targetWidth, targetHeight, sourceWidth, sourceHeight) {
 
   // 判断目标的宽高哪个是短边
   if (targetHeight < targetWidth) {
-      // 高度是短边，等比例缩放素材到目标高度
-      scaledWidth = (targetHeight / sourceHeight) * sourceWidth;
-      scaledHeight = targetHeight;
+    // 高度是短边，等比例缩放素材到目标高度
+    scaledWidth = (targetHeight / sourceHeight) * sourceWidth;
+    scaledHeight = targetHeight;
   } else {
-      // 宽度是短边，等比例缩放素材到目标宽度
-      scaledHeight = (targetWidth / sourceWidth) * sourceHeight;
-      scaledWidth = targetWidth;
+    // 宽度是短边，等比例缩放素材到目标宽度
+    scaledHeight = (targetWidth / sourceWidth) * sourceHeight;
+    scaledWidth = targetWidth;
   }
 
   // 根据短边计算宽或高的放大比例，进1取整并保留一位小数
   if (scaledWidth < targetWidth) {
-      // 如果宽是短边，则计算宽度的放大比例
-      scale = Math.ceil((targetWidth / scaledWidth) * 10) / 10;
+    // 如果宽是短边，则计算宽度的放大比例
+    scale = Math.ceil((targetWidth / scaledWidth) * 10) / 10;
   } else {
-      // 如果高是短边，则计算高度的放大比例
-      scale = Math.ceil((targetHeight / scaledHeight) * 10) / 10;
+    // 如果高是短边，则计算高度的放大比例
+    scale = Math.ceil((targetHeight / scaledHeight) * 10) / 10;
   }
 
   return scale;
@@ -411,7 +426,6 @@ function calculateScale(targetWidth, targetHeight, sourceWidth, sourceHeight) {
 
 // 示例调用
 // console.log(calculateScale(500, 300, 400, 200)); // 输出类似：1.7
-
 
 // 获取动画结构
 function getMaterialAnimationLayout() {
@@ -428,10 +442,10 @@ function getMaterialAnimations(effect_id) {
   return InAnimations[effect_id];
 }
 
-
 // 随机获取入场动画
 function getRandomMaterialAnimations() {
   const InAnimationsArr = Object.values(InAnimations);
-  let randomAnimations = InAnimationsArr[Math.floor(Math.random() * InAnimationsArr.length)];
+  let randomAnimations =
+    InAnimationsArr[Math.floor(Math.random() * InAnimationsArr.length)];
   return randomAnimations;
 }
