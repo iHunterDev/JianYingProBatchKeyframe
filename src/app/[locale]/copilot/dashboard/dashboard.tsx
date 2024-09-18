@@ -29,6 +29,10 @@ export default function DashboardComponent() {
     };
   }, []);
 
+  const [keyframeSpeed, setKeyframeSpeed] = useState(
+    localStorage.getItem("keyframeSpeed") ?? 3
+  );
+
   const [isRandomInAnimation, setIsRandomInAnimation] = useState(
     localStorage.getItem("isRandomInAnimation") === "false" ? false : true
   );
@@ -38,18 +42,23 @@ export default function DashboardComponent() {
     localStorage.getItem("inAnimation") ?? ""
   );
   const [inAnimationSpeed, setInAnimationSpeed] = useState(
-    localStorage.getItem("inAnimationSpeed") ?? 500000
+    localStorage.getItem("inAnimationSpeed") ?? 500
   );
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem("isRandomInAnimation", isRandomInAnimation.toString());
+      localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
+      localStorage.setItem(
+        "isRandomInAnimation",
+        isRandomInAnimation.toString()
+      );
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
 
       localStorage.setItem(
         "draftOptions",
         JSON.stringify({
+          keyframeSpeed,
           isRandomInAnimation,
           inAnimation,
           inAnimationSpeed,
@@ -60,7 +69,7 @@ export default function DashboardComponent() {
     return () => {
       clearInterval(timer);
     };
-  }, [isRandomInAnimation, inAnimation, inAnimationSpeed]);
+  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed]);
 
   // 获取选中的草稿
   const selecDraftRef = useRef<HTMLSelectElement>(null);
@@ -147,14 +156,12 @@ export default function DashboardComponent() {
     );
 
     const saveDraft = await saveResponse.json();
-   
+
     Swal.fire({
       title: t("AddSuccessTitle"),
       text: t("AddSuccessText"),
       icon: "success",
     });
-
-    
   }
   return (
     <div className="max-w-md mx-auto flex flex-col gap-y-10 ">
@@ -189,6 +196,26 @@ export default function DashboardComponent() {
       <div className="space-y-6 text-white">
         <h3 className="text-xl font-medium text-white">草稿处理设置</h3>
 
+        {/* 关键帧速度 */}
+        <div>
+          <div className="mb-2 block">
+            <Label
+              htmlFor="keyframeSpeed"
+              value="关键帧速度（建议范围 1-10）"
+              className="text-white"
+            />
+          </div>
+          <TextInput
+            type="number"
+            value={keyframeSpeed}
+            required
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setKeyframeSpeed(e.target.value)
+            }
+          />
+        </div>
+
+        {/* 随机入场动画开关 */}
         <div>
           <div className="mb-2 block">
             <Label
@@ -232,7 +259,7 @@ export default function DashboardComponent() {
           <div className="mb-2 block">
             <Label
               htmlFor="inAnimationSpeed"
-              value="入场动画速度（单位：微秒 1s = 1000000µs）"
+              value="入场动画速度（单位：毫秒 1s = 1000ms）"
               className="text-white"
             />
           </div>
@@ -240,7 +267,9 @@ export default function DashboardComponent() {
             type="number"
             value={inAnimationSpeed}
             required
-            onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInAnimationSpeed(e.target.value)}
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInAnimationSpeed(e.target.value)
+            }
           />
         </div>
       </div>

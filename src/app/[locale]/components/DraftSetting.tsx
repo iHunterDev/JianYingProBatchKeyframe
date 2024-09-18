@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ToggleSwitch,
-  Label,
-  Modal,
-  TextInput,
-  Select,
-} from "flowbite-react";
+import { ToggleSwitch, Label, Modal, TextInput, Select } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { InAnimations } from "@/jianying/effects/animations";
 
@@ -17,29 +11,47 @@ export default function DraftSetting() {
     setOpenModal(false);
   }
 
-  const [isRandomInAnimation, setIsRandomInAnimation] = useState(localStorage.getItem("isRandomInAnimation") === 'false' ? false : true);
+  const [keyframeSpeed, setKeyframeSpeed] = useState(
+    localStorage.getItem("keyframeSpeed") ?? 3
+  );
+
+  const [isRandomInAnimation, setIsRandomInAnimation] = useState(
+    localStorage.getItem("isRandomInAnimation") === "false" ? false : true
+  );
 
   const inAnimationsOptions = Object.values(InAnimations);
-  const [inAnimation, setInAnimation] = useState(localStorage.getItem("inAnimation") ?? "");
-  const [inAnimationSpeed, setInAnimationSpeed] = useState(localStorage.getItem("inAnimationSpeed") ?? 500);
+  const [inAnimation, setInAnimation] = useState(
+    localStorage.getItem("inAnimation") ?? ""
+  );
+  const [inAnimationSpeed, setInAnimationSpeed] = useState(
+    localStorage.getItem("inAnimationSpeed") ?? 500
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem("isRandomInAnimation", isRandomInAnimation.toString());
+      localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
+      localStorage.setItem(
+        "isRandomInAnimation",
+        isRandomInAnimation.toString()
+      );
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
 
-      localStorage.setItem("draftOptions", JSON.stringify({
-        isRandomInAnimation,
-        inAnimation,
-        inAnimationSpeed,
-      }));
-    }, 500)
+      localStorage.setItem(
+        "draftOptions",
+        JSON.stringify({
+          keyframeSpeed,
+          isRandomInAnimation,
+          inAnimation,
+          inAnimationSpeed,
+        })
+      );
+    }, 500);
 
     return () => {
       clearInterval(timer);
     };
-  }, [isRandomInAnimation, inAnimation, inAnimationSpeed]);
+  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed]);
 
   return (
     <>
@@ -58,6 +70,24 @@ export default function DraftSetting() {
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 草稿处理设置
               </h3>
+
+              {/* 关键帧速度 */}
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="keyframeSpeed"
+                    value="关键帧速度（建议范围 1-10）"
+                  />
+                </div>
+                <TextInput
+                  type="number"
+                  value={keyframeSpeed}
+                  required
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setKeyframeSpeed(e.target.value)
+                  }
+                />
+              </div>
 
               <div>
                 <div className="mb-2 block">
@@ -100,14 +130,16 @@ export default function DraftSetting() {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="inAnimationSpeed"
-                    value="入场动画速度（单位：微秒 1s = 1000000µs）"
+                    value="入场动画速度（单位：毫秒 1s = 1000ms）"
                   />
                 </div>
                 <TextInput
                   type="number"
                   value={inAnimationSpeed}
                   required
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => setInAnimationSpeed(e.target.value)}
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setInAnimationSpeed(e.target.value)
+                  }
                 />
               </div>
             </div>

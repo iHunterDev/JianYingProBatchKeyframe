@@ -70,7 +70,11 @@ function handleDraft(data, options) {
       videoWidth,
       videoHeight
     );
-    let scaleBase = 1.3; // 关键帧缩放基础倍数
+    let scaleBase = 1.3; // 关键帧缩放基础倍数（前端展示名字是 关键帧速度）
+    if (options && options.keyframeSpeed) {
+      scaleBase = 1 + (Number(options.keyframeSpeed) / 10);
+    }
+    console.log("scaleBase", scaleBase);
     currentSegments.clip.scale.x = scaleRatio * scaleBase;
     currentSegments.clip.scale.y = scaleRatio * scaleBase;
 
@@ -139,7 +143,7 @@ function handleDraft(data, options) {
 
     // 如果有设置入场动画速度，则使用设置的入场动画速度
     if (options && options.inAnimationSpeed) {
-      inAnimation.duration = Number(options.inAnimationSpeed);
+      inAnimation.duration = Number(options.inAnimationSpeed) * 1000;
     }
 
     /**
