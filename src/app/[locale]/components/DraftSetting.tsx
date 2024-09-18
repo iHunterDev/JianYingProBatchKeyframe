@@ -155,7 +155,7 @@ export default function DraftSetting() {
                 </div>
                 <div className="flex flex-wrap gap-4">
                   {videoRatioOptions.map((option) => (
-                    <div className="flex items-center gap-2">
+                    <div key={option.id} className="flex items-center gap-2">
                       <Radio
                         id={option.id}
                         name="ratio"
