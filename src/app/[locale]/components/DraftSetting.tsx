@@ -7,6 +7,7 @@ import {
   TextInput,
   Select,
   Checkbox,
+  Radio,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { InAnimations } from "@/jianying/effects/animations";
@@ -17,6 +18,33 @@ export default function DraftSetting() {
   function onCloseModal() {
     setOpenModal(false);
   }
+
+  const videoRatioOptions = [
+    { id: "ratio_auto", value: "auto", label: "自动" },
+    {
+      id: "ratio_16_9",
+      value: "16:9",
+      label: "16:9",
+      width: 1920,
+      height: 1080,
+    },
+    {
+      id: "ratio_9_16",
+      value: "9:16",
+      label: "9:16",
+      width: 1080,
+      height: 1920,
+    },
+    { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
+  ];
+  const [videoRatio, setVideoRatio] = useState(
+    localStorage.getItem("videoRatio") ?? "auto"
+  );
+  const videoRatioCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setVideoRatio(event.target.value);
+  };
 
   const [keyframeSpeed, setKeyframeSpeed] = useState(
     localStorage.getItem("keyframeSpeed") ?? 3
@@ -34,17 +62,21 @@ export default function DraftSetting() {
     localStorage.getItem("inAnimationSpeed") ?? 500
   );
 
-  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
-    () => {
-      const defaultCheckedList = Object.keys(InAnimations);
-      if (localStorage.getItem("inAnimationCheckedList")) {
-        return JSON.parse(localStorage.getItem("inAnimationCheckedList") as string);
-      } else {
-        return defaultCheckedList;
-      }
+  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<
+    string[]
+  >(() => {
+    const defaultCheckedList = Object.keys(InAnimations);
+    if (localStorage.getItem("inAnimationCheckedList")) {
+      return JSON.parse(
+        localStorage.getItem("inAnimationCheckedList") as string
+      );
+    } else {
+      return defaultCheckedList;
     }
-  );
-  const inAnimationCheckedChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  });
+  const inAnimationCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const checkedList = [...inAnimationCheckedList];
     // console.log("event.target.value", event.target.value);
     // console.log("event.target.checked", event.target.checked);
@@ -58,6 +90,7 @@ export default function DraftSetting() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      localStorage.setItem("videoRatio", videoRatio);
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
       localStorage.setItem(
         "isRandomInAnimation",
@@ -65,11 +98,17 @@ export default function DraftSetting() {
       );
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
-      localStorage.setItem("inAnimationCheckedList", JSON.stringify(inAnimationCheckedList));
+      localStorage.setItem(
+        "inAnimationCheckedList",
+        JSON.stringify(inAnimationCheckedList)
+      );
 
       localStorage.setItem(
         "draftOptions",
         JSON.stringify({
+          videoRatio: videoRatioOptions.find(
+            (option) => option.value === videoRatio
+          ),
           keyframeSpeed,
           isRandomInAnimation,
           inAnimation,
@@ -82,7 +121,14 @@ export default function DraftSetting() {
     return () => {
       clearInterval(timer);
     };
-  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed, inAnimationCheckedList]);
+  }, [
+    videoRatio,
+    keyframeSpeed,
+    isRandomInAnimation,
+    inAnimation,
+    inAnimationSpeed,
+    inAnimationCheckedList,
+  ]);
 
   return (
     <>
@@ -101,6 +147,27 @@ export default function DraftSetting() {
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 草稿处理设置
               </h3>
+
+              {/* 视频比例 */}
+              <div>
+                <div className="mb-2 block">
+                  <Label value="视频比例（默认情况遵照剪映中设置的比例）" />
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  {videoRatioOptions.map((option) => (
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id={option.id}
+                        name="ratio"
+                        value={option.value}
+                        defaultChecked={videoRatio === option.value}
+                        onChange={videoRatioCheckedChangeHandle}
+                      />
+                      <Label htmlFor={option.id}>{option.label}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
               {/* 关键帧速度 */}
               <div>
@@ -166,8 +233,18 @@ export default function DraftSetting() {
                         key={option.resource_id}
                         className="flex items-center gap-1 w-1/4"
                       >
-                        <Checkbox checked={inAnimationCheckedList.indexOf(option.id) != -1} id={"animation" + option.id} value={option.id} onChange={inAnimationCheckedChangeHandle} />
-                        <Label htmlFor={"animation" + option.id} className="flex">
+                        <Checkbox
+                          checked={
+                            inAnimationCheckedList.indexOf(option.id) != -1
+                          }
+                          id={"animation" + option.id}
+                          value={option.id}
+                          onChange={inAnimationCheckedChangeHandle}
+                        />
+                        <Label
+                          htmlFor={"animation" + option.id}
+                          className="flex"
+                        >
                           {option.name}
                         </Label>
                       </div>

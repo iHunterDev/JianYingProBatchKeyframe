@@ -2,7 +2,14 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import Swal from "sweetalert2";
-import { ToggleSwitch, Label, TextInput, Select, Checkbox } from "flowbite-react";
+import {
+  ToggleSwitch,
+  Label,
+  TextInput,
+  Select,
+  Checkbox,
+  Radio,
+} from "flowbite-react";
 import { InAnimations } from "@/jianying/effects/animations";
 
 export default function DashboardComponent() {
@@ -29,6 +36,33 @@ export default function DashboardComponent() {
     };
   }, []);
 
+  const videoRatioOptions = [
+    { id: "ratio_auto", value: "auto", label: "自动" },
+    {
+      id: "ratio_16_9",
+      value: "16:9",
+      label: "16:9",
+      width: 1920,
+      height: 1080,
+    },
+    {
+      id: "ratio_9_16",
+      value: "9:16",
+      label: "9:16",
+      width: 1080,
+      height: 1920,
+    },
+    { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
+  ];
+  const [videoRatio, setVideoRatio] = useState(
+    localStorage.getItem("videoRatio") ?? "auto"
+  );
+  const videoRatioCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setVideoRatio(event.target.value);
+  };
+
   const [keyframeSpeed, setKeyframeSpeed] = useState(
     localStorage.getItem("keyframeSpeed") ?? 3
   );
@@ -45,17 +79,21 @@ export default function DashboardComponent() {
     localStorage.getItem("inAnimationSpeed") ?? 500
   );
 
-  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
-    () => {
-      const defaultCheckedList = Object.keys(InAnimations);
-      if (localStorage.getItem("inAnimationCheckedList")) {
-        return JSON.parse(localStorage.getItem("inAnimationCheckedList") as string);
-      } else {
-        return defaultCheckedList;
-      }
+  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<
+    string[]
+  >(() => {
+    const defaultCheckedList = Object.keys(InAnimations);
+    if (localStorage.getItem("inAnimationCheckedList")) {
+      return JSON.parse(
+        localStorage.getItem("inAnimationCheckedList") as string
+      );
+    } else {
+      return defaultCheckedList;
     }
-  );
-  const inAnimationCheckedChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  });
+  const inAnimationCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const checkedList = [...inAnimationCheckedList];
     // console.log("event.target.value", event.target.value);
     // console.log("event.target.checked", event.target.checked);
@@ -69,6 +107,7 @@ export default function DashboardComponent() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      localStorage.setItem("videoRatio", videoRatio);
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
       localStorage.setItem(
         "isRandomInAnimation",
@@ -76,11 +115,17 @@ export default function DashboardComponent() {
       );
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
-      localStorage.setItem("inAnimationCheckedList", JSON.stringify(inAnimationCheckedList));
+      localStorage.setItem(
+        "inAnimationCheckedList",
+        JSON.stringify(inAnimationCheckedList)
+      );
 
       localStorage.setItem(
         "draftOptions",
         JSON.stringify({
+          videoRatio: videoRatioOptions.find(
+            (option) => option.value === videoRatio
+          ),
           keyframeSpeed,
           isRandomInAnimation,
           inAnimation,
@@ -93,7 +138,14 @@ export default function DashboardComponent() {
     return () => {
       clearInterval(timer);
     };
-  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed, inAnimationCheckedList]);
+  }, [
+    videoRatio,
+    keyframeSpeed,
+    isRandomInAnimation,
+    inAnimation,
+    inAnimationSpeed,
+    inAnimationCheckedList,
+  ]);
 
   // 获取选中的草稿
   const selecDraftRef = useRef<HTMLSelectElement>(null);
@@ -220,6 +272,32 @@ export default function DashboardComponent() {
       <div className="space-y-6 text-white">
         <h3 className="text-xl font-medium text-white">草稿处理设置</h3>
 
+        {/* 视频比例 */}
+        <div>
+          <div className="mb-2 block">
+            <Label
+              value="视频比例（默认情况遵照剪映中设置的比例）"
+              className="text-white"
+            />
+          </div>
+          <div className="flex flex-wrap gap-4">
+            {videoRatioOptions.map((option) => (
+              <div className="flex items-center gap-2">
+                <Radio
+                  id={option.id}
+                  name="ratio"
+                  value={option.value}
+                  defaultChecked={videoRatio === option.value}
+                  onChange={videoRatioCheckedChangeHandle}
+                />
+                <Label htmlFor={option.id} className="text-white">
+                  {option.label}
+                </Label>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* 关键帧速度 */}
         <div>
           <div className="mb-2 block">
@@ -280,7 +358,11 @@ export default function DashboardComponent() {
         ) : (
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="inAnimation" value="选择入场动画" className="text-white" />
+              <Label
+                htmlFor="inAnimation"
+                value="选择入场动画"
+                className="text-white"
+              />
             </div>
             <div className="flex max-w-md gap-2 flex-wrap">
               {inAnimationsOptions.map((option) => (
@@ -288,8 +370,16 @@ export default function DashboardComponent() {
                   key={option.resource_id}
                   className="flex items-center gap-1 w-1/4"
                 >
-                  <Checkbox checked={inAnimationCheckedList.indexOf(option.id) != -1} id={"animation" + option.id} value={option.id} onChange={inAnimationCheckedChangeHandle} />
-                  <Label htmlFor={"animation" + option.id} className="flex text-white">
+                  <Checkbox
+                    checked={inAnimationCheckedList.indexOf(option.id) != -1}
+                    id={"animation" + option.id}
+                    value={option.id}
+                    onChange={inAnimationCheckedChangeHandle}
+                  />
+                  <Label
+                    htmlFor={"animation" + option.id}
+                    className="flex text-white"
+                  >
                     {option.name}
                   </Label>
                 </div>

@@ -47,6 +47,14 @@ export async function POST(request: NextRequest) {
 }
 
 function handleDraft(data, options) {
+
+  // 视频比例设置
+  if (options && options.videoRatio && options.videoRatio.value !== "auto") {
+    data.canvas_config.width = options.videoRatio.width;
+    data.canvas_config.height = options.videoRatio.height;
+    data.canvas_config.ratio = options.videoRatio.value;
+  }
+
   for (let i = 0; i < data.tracks[0].segments.length; i++) {
     // 获取主轴上的视频片段
     let currentSegments = data.tracks[0].segments[i];
