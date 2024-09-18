@@ -1,6 +1,13 @@
 "use client";
 
-import { ToggleSwitch, Label, Modal, TextInput, Select } from "flowbite-react";
+import {
+  ToggleSwitch,
+  Label,
+  Modal,
+  TextInput,
+  Select,
+  Checkbox,
+} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { InAnimations } from "@/jianying/effects/animations";
 
@@ -27,6 +34,28 @@ export default function DraftSetting() {
     localStorage.getItem("inAnimationSpeed") ?? 500
   );
 
+  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
+    () => {
+      const defaultCheckedList = Object.keys(InAnimations);
+      if (localStorage.getItem("inAnimationCheckedList")) {
+        return JSON.parse(localStorage.getItem("inAnimationCheckedList") as string);
+      } else {
+        return defaultCheckedList;
+      }
+    }
+  );
+  const inAnimationCheckedChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checkedList = [...inAnimationCheckedList];
+    // console.log("event.target.value", event.target.value);
+    // console.log("event.target.checked", event.target.checked);
+    if (event.target.checked) {
+      checkedList.push(event.target.value);
+    } else {
+      checkedList.splice(checkedList.indexOf(event.target.value), 1);
+    }
+    setInAnimationCheckedList(checkedList);
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
@@ -36,6 +65,7 @@ export default function DraftSetting() {
       );
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
+      localStorage.setItem("inAnimationCheckedList", JSON.stringify(inAnimationCheckedList));
 
       localStorage.setItem(
         "draftOptions",
@@ -44,6 +74,7 @@ export default function DraftSetting() {
           isRandomInAnimation,
           inAnimation,
           inAnimationSpeed,
+          inAnimationCheckedList,
         })
       );
     }, 500);
@@ -51,7 +82,7 @@ export default function DraftSetting() {
     return () => {
       clearInterval(timer);
     };
-  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed]);
+  }, [keyframeSpeed, isRandomInAnimation, inAnimation, inAnimationSpeed, inAnimationCheckedList]);
 
   return (
     <>
@@ -124,7 +155,26 @@ export default function DraftSetting() {
                     ))}
                   </Select>
                 </div>
-              ) : null}
+              ) : (
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="inAnimation" value="选择入场动画" />
+                  </div>
+                  <div className="flex max-w-md gap-2 flex-wrap">
+                    {inAnimationsOptions.map((option) => (
+                      <div
+                        key={option.resource_id}
+                        className="flex items-center gap-1 w-1/4"
+                      >
+                        <Checkbox checked={inAnimationCheckedList.indexOf(option.id) != -1} id={"animation" + option.id} value={option.id} onChange={inAnimationCheckedChangeHandle} />
+                        <Label htmlFor={"animation" + option.id} className="flex">
+                          {option.name}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div>
                 <div className="mb-2 block">

@@ -72,7 +72,7 @@ function handleDraft(data, options) {
     );
     let scaleBase = 1.3; // 关键帧缩放基础倍数（前端展示名字是 关键帧速度）
     if (options && options.keyframeSpeed) {
-      scaleBase = 1 + (Number(options.keyframeSpeed) / 10);
+      scaleBase = 1 + Number(options.keyframeSpeed) / 10;
     }
     console.log("scaleBase", scaleBase);
     currentSegments.clip.scale.x = scaleRatio * scaleBase;
@@ -134,7 +134,8 @@ function handleDraft(data, options) {
     let inAnimation;
 
     if (options && options.isRandomInAnimation) {
-      inAnimation = getRandomMaterialAnimations();
+      const whiteList = options.inAnimationCheckedList ?? [];
+      inAnimation = getRandomMaterialAnimations(whiteList);
     } else if (options && options.inAnimation) {
       inAnimation = getMaterialAnimations(options.inAnimation);
     } else {
@@ -447,9 +448,18 @@ function getMaterialAnimations(effect_id) {
 }
 
 // 随机获取入场动画
-function getRandomMaterialAnimations() {
+function getRandomMaterialAnimations(whiteList: string[] | undefined) {
   const InAnimationsArr = Object.values(InAnimations);
+  const filteredInAnimationsArr = InAnimationsArr.filter((animation) => {
+    if (whiteList?.length) {
+      return whiteList.indexOf(animation.id) != -1;
+    } else {
+      return true;
+    }
+  });
   let randomAnimations =
-    InAnimationsArr[Math.floor(Math.random() * InAnimationsArr.length)];
+    filteredInAnimationsArr[
+      Math.floor(Math.random() * filteredInAnimationsArr.length)
+    ];
   return randomAnimations;
 }
