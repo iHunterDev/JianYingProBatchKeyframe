@@ -342,7 +342,7 @@ export default function DashboardComponent() {
             value={keyframeSpeed}
             required
             onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setKeyframeSpeed(e.target.value)
+              setKeyframeSpeed(e.target.value as any)
             }
           />
         </div>
@@ -431,7 +431,7 @@ export default function DashboardComponent() {
             value={inAnimationSpeed}
             required
             onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInAnimationSpeed(e.target.value)
+              setInAnimationSpeed(e.target.value as any)
             }
           />
         </div>

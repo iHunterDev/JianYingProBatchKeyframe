@@ -37,9 +37,8 @@ export default function DraftSetting() {
     },
     { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
   ];
-  // const [videoRatio, setVideoRatio] = useState(
-  //   localStorage.getItem("videoRatio") ?? "auto"
-  // );
+
+  
   const [videoRatio, setVideoRatio] = useState("auto");
   useEffect(() => {
     // 只在浏览器端访问 localStorage
@@ -48,6 +47,7 @@ export default function DraftSetting() {
       setVideoRatio(storedVideoRatio);
     }
   }, []);
+
   const videoRatioCheckedChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -77,12 +77,6 @@ export default function DraftSetting() {
 
 
   const inAnimationsOptions = Object.values(InAnimations);
-  // const [inAnimation, setInAnimation] = useState(
-  //   localStorage.getItem("inAnimation") ?? ""
-  // );
-  // const [inAnimationSpeed, setInAnimationSpeed] = useState(
-  //   localStorage.getItem("inAnimationSpeed") ?? 500
-  // );
   const [inAnimation, setInAnimation] = useState("");
   const [inAnimationSpeed, setInAnimationSpeed] = useState(500);
   useEffect(() => {
