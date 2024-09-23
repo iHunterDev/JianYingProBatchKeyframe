@@ -37,56 +37,125 @@ export default function DraftSetting() {
     },
     { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
   ];
-  const [videoRatio, setVideoRatio] = useState(
-    localStorage.getItem("videoRatio") ?? "auto"
-  );
+  // const [videoRatio, setVideoRatio] = useState(
+  //   localStorage.getItem("videoRatio") ?? "auto"
+  // );
+  const [videoRatio, setVideoRatio] = useState("auto");
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedVideoRatio = localStorage.getItem("videoRatio");
+    if (storedVideoRatio) {
+      setVideoRatio(storedVideoRatio);
+    }
+  }, []);
   const videoRatioCheckedChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setVideoRatio(event.target.value);
+    const newRatio = event.target.value;
+    setVideoRatio(newRatio);
   };
 
-  const [keyframeSpeed, setKeyframeSpeed] = useState(
-    localStorage.getItem("keyframeSpeed") ?? 3
-  );
 
-  const [isRandomInAnimation, setIsRandomInAnimation] = useState(
-    localStorage.getItem("isRandomInAnimation") === "false" ? false : true
-  );
+  const [keyframeSpeed, setKeyframeSpeed] = useState(3);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedKeyframeSpeed = localStorage.getItem("keyframeSpeed");
+    if (storedKeyframeSpeed) {
+      setKeyframeSpeed(parseInt(storedKeyframeSpeed));
+    }
+  }, []);
+
+
+  const [isRandomInAnimation, setIsRandomInAnimation] = useState(false);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsRandomInAnimation = localStorage.getItem("isRandomInAnimation");
+    if (storedIsRandomInAnimation) {
+      setIsRandomInAnimation(storedIsRandomInAnimation === "false" ? false : true);
+    }
+  }, []);
+
 
   const inAnimationsOptions = Object.values(InAnimations);
-  const [inAnimation, setInAnimation] = useState(
-    localStorage.getItem("inAnimation") ?? ""
-  );
-  const [inAnimationSpeed, setInAnimationSpeed] = useState(
-    localStorage.getItem("inAnimationSpeed") ?? 500
+  // const [inAnimation, setInAnimation] = useState(
+  //   localStorage.getItem("inAnimation") ?? ""
+  // );
+  // const [inAnimationSpeed, setInAnimationSpeed] = useState(
+  //   localStorage.getItem("inAnimationSpeed") ?? 500
+  // );
+  const [inAnimation, setInAnimation] = useState("");
+  const [inAnimationSpeed, setInAnimationSpeed] = useState(500);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedInAnimation = localStorage.getItem("inAnimation");
+    if (storedInAnimation) {
+      setInAnimation(storedInAnimation);
+    }
+  }, []);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedInAnimationSpeed = localStorage.getItem("inAnimationSpeed");
+    if (storedInAnimationSpeed) {
+      setInAnimationSpeed(parseInt(storedInAnimationSpeed));
+    }
+  }, []);
+
+  // const [inAnimationCheckedList, setInAnimationCheckedList] = useState<
+  //   string[]
+  // >(() => {
+  //   const defaultCheckedList = Object.keys(InAnimations);
+  //   if (localStorage.getItem("inAnimationCheckedList")) {
+  //     return JSON.parse(
+  //       localStorage.getItem("inAnimationCheckedList") as string
+  //     );
+  //   } else {
+  //     return defaultCheckedList;
+  //   }
+  // });
+  
+  // const inAnimationCheckedChangeHandle = (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const checkedList = [...inAnimationCheckedList];
+  //   // console.log("event.target.value", event.target.value);
+  //   // console.log("event.target.checked", event.target.checked);
+  //   if (event.target.checked) {
+  //     checkedList.push(event.target.value);
+  //   } else {
+  //     checkedList.splice(checkedList.indexOf(event.target.value), 1);
+  //   }
+  //   setInAnimationCheckedList(checkedList);
+  // };
+
+  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
+    []
   );
 
-  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<
-    string[]
-  >(() => {
+  useEffect(() => {
     const defaultCheckedList = Object.keys(InAnimations);
-    if (localStorage.getItem("inAnimationCheckedList")) {
-      return JSON.parse(
-        localStorage.getItem("inAnimationCheckedList") as string
-      );
+    const storedCheckedList = localStorage.getItem("inAnimationCheckedList");
+    if (storedCheckedList) {
+      setInAnimationCheckedList(JSON.parse(storedCheckedList));
     } else {
-      return defaultCheckedList;
+      setInAnimationCheckedList(defaultCheckedList);
     }
-  });
+  }, []); // 空数组确保只在组件挂载时执行
+
   const inAnimationCheckedChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const checkedList = [...inAnimationCheckedList];
-    // console.log("event.target.value", event.target.value);
-    // console.log("event.target.checked", event.target.checked);
     if (event.target.checked) {
       checkedList.push(event.target.value);
     } else {
       checkedList.splice(checkedList.indexOf(event.target.value), 1);
     }
     setInAnimationCheckedList(checkedList);
+
+    // 更新 localStorage
+    localStorage.setItem("inAnimationCheckedList", JSON.stringify(checkedList));
   };
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -182,7 +251,7 @@ export default function DraftSetting() {
                   value={keyframeSpeed}
                   required
                   onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setKeyframeSpeed(e.target.value)
+                    setKeyframeSpeed(e.target.value as any)
                   }
                 />
               </div>
@@ -265,7 +334,7 @@ export default function DraftSetting() {
                   value={inAnimationSpeed}
                   required
                   onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setInAnimationSpeed(e.target.value)
+                    setInAnimationSpeed(e.target.value as any)
                   }
                 />
               </div>
