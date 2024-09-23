@@ -112,7 +112,7 @@ function handleDraft(data, options) {
     // console.log("y_bottom", y_bottom);
 
     // 生成xy关键帧数据
-    let KFTypePositionDaata = generateKeyFrames(
+    let KFTypePositionData = generateKeyFrames(
       x_left,
       x_right,
       y_top,
@@ -121,8 +121,8 @@ function handleDraft(data, options) {
     );
 
     // 组合关键帧数据
-    currentSegments.common_keyframes.push(KFTypePositionDaata[0]);
-    currentSegments.common_keyframes.push(KFTypePositionDaata[1]);
+    currentSegments.common_keyframes.push(KFTypePositionData[0]);
+    currentSegments.common_keyframes.push(KFTypePositionData[1]);
 
     //+-----------------------
     // 添加 Transition 关键帧
