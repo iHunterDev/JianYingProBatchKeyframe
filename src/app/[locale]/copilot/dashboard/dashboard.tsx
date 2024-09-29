@@ -79,7 +79,46 @@ export default function DashboardComponent() {
     }
   }, []);
 
-  const [isRandomInAnimation, setIsRandomInAnimation] = useState(false);
+  // 关键帧类型
+  const inKeyframeTypeOptions = [{value: "scaleDown", label: "大=>小"}, {value: "scaleUp", label: "小=>大"}, {value: "leftToRight", label: "左=>右"}, {value: "rightToLeft", label: "右=>左"}, {value: "topToBottom", label: "上=>下"}, {value: "bottomToTop", label: "下=>上"}];
+  const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
+    []
+  );
+  useEffect(() => {
+    const defaultCheckedList = ["scaleDown", "scaleUp", "leftToRight", "rightToLeft", "topToBottom", "bottomToTop"];
+    const storedCheckedList = localStorage.getItem("inKeyframeTypeCheckedList");
+    if (storedCheckedList) {
+      setInKeyframeTypeCheckedList(JSON.parse(storedCheckedList));
+    } else {
+      setInKeyframeTypeCheckedList(defaultCheckedList);
+    }
+  }, []); // 空数组确保只在组件挂载时执行
+  
+  const inKeyframeTypeCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checkedList = [...inKeyframeTypeCheckedList];
+    if (event.target.checked) {
+      checkedList.push(event.target.value);
+    } else {
+      checkedList.splice(checkedList.indexOf(event.target.value), 1);
+    }
+    setInKeyframeTypeCheckedList(checkedList);
+
+    // 更新 localStorage
+    localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(checkedList));
+  };
+
+  const [isClearKeyframes, setIsClearKeyframes] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsClearKeyframes = localStorage.getItem("isClearKeyframes");
+    if (storedIsClearKeyframes) {
+      setIsClearKeyframes(storedIsClearKeyframes === "false" ? false : true);
+    }
+  }, []);
+
+  const [isRandomInAnimation, setIsRandomInAnimation] = useState(true);
   useEffect(() => {
     // 只在浏览器端访问 localStorage
     const storedIsRandomInAnimation = localStorage.getItem("isRandomInAnimation");
@@ -139,6 +178,8 @@ export default function DashboardComponent() {
     const timer = setTimeout(() => {
       localStorage.setItem("videoRatio", videoRatio);
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
+      localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(inKeyframeTypeCheckedList));
+      localStorage.setItem("isClearKeyframes", isClearKeyframes.toString());
       localStorage.setItem(
         "isRandomInAnimation",
         isRandomInAnimation.toString()
@@ -157,6 +198,8 @@ export default function DashboardComponent() {
             (option) => option.value === videoRatio
           ),
           keyframeSpeed,
+          inKeyframeTypeCheckedList,
+          isClearKeyframes,
           isRandomInAnimation,
           inAnimation,
           inAnimationSpeed,
@@ -171,6 +214,8 @@ export default function DashboardComponent() {
   }, [
     videoRatio,
     keyframeSpeed,
+    inKeyframeTypeCheckedList,
+    isClearKeyframes,
     isRandomInAnimation,
     inAnimation,
     inAnimationSpeed,
@@ -317,7 +362,7 @@ export default function DashboardComponent() {
                   id={option.id}
                   name="ratio"
                   value={option.value}
-                  defaultChecked={videoRatio === option.value}
+                  checked={videoRatio === option.value}
                   onChange={videoRatioCheckedChangeHandle}
                 />
                 <Label htmlFor={option.id} className="text-white">
@@ -344,6 +389,53 @@ export default function DashboardComponent() {
             onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
               setKeyframeSpeed(e.target.value as any)
             }
+          />
+        </div>
+
+        {/* 选择关键帧类型，至少选择一个 */}
+        <div>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="inKeyframeType"
+                value="选择关键帧类型（不选则不会添加关键帧）"
+                className="text-white"
+              />
+            </div>
+            <div className="flex max-w-md gap-2 flex-wrap">
+              {inKeyframeTypeOptions.map((option) => (
+                <div
+                  key={option.value}
+                  className="flex items-center gap-1 w-1/4"
+                >
+                  <Checkbox
+                    checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
+                    id={"animation" + option.value}
+                    value={option.value}
+                    onChange={inKeyframeTypeCheckedChangeHandle}
+                  />
+                  <Label
+                    htmlFor={"animation" + option.value}
+                    className="flex text-white"
+                  >
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        {/* 清理旧关键帧开关 */}
+        <div>
+          <div className="mb-2 block">
+            <Label
+              htmlFor="isRandomInAnimation"
+              value="开启清理旧关键帧（会删除原有的关键帧数据，然后重新生成）"
+              className="text-white"
+            />
+          </div>
+          <ToggleSwitch
+            checked={isClearKeyframes}
+            onChange={setIsClearKeyframes}
           />
         </div>
 

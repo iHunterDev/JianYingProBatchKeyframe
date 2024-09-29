@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
 }
 
 function handleDraft(data, options) {
-
   // 视频比例设置
   if (options && options.videoRatio && options.videoRatio.value !== "auto") {
     data.canvas_config.width = options.videoRatio.width;
@@ -117,12 +116,21 @@ function handleDraft(data, options) {
       x_right,
       y_top,
       y_bottom,
-      duration / 1000
+      duration / 1000,
+      scaleRatio,
+      scaleBase,
+      options.inKeyframeTypeCheckedList
     );
 
     // 组合关键帧数据
-    currentSegments.common_keyframes.push(KFTypePositionData[0]);
-    currentSegments.common_keyframes.push(KFTypePositionData[1]);
+    // 移除原来所有的关键帧数据
+    if (options.isClearKeyframes) {
+      currentSegments.common_keyframes = [];
+    }
+    // 遍历所有关键帧数据
+    KFTypePositionData.forEach((data) => {
+      currentSegments.common_keyframes.push(data);
+    });
 
     //+-----------------------
     // 添加 Transition 关键帧
@@ -218,6 +226,7 @@ function handleDraft(data, options) {
 function getKeyFrames(type) {
   // KFTypePositionY Y轴
   // KFTypePositionX X轴
+  // KFTypeScaleX X轴缩放
   return {
     id: uuidv4().toLocaleUpperCase(),
     keyframe_list: [],
@@ -245,148 +254,140 @@ function getKeyFramesDotForPosition(time_offset, value) {
   };
 }
 
-// 生成关键帧数据
 function generateKeyFrames(
-  x_left,
-  x_right,
-  y_top,
-  y_bottom,
-  time_offset,
-  direction
+  xLeft,
+  xRight,
+  yTop,
+  yBottom,
+  timeOffset,
+  scaleRatio,
+  scaleBase,
+  directionOptions
 ) {
-  // xy 的关键帧是要一起添加的
-  // 构造关键帧数据
-  let KFTypePositionX = getKeyFrames("KFTypePositionX");
-  let KFTypePositionY = getKeyFrames("KFTypePositionY");
-
-  // 上 右 下 左
-  let directionEnum = [
-    // 上
-    {
+  const keyframeTypes = {
+    scaleDown: {
       x: [
-        {
-          time_offset: 0,
-          value: 0,
-        },
-        {
-          time_offset: time_offset,
-          value: 0,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
       ],
       y: [
-        {
-          time_offset: 0,
-          value: y_top,
-        },
-        {
-          time_offset: time_offset,
-          value: y_bottom,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
+      ],
+      scale: [
+        { timeOffset: 0, value: scaleRatio * scaleBase },
+        { timeOffset: timeOffset, value: scaleRatio },
       ],
     },
-
-    // 右
-    {
+    scaleUp: {
       x: [
-        {
-          time_offset: 0,
-          value: x_right,
-        },
-        {
-          time_offset: time_offset,
-          value: x_left,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
       ],
       y: [
-        {
-          time_offset: 0,
-          value: 0,
-        },
-        {
-          time_offset: time_offset,
-          value: 0,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
+      ],
+      scale: [
+        { timeOffset: 0, value: scaleRatio },
+        { timeOffset: timeOffset, value: scaleRatio * scaleBase },
       ],
     },
-
-    // 下
-    {
+    leftToRight: {
       x: [
-        {
-          time_offset: 0,
-          value: 0,
-        },
-        {
-          time_offset: time_offset,
-          value: 0,
-        },
+        { timeOffset: 0, value: xLeft },
+        { timeOffset: timeOffset, value: xRight },
       ],
       y: [
-        {
-          time_offset: 0,
-          value: y_bottom,
-        },
-        {
-          time_offset: time_offset,
-          value: y_top,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
       ],
     },
-
-    // 左
-    {
+    rightToLeft: {
       x: [
-        {
-          time_offset: 0,
-          value: x_left,
-        },
-        {
-          time_offset: time_offset,
-          value: x_right,
-        },
+        { timeOffset: 0, value: xRight },
+        { timeOffset: timeOffset, value: xLeft },
       ],
       y: [
-        {
-          time_offset: 0,
-          value: 0,
-        },
-        {
-          time_offset: time_offset,
-          value: 0,
-        },
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
       ],
     },
-  ];
+    topToBottom: {
+      x: [
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
+      ],
+      y: [
+        { timeOffset: 0, value: yTop },
+        { timeOffset: timeOffset, value: yBottom },
+      ],
+    },
+    bottomToTop: {
+      x: [
+        { timeOffset: 0, value: 0 },
+        { timeOffset: timeOffset, value: 0 },
+      ],
+      y: [
+        { timeOffset: 0, value: yBottom },
+        { timeOffset: timeOffset, value: yTop },
+      ],
+    },
+  };
 
-  if (direction == undefined) {
-    direction = getRandomInt(0, 3);
+  if (directionOptions == undefined) {
+    directionOptions = Object.keys(keyframeTypes);
   }
+  const randomIndex = Math.floor(Math.random() * directionOptions.length);
+  const selectedType = keyframeTypes[directionOptions[randomIndex]];
+  const selectedKey = directionOptions[randomIndex];
 
-  let currentDirection = directionEnum[direction];
+  if (["scaleUp", "scaleDown"].includes(selectedKey)) {
+    const KFTypeScale = getKeyFrames("KFTypeScaleX");
+    const scaleStartKey = getKeyFramesDotForPosition(
+      selectedType.scale[0].timeOffset,
+      selectedType.scale[0].value
+    );
+    const scaleEndKey = getKeyFramesDotForPosition(
+      selectedType.scale[1].timeOffset,
+      selectedType.scale[1].value
+    );
+    KFTypeScale.keyframe_list.push(scaleStartKey);
+    KFTypeScale.keyframe_list.push(scaleEndKey);
+    return [KFTypeScale];
+  } else if (
+    ["leftToRight", "rightToLeft", "topToBottom", "bottomToTop"].includes(
+      selectedKey
+    )
+  ) {
+    const KFTypePositionX = getKeyFrames("KFTypePositionX");
+    const KFTypePositionY = getKeyFrames("KFTypePositionY");
 
-  let x_start = getKeyFramesDotForPosition(
-    currentDirection.x[0].time_offset,
-    currentDirection.x[0].value
-  );
-  let x_end = getKeyFramesDotForPosition(
-    currentDirection.x[1].time_offset,
-    currentDirection.x[1].value
-  );
-  let y_start = getKeyFramesDotForPosition(
-    currentDirection.y[0].time_offset,
-    currentDirection.y[0].value
-  );
-  let y_end = getKeyFramesDotForPosition(
-    currentDirection.y[1].time_offset,
-    currentDirection.y[1].value
-  );
+    const xStart = getKeyFramesDotForPosition(
+      selectedType.x[0].timeOffset,
+      selectedType.x[0].value
+    );
+    const xEnd = getKeyFramesDotForPosition(
+      selectedType.x[1].timeOffset,
+      selectedType.x[1].value
+    );
+    const yStart = getKeyFramesDotForPosition(
+      selectedType.y[0].timeOffset,
+      selectedType.y[0].value
+    );
+    const yEnd = getKeyFramesDotForPosition(
+      selectedType.y[1].timeOffset,
+      selectedType.y[1].value
+    );
 
-  KFTypePositionX.keyframe_list.push(x_start);
-  KFTypePositionX.keyframe_list.push(x_end);
-  KFTypePositionY.keyframe_list.push(y_start);
-  KFTypePositionY.keyframe_list.push(y_end);
-
-  return [KFTypePositionX, KFTypePositionY];
+    KFTypePositionX.keyframe_list.push(xStart);
+    KFTypePositionX.keyframe_list.push(xEnd);
+    KFTypePositionY.keyframe_list.push(yStart);
+    KFTypePositionY.keyframe_list.push(yEnd);
+    return [KFTypePositionX, KFTypePositionY];
+  } else {
+    return [];
+  }
 }
 
 // 随机数
