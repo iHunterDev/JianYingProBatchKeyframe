@@ -98,5 +98,23 @@
   },
   "CopilotDwonload": {
     "Download": "Download"
+  },
+  "DraftSetting": {
+    "Auto": "Auto",
+    "DraftSetting": "DraftSetting",
+    "VideoRatio": "Video ratio (default follows the ratio set in the cutscene)",
+    "keyframeSpeed": "Keyframe speed (recommended range 1-10)",
+    "inKeyframeType": "Select the keyframe type (unchecked no keyframes will be added)",
+    "isRandomInAnimation": "Turn on the random entry animation",
+    "isClearKeyframes": "Enable cleanup of old keyframes (will delete the original keyframe data and regenerate it)",
+    "inAnimation": "Select Entry Animation",
+    "PleaseSelectInAnimation": "Please select the entrance animation",
+    "inAnimationSpeed": "Entry animation speed (in milliseconds 1s = 1000ms)",
+    "LargeToSmall": "Large=>Small",
+    "SmallToLarge": "Small=>Large",
+    "LeftToRight": "Left=>Right",
+    "RightToLeft": "Right=>Left",
+    "TopToBottom": "Top=>Bottom",
+    "BottomToTop": "Bottom=>Top"
   }
 }

@@ -11,8 +11,11 @@ import {
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { InAnimations } from "@/jianying/effects/animations";
+import { useTranslations } from "next-intl";
 
 export default function DraftSetting() {
+  const t = useTranslations("DraftSetting");
+
   const [openModal, setOpenModal] = useState(false);
 
   function onCloseModal() {
@@ -20,7 +23,7 @@ export default function DraftSetting() {
   }
 
   const videoRatioOptions = [
-    { id: "ratio_auto", value: "auto", label: "自动" },
+    { id: "ratio_auto", value: "auto", label: t("Auto") },
     {
       id: "ratio_16_9",
       value: "16:9",
@@ -66,7 +69,7 @@ export default function DraftSetting() {
   }, []);
 
 // 关键帧类型
-const inKeyframeTypeOptions = [{value: "scaleDown", label: "大=>小"}, {value: "scaleUp", label: "小=>大"}, {value: "leftToRight", label: "左=>右"}, {value: "rightToLeft", label: "右=>左"}, {value: "topToBottom", label: "上=>下"}, {value: "bottomToTop", label: "下=>上"}];
+const inKeyframeTypeOptions = [{value: "scaleDown", label: t("LargeToSmall")}, {value: "scaleUp", label: t("SmallToLarge")}, {value: "leftToRight", label: t("LeftToRight")}, {value: "rightToLeft", label: t("RightToLeft")}, {value: "topToBottom", label: t("TopToBottom")}, {value: "bottomToTop", label: t("BottomToTop")}];
 const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
   []
 );
@@ -245,20 +248,20 @@ useEffect(() => {
           onClick={() => setOpenModal(true)}
           className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
         >
-          草稿处理设置
+          {t("DraftSetting")}
         </a>
         <Modal show={openModal} size="md" onClose={onCloseModal} popup>
           <Modal.Header />
           <Modal.Body>
             <div className="space-y-6">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                草稿处理设置
+                {t("DraftSetting")}
               </h3>
 
               {/* 视频比例 */}
               <div>
                 <div className="mb-2 block">
-                  <Label value="视频比例（默认情况遵照剪映中设置的比例）" />
+                  <Label value={t("VideoRatio")} />
                 </div>
                 <div className="flex flex-wrap gap-4">
                   {videoRatioOptions.map((option) => (
@@ -281,7 +284,7 @@ useEffect(() => {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="keyframeSpeed"
-                    value="关键帧速度（建议范围 1-10）"
+                    value={t("keyframeSpeed")}
                   />
                 </div>
                 <TextInput
@@ -299,14 +302,14 @@ useEffect(() => {
             <div className="mb-2 block">
               <Label
                 htmlFor="inKeyframeType"
-                value="选择关键帧类型（不选则不会添加关键帧）"
+                value={t("inKeyframeType")}
               />
             </div>
             <div className="flex max-w-md gap-2 flex-wrap">
               {inKeyframeTypeOptions.map((option) => (
                 <div
                   key={option.value}
-                  className="flex items-center gap-1 w-1/4"
+                  className="flex items-center gap-1 w-1/3"
                 >
                   <Checkbox
                     checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
@@ -329,8 +332,8 @@ useEffect(() => {
         <div>
           <div className="mb-2 block">
             <Label
-              htmlFor="isRandomInAnimation"
-              value="开启清理旧关键帧（会删除原有的关键帧数据，然后重新生成）"
+              htmlFor="isClearKeyframes"
+              value={t("isClearKeyframes")}
             />
           </div>
           <ToggleSwitch
@@ -344,12 +347,11 @@ useEffect(() => {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="isRandomInAnimation"
-                    value="开启随机入场动画"
+                    value={t("isRandomInAnimation")}
                   />
                 </div>
                 <ToggleSwitch
                   checked={isRandomInAnimation}
-                  label={isRandomInAnimation ? "开启" : "关闭"}
                   onChange={setIsRandomInAnimation}
                 />
               </div>
@@ -358,12 +360,12 @@ useEffect(() => {
               {!isRandomInAnimation ? (
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="inAnimation" value="选择固定入场动画" />
+                    <Label htmlFor="inAnimation" value={t("inAnimation")} />
                   </div>
                   <Select
                     onChange={(value) => setInAnimation(value.target.value)}
                   >
-                    <option value="">-- 请选择入场动画 --</option>
+                    <option value="">-- {t("PleaseSelectInAnimation")} --</option>
                     {inAnimationsOptions.map((option) => (
                       <option
                         key={option.resource_id}
@@ -378,7 +380,7 @@ useEffect(() => {
               ) : (
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="inAnimation" value="选择入场动画" />
+                    <Label htmlFor="inAnimation" value={t("inAnimation")} />
                   </div>
                   <div className="flex max-w-md gap-2 flex-wrap">
                     {inAnimationsOptions.map((option) => (
@@ -410,7 +412,7 @@ useEffect(() => {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="inAnimationSpeed"
-                    value="入场动画速度（单位：毫秒 1s = 1000ms）"
+                    value={t("inAnimationSpeed")}
                   />
                 </div>
                 <TextInput

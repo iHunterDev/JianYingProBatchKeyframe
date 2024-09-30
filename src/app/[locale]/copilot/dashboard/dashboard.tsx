@@ -14,6 +14,8 @@ import { InAnimations } from "@/jianying/effects/animations";
 
 export default function DashboardComponent() {
   const t = useTranslations("CopilotDashboard");
+  const tds = useTranslations("DraftSetting");
+
 
   // 获取草稿列表
   const [drafts, setDrafts]: any = useState([]);
@@ -37,7 +39,7 @@ export default function DashboardComponent() {
   }, []);
 
   const videoRatioOptions = [
-    { id: "ratio_auto", value: "auto", label: "自动" },
+    { id: "ratio_auto", value: "auto", label: tds("Auto") },
     {
       id: "ratio_16_9",
       value: "16:9",
@@ -80,7 +82,7 @@ export default function DashboardComponent() {
   }, []);
 
   // 关键帧类型
-  const inKeyframeTypeOptions = [{value: "scaleDown", label: "大=>小"}, {value: "scaleUp", label: "小=>大"}, {value: "leftToRight", label: "左=>右"}, {value: "rightToLeft", label: "右=>左"}, {value: "topToBottom", label: "上=>下"}, {value: "bottomToTop", label: "下=>上"}];
+  const inKeyframeTypeOptions = [{value: "scaleDown", label: tds("LargeToSmall")}, {value: "scaleUp", label: tds("SmallToLarge")}, {value: "leftToRight", label: tds("LeftToRight")}, {value: "rightToLeft", label: tds("RightToLeft")}, {value: "topToBottom", label: tds("TopToBottom")}, {value: "bottomToTop", label: tds("BottomToTop")}];
   const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
     []
   );
@@ -345,13 +347,13 @@ export default function DashboardComponent() {
       </div>
 
       <div className="space-y-6 text-white">
-        <h3 className="text-xl font-medium text-white">草稿处理设置</h3>
+        <h3 className="text-xl font-medium text-white">{tds("DraftSetting")}</h3>
 
         {/* 视频比例 */}
         <div>
           <div className="mb-2 block">
             <Label
-              value="视频比例（默认情况遵照剪映中设置的比例）"
+              value={tds("VideoRatio")}
               className="text-white"
             />
           </div>
@@ -378,7 +380,7 @@ export default function DashboardComponent() {
           <div className="mb-2 block">
             <Label
               htmlFor="keyframeSpeed"
-              value="关键帧速度（建议范围 1-10）"
+              value={tds("keyframeSpeed")}
               className="text-white"
             />
           </div>
@@ -397,7 +399,7 @@ export default function DashboardComponent() {
             <div className="mb-2 block">
               <Label
                 htmlFor="inKeyframeType"
-                value="选择关键帧类型（不选则不会添加关键帧）"
+                value={tds("inKeyframeType")}
                 className="text-white"
               />
             </div>
@@ -405,7 +407,7 @@ export default function DashboardComponent() {
               {inKeyframeTypeOptions.map((option) => (
                 <div
                   key={option.value}
-                  className="flex items-center gap-1 w-1/4"
+                  className="flex items-center gap-1 w-1/3"
                 >
                   <Checkbox
                     checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
@@ -428,8 +430,8 @@ export default function DashboardComponent() {
         <div>
           <div className="mb-2 block">
             <Label
-              htmlFor="isRandomInAnimation"
-              value="开启清理旧关键帧（会删除原有的关键帧数据，然后重新生成）"
+              htmlFor="isClearKeyframes"
+              value={tds("isClearKeyframes")}
               className="text-white"
             />
           </div>
@@ -444,7 +446,7 @@ export default function DashboardComponent() {
           <div className="mb-2 block">
             <Label
               htmlFor="isRandomInAnimation"
-              value="开启随机入场动画"
+              value={tds("isRandomInAnimation")}
               className="text-white"
             />
           </div>
@@ -460,12 +462,12 @@ export default function DashboardComponent() {
             <div className="mb-2 block">
               <Label
                 htmlFor="inAnimation"
-                value="选择固定入场动画"
+                value={tds("inAnimation")}
                 className="text-white"
               />
             </div>
             <Select onChange={(value) => setInAnimation(value.target.value)}>
-              <option value="">-- 请选择入场动画 --</option>
+              <option value="">-- {tds("PleaseSelectInAnimation")} --</option>
               {inAnimationsOptions.map((option) => (
                 <option
                   key={option.resource_id}
@@ -482,7 +484,7 @@ export default function DashboardComponent() {
             <div className="mb-2 block">
               <Label
                 htmlFor="inAnimation"
-                value="选择入场动画"
+                value={tds("inAnimation")}
                 className="text-white"
               />
             </div>
@@ -514,7 +516,7 @@ export default function DashboardComponent() {
           <div className="mb-2 block">
             <Label
               htmlFor="inAnimationSpeed"
-              value="入场动画速度（单位：毫秒 1s = 1000ms）"
+              value={tds("inAnimationSpeed")}
               className="text-white"
             />
           </div>
