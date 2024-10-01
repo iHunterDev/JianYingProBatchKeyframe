@@ -17,7 +17,7 @@ function ChangeLanguage({ currentLocale }: { currentLocale: string }) {
   };
 
   return (
-    <ChangeLanguageDropdown label={localesName[currentLocale]}>
+    <ChangeLanguageDropdown label={localesName[currentLocale as keyof typeof localesName]}>
       {locales.map((langName: string, index: number) => {
         return (
           <ChangeLanguageDropdownItem key={index}>
@@ -25,7 +25,7 @@ function ChangeLanguage({ currentLocale }: { currentLocale: string }) {
               className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
               href={getLocalizedHref(langName)}
             >
-              {localesName[langName]}
+              {localesName[langName as keyof typeof localesName]}
             </Link>
           </ChangeLanguageDropdownItem>
         );
