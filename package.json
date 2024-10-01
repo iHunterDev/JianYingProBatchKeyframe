@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
-    "flowbite": "^2.0.0",
+    "flowbite": "^2.5.2",
     "flowbite-react": "^0.6.4",
     "gray-matter": "^4.0.3",
     "next": "^14.2.3",

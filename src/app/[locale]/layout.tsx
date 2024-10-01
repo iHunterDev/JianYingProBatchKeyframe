@@ -56,15 +56,17 @@ export default async function RootLayout({
           customDomain="https://plausible.talkloop.top"
         >
           <NextTopLoader />
-          <Navbar locale={locale}></Navbar>
           <NextIntlClientProvider locale={locale} messages={messages}>
+          <Navbar locale={locale}></Navbar>
+
             {children}
-          </NextIntlClientProvider>
           <Footer></Footer>
+
+          </NextIntlClientProvider>
           <GoogleAnalytics />
         </PlausibleProvider>
         <TawkChat />
-        <NativeBanner />
+        {/* <NativeBanner /> */}
         {/* <InPagePush /> */}
       </body>
     </html>
