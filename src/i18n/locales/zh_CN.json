@@ -19,8 +19,7 @@
     "Home": "首页",
     "Copilot": "客户端",
     "Download": "下载",
-    "Changelog": "更新日志",
-    "Roadmap": "功能开发计划"
+    "Changelog": "更新日志"
   },
   "Faq": {
     "FaqTitle": "常见问题",
@@ -121,6 +120,7 @@
     "followUs": "关注我们",
     "privacyPolicy": "隐私协议",
     "termsConditions": "使用条款",
-    "legal": "条款"
+    "legal": "条款",
+    "Roadmap": "功能开发计划"
   }
 }

@@ -3,9 +3,11 @@
 import { Footer } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { BsGithub, BsTwitter } from "react-icons/bs";
+import { useLocale } from "@/hooks/useLocale";
 
 export function FooterComponent() {
   const t = useTranslations("Footer");
+  const { getLocalizedHref } = useLocale();
 
   return (
     <Footer container className="rounded-none bg-black text-white">
@@ -32,13 +34,14 @@ export function FooterComponent() {
               <Footer.Title title={t("followUs")} className="text-white" />
               <Footer.LinkGroup col>
                 <Footer.Link href="https://github.com/iHunterDev/JianYingProBatchKeyframe" className="text-white hover:text-[#c9fd02]">Github</Footer.Link>
+                <Footer.Link href={getLocalizedHref('/roadmap')} className="text-white hover:text-[#c9fd02]">{t("Roadmap")}</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title={t("legal")} className="text-white" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">{t("privacyPolicy")}</Footer.Link>
-                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">{t("termsConditions")}</Footer.Link>
+                <Footer.Link href={getLocalizedHref('/privacy-policy')} className="text-white hover:text-[#c9fd02]">{t("privacyPolicy")}</Footer.Link>
+                <Footer.Link href={getLocalizedHref('/terms-conditions')} className="text-white hover:text-[#c9fd02]">{t("termsConditions")}</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>

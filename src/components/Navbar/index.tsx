@@ -9,14 +9,10 @@ import { defaultLocale } from "@/i18n/i18n-config";
 
 export default function NavbarComponent() {
   const t = useTranslations("Home");
-  const currentLocale = useLocale();
+  const { currentLocale, getLocalizedHref } = useLocale();
 
   const navLinkClass = "font-inter text-white hover:text-[#c9fd02] text-base lg:px-6 lg:py-4";
   const mobileNavLinkClass = "hover:!bg-transparent !border-b-0";
-
-  const getLocalizedHref = (path: string) => {
-    return currentLocale === defaultLocale ? path : `/${currentLocale}${path}`;
-  };
 
   return (
     <Navbar fluid className="bg-black text-white px-6 py-6 lg:px-10 lg:py-4 xl:px-20">
@@ -53,13 +49,6 @@ export default function NavbarComponent() {
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Changelog")}
-        </Navbar.Link>
-        <Navbar.Link 
-          as={Link} 
-          href={getLocalizedHref('/roadmap')} 
-          className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
-        >
-          {t("Roadmap")}
         </Navbar.Link>
         <Navbar.Link
           as={Link}
