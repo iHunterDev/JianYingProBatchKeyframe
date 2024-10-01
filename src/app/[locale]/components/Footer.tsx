@@ -1,132 +1,60 @@
-import Link from "next/link";
+"use client";
+
+import { Footer } from "flowbite-react";
 import { useTranslations } from "next-intl";
+import { BsGithub, BsTwitter } from "react-icons/bs";
 
-export default function Footer() {
-  const t = useTranslations("Home");
+export function FooterComponent() {
+  const t = useTranslations("Footer");
+
   return (
-    <footer className="bg-center text-white bg-zinc-950">
-      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-        <div className="flex flex-col items-center">
-          {/* <a href="#" className="mb-8 inline-block max-w-full">
-                  <img
-                    src="https://assets.website-files.com/63904f663019b0d8edf8d57c/6399728d302d2471f18b229f_Group%2047874%20(2).svg"
-                    alt=""
-                    className="inline-block max-h-10"
-                  />
-                </a> */}
-          {/* <div className="text-center font-semibold max-[991px]:ml-0 max-[991px]:mr-0 max-[991px]:py-1">
-                  <a
-                    href="#"
-                    className="inline-block px-6 py-2 font-normal transition hover:text-[#d6a701]"
-                  >
-                    About
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-block px-6 py-2 font-normal transition hover:text-[#d6a701]"
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-block px-6 py-2 font-normal transition hover:text-[#d6a701]"
-                  >
-                    Works
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-block px-6 py-2 font-normal transition hover:text-[#d6a701]"
-                  >
-                    Support
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-block px-6 py-2 font-normal transition hover:text-[#d6a701]"
-                  >
-                    Help
-                  </a>
-                </div> */}
-          <div className="mb-8 mt-8 w-48 border-b border-solid border-b-white"></div>
-          <div className="flex gap-1">
-            <Link
-              className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
-              href="./"
-            >
-              {t("JianyingProOneClickKeyframe")}
-            </Link>
-            <Link
-              className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
-              href="./"
-            >
-              {t("JianyingProBatchKeyframeinOneSecond")}
-            </Link>
-            <Link
-              className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
-              href="./"
-            >
-              {t("JianyingProAutomaticKeyframing")}
-            </Link>
+    <Footer container className="rounded-none bg-black text-white">
+      <div className="w-full">
+        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+          <div>
+            {/* <Footer.Brand
+              href="https://flowbite.com"
+              src="https://flowbite.com/docs/images/logo.svg"
+              alt="Flowbite Logo"
+              name="Flowbite"
+              className="text-white"
+            /> */}
           </div>
-
-          {/* <div className="mb-12 grid w-full max-w-[208px] grid-flow-col grid-cols-4 gap-3">
-                  <a
-                    href="#"
-                    className="ifont-bold mx-auto flex max-w-[24px] flex-col"
-                  >
-                    <img
-                      src="https://assets.website-files.com/63904f663019b0d8edf8d57c/639972bc5e36f4a882999413_Frame%205479.svg"
-                      alt=""
-                      className="inline-block"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="mx-auto flex max-w-[24px] flex-col font-bold"
-                  >
-                    <img
-                      src="https://assets.website-files.com/63904f663019b0d8edf8d57c/639972bf093252f2b2114050_Frame%205480.svg"
-                      alt=""
-                      className="inline-block"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="ifont-bold mx-auto flex max-w-[24px] flex-col"
-                  >
-                    <img
-                      src="https://assets.website-files.com/63904f663019b0d8edf8d57c/639972bde1a389ee15d86fc6_Frame%205481-1.svg"
-                      alt=""
-                      className="inline-block"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="mx-auto flex max-w-[24px] flex-col font-bold"
-                  >
-                    <img
-                      src="https://assets.website-files.com/63904f663019b0d8edf8d57c/639972bf10337117b26b8e51_Frame%205481.svg"
-                      alt=""
-                      className="inline-block"
-                    />
-                  </a>
-                </div> */}
-          <p className="max-[479px]:text-sm">
-            Made with 😆 by{" "}
-            <a href="https://twitter.com/iHunterDev" target="_blank">
-              iHunterDev
-            </a>
-            . Powered by{" "}
-            <a href="https://my.racknerd.com/aff.php?aff=12207" target="_blank">
-              RackNerd
-            </a>
-            ,{" "}
-            <a href="https://www.cloudflare.com/" target="_blank">
-              Cloudflare
-            </a>
-            .
-          </p>
+          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+            {/* <div>
+              <Footer.Title title={t("about")} className="text-white" />
+              <Footer.LinkGroup col>
+                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">Flowbite</Footer.Link>
+                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">Tailwind CSS</Footer.Link>
+              </Footer.LinkGroup>
+            </div> */}
+            <div>
+              <Footer.Title title={t("followUs")} className="text-white" />
+              <Footer.LinkGroup col>
+                <Footer.Link href="https://github.com/iHunterDev/JianYingProBatchKeyframe" className="text-white hover:text-[#c9fd02]">Github</Footer.Link>
+              </Footer.LinkGroup>
+            </div>
+            <div>
+              <Footer.Title title={t("legal")} className="text-white" />
+              <Footer.LinkGroup col>
+                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">{t("privacyPolicy")}</Footer.Link>
+                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">{t("termsConditions")}</Footer.Link>
+              </Footer.LinkGroup>
+            </div>
+          </div>
+        </div>
+        <Footer.Divider className="my-6 border-gray-700" />
+        <div className="w-full sm:flex sm:items-center sm:justify-between">
+          <Footer.Copyright href="https://keyframeai.top/" by="KeyframeAi™" year={2023} className="text-white" />
+          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+            {/* <Footer.Icon href="#" icon={BsFacebook} className="text-white hover:text-[#c9fd02]" /> */}
+            {/* <Footer.Icon href="#" icon={BsInstagram} className="text-white hover:text-[#c9fd02]" /> */}
+            <Footer.Icon href="https://twitter.com/iHunterDev" icon={BsTwitter} className="text-white hover:text-[#c9fd02]" />
+            <Footer.Icon href="https://github.com/iHunterDev/JianYingProBatchKeyframe" icon={BsGithub} className="text-white hover:text-[#c9fd02]" />
+            {/* <Footer.Icon href="#" icon={BsDribbble} className="text-white hover:text-[#c9fd02]" /> */}
+          </div>
         </div>
       </div>
-    </footer>
+    </Footer>
   );
 }

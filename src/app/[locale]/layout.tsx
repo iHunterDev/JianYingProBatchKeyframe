@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { locales } from "@/i18n/i18n-config";
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import Navbar from "@/components/Navbar";
-import Footer from "./components/Footer";
+import { FooterComponent } from './components/Footer';
 import NextTopLoader from "nextjs-toploader";
 import PlausibleProvider from "next-plausible";
 import TawkChat from "@/components/TawkChat";
@@ -60,7 +60,7 @@ export default async function RootLayout({
           <Navbar locale={locale}></Navbar>
 
             {children}
-          <Footer></Footer>
+          <FooterComponent></FooterComponent>
 
           </NextIntlClientProvider>
           <GoogleAnalytics />

@@ -115,5 +115,12 @@
     "RightToLeft": "右=>左",
     "TopToBottom": "上=>下",
     "BottomToTop": "下=>上"
+  },
+  "Footer": {
+    "about": "关于",
+    "followUs": "关注我们",
+    "privacyPolicy": "隐私协议",
+    "termsConditions": "使用条款",
+    "legal": "条款"
   }
 }

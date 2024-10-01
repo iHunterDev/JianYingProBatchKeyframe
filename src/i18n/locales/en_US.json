@@ -116,5 +116,12 @@
     "RightToLeft": "Right=>Left",
     "TopToBottom": "Top=>Bottom",
     "BottomToTop": "Bottom=>Top"
+  },
+  "Footer": {
+    "about": "About",
+    "followUs": "Follow Us",
+    "privacyPolicy": "Privacy",
+    "termsConditions": "Terms",
+    "legal": "Legal"
   }
 }

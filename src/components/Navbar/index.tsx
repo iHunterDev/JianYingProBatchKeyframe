@@ -4,34 +4,37 @@ import Link from "next/link";
 import { Navbar } from "flowbite-react";
 import ChangeLanguage from "../ChangeLanguage";
 import { useTranslations } from "next-intl";
+import { useLocale } from "@/hooks/useLocale";
+import { defaultLocale } from "@/i18n/i18n-config";
 
-type Props = {
-  locale: string;
-};
-
-export default function NavbarComponent({ locale: currentLocale }: Props) {
+export default function NavbarComponent() {
   const t = useTranslations("Home");
+  const currentLocale = useLocale();
 
   const navLinkClass = "font-inter text-white hover:text-[#c9fd02] text-base lg:px-6 lg:py-4";
   const mobileNavLinkClass = "hover:!bg-transparent !border-b-0";
 
+  const getLocalizedHref = (path: string) => {
+    return currentLocale === defaultLocale ? path : `/${currentLocale}${path}`;
+  };
+
   return (
     <Navbar fluid className="bg-black text-white px-6 py-6 lg:px-10 lg:py-4 xl:px-20">
-      <Navbar.Brand as={Link} href={"/" + currentLocale + "/"}>
+      <Navbar.Brand as={Link} href={getLocalizedHref('/')}>
         <span className="self-center whitespace-nowrap text-xl font-semibold text-white"></span>
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="!border-t-0 mt-14 lg:mt-0 space-y-8 lg:space-y-0">
         <Navbar.Link 
           as={Link} 
-          href={"/" + currentLocale + "/"} 
+          href={getLocalizedHref('/')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Home")}
         </Navbar.Link>
         <Navbar.Link 
           as={Link} 
-          href={"/" + currentLocale + "/copilot"} 
+          href={getLocalizedHref('/copilot')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02] relative`}
         >
           {t("Copilot")}
@@ -39,21 +42,21 @@ export default function NavbarComponent({ locale: currentLocale }: Props) {
         </Navbar.Link>
         <Navbar.Link 
           as={Link} 
-          href={"/" + currentLocale + "/donate"} 
+          href={getLocalizedHref('/donate')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Donate")}
         </Navbar.Link>
         <Navbar.Link 
           as={Link} 
-          href={"/" + currentLocale + "/changelog"} 
+          href={getLocalizedHref('/changelog')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Changelog")}
         </Navbar.Link>
         <Navbar.Link 
           as={Link} 
-          href={"/" + currentLocale + "/roadmap"} 
+          href={getLocalizedHref('/roadmap')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Roadmap")}
