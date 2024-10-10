@@ -64,7 +64,7 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/arm64/jianyingpro-batch-keyframe-copilot.app.zip"
+                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/arm64/jianyingpro-batch-keyframe-copilot.zip"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
@@ -78,7 +78,7 @@ export default function Copilot() {
                   </p>
                 </div>
                 <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/amd64/jianyingpro-batch-keyframe-copilot.app.zip"
+                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/amd64/jianyingpro-batch-keyframe-copilot.zip"
                   target="_blank"
                   className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
                 >
