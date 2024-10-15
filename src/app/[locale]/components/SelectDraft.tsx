@@ -1,12 +1,17 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import {
+  Spinner,
+} from "flowbite-react";
 
 export default function SelectDraft() {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const t = useTranslations("Home");
+  const [processing, setProcessing] = useState(false);
   async function handleUploadDraft() {
     try {
+      setProcessing(true);
       if (!inputFileRef.current?.files) {
         throw new Error("No file selected");
       }
@@ -77,7 +82,10 @@ export default function SelectDraft() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      
+      setProcessing(false);
     } catch (error: any) {
+      setProcessing(false);
       console.log(error);
       alert(error.message);
     }
@@ -88,6 +96,7 @@ export default function SelectDraft() {
       href="#"
       className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white relative"
     >
+      {processing ? <Spinner aria-label="Spinner button" className="mx-3" color="success" size="lg" /> : ""}
       <span>{t("SelectDraft")}</span>
       <input
         type="file"

@@ -9,6 +9,7 @@ import {
   Select,
   Checkbox,
   Radio,
+  Spinner,
 } from "flowbite-react";
 import { InAnimations } from "@/jianying/effects/animations";
 
@@ -64,7 +65,7 @@ export default function DashboardComponent() {
       setVideoRatio(storedVideoRatio);
     }
   }, []);
-  
+
   const videoRatioCheckedChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -82,7 +83,7 @@ export default function DashboardComponent() {
   }, []);
 
   // 关键帧类型
-  const inKeyframeTypeOptions = [{value: "scaleDown", label: tds("LargeToSmall")}, {value: "scaleUp", label: tds("SmallToLarge")}, {value: "leftToRight", label: tds("LeftToRight")}, {value: "rightToLeft", label: tds("RightToLeft")}, {value: "topToBottom", label: tds("TopToBottom")}, {value: "bottomToTop", label: tds("BottomToTop")}];
+  const inKeyframeTypeOptions = [{ value: "scaleDown", label: tds("LargeToSmall") }, { value: "scaleUp", label: tds("SmallToLarge") }, { value: "leftToRight", label: tds("LeftToRight") }, { value: "rightToLeft", label: tds("RightToLeft") }, { value: "topToBottom", label: tds("TopToBottom") }, { value: "bottomToTop", label: tds("BottomToTop") }];
   const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
     []
   );
@@ -95,7 +96,7 @@ export default function DashboardComponent() {
       setInKeyframeTypeCheckedList(defaultCheckedList);
     }
   }, []); // 空数组确保只在组件挂载时执行
-  
+
   const inKeyframeTypeCheckedChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -238,6 +239,7 @@ export default function DashboardComponent() {
   }
 
   // 一键处理草稿
+  const [processing, setProcessing] = useState(false);
   async function handleProcessDraft(
     event: React.MouseEvent<HTMLButtonElement>
   ) {
@@ -255,9 +257,15 @@ export default function DashboardComponent() {
       return;
     }
 
+    // 如果正在处理，则不重新处理
+    if (processing) {
+      return;
+    }
+    setProcessing(true);
+
     const response = await fetch(
       window.localStorage.getItem("copilot_api_url") +
-        `/api/v1/draft?draft_json_file=${selectedDraft}`
+      `/api/v1/draft?draft_json_file=${selectedDraft}`
     );
     const result = await response.json();
     // console.log("handleProcessDraft", result.data.draft_info);
@@ -290,6 +298,7 @@ export default function DashboardComponent() {
         text: processedDraft.errMsg,
         icon: "error",
       });
+      setProcessing(false);
       return;
     }
 
@@ -315,6 +324,8 @@ export default function DashboardComponent() {
       text: t("AddSuccessText"),
       icon: "success",
     });
+
+    setProcessing(false);
   }
   return (
     <div className="max-w-md mx-auto flex flex-col gap-y-10 ">
@@ -396,35 +407,35 @@ export default function DashboardComponent() {
 
         {/* 选择关键帧类型，至少选择一个 */}
         <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="inKeyframeType"
-                value={tds("inKeyframeType")}
-                className="text-white"
-              />
-            </div>
-            <div className="flex max-w-md gap-2 flex-wrap">
-              {inKeyframeTypeOptions.map((option) => (
-                <div
-                  key={option.value}
-                  className="flex items-center gap-1 w-1/3"
-                >
-                  <Checkbox
-                    checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
-                    id={"animation" + option.value}
-                    value={option.value}
-                    onChange={inKeyframeTypeCheckedChangeHandle}
-                  />
-                  <Label
-                    htmlFor={"animation" + option.value}
-                    className="flex text-white"
-                  >
-                    {option.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
+          <div className="mb-2 block">
+            <Label
+              htmlFor="inKeyframeType"
+              value={tds("inKeyframeType")}
+              className="text-white"
+            />
           </div>
+          <div className="flex max-w-md gap-2 flex-wrap">
+            {inKeyframeTypeOptions.map((option) => (
+              <div
+                key={option.value}
+                className="flex items-center gap-1 w-1/3"
+              >
+                <Checkbox
+                  checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
+                  id={"animation" + option.value}
+                  value={option.value}
+                  onChange={inKeyframeTypeCheckedChangeHandle}
+                />
+                <Label
+                  htmlFor={"animation" + option.value}
+                  className="flex text-white"
+                >
+                  {option.label}
+                </Label>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* 清理旧关键帧开关 */}
         <div>
@@ -535,6 +546,7 @@ export default function DashboardComponent() {
         className="inline-block rounded-full bg-[#c9fd02] px-6 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white"
         onClick={handleProcessDraft}
       >
+        {processing ? <Spinner aria-label="Spinner button" className="mx-3" color="success" size="lg" /> : ""}
         {t("AddButton")}
       </button>
     </div>
