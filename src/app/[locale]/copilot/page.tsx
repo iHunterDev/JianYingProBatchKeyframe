@@ -77,7 +77,7 @@ export default function Copilot() {
           {/* Image Div */}
           <div>
             <img
-              src="https://img2.imgtp.com/2024/05/15/CfrozGkY.png"
+              src="/client_hero.png"
               alt=""
               className="mx-auto inline-block h-full w-full max-w-[640px] rounded-2xl object-cover"
             />
