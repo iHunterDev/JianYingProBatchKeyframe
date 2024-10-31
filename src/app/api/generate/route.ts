@@ -66,9 +66,9 @@ function handleDraft(data, options) {
     let videoWidth = data.materials.videos[i].width;
     let videoHeight = data.materials.videos[i].height;
 
-    // 获取视频长度 视频中获取的 10800000000
-    // 从关键帧获取到 time_offset 10000000
-    let duration = data.materials.videos[i].duration;
+    // 获取视频长度
+    let duration = data.tracks[0].segments[i].source_timerange.duration;
+    console.log("duration", duration);
 
     // 放大倍速
     let scaleRatio = calculateScale(
@@ -116,7 +116,7 @@ function handleDraft(data, options) {
       x_right,
       y_top,
       y_bottom,
-      duration / 1000,
+      duration,
       scaleRatio,
       scaleBase,
       options.inKeyframeTypeCheckedList
@@ -163,47 +163,6 @@ function handleDraft(data, options) {
       inAnimation.duration = Number(options.inAnimationSpeed) * 1000;
     }
 
-    /**
-// 没有设置过入场动画的数据
-[]
-
-// 已经存在过入场动画的数据
-[
-    {
-        "animations": [
-            {
-                "anim_adjust_params": null,
-                "category_id": "in",
-                "category_name": "入场",
-                "duration": 500000,
-                "id": "624705",
-                "material_type": "video",
-                "name": "渐显",
-                "panel": "video",
-                "path": "/Users/wenzhuo/Library/Containers/com.lemon.lvpro/Data/Movies/JianyingPro/User Data/Cache/effect/624705/ee269b77e45a2466bd3e9cab0cff7137",
-                "platform": "all",
-                "request_id": "2024091516421720A619E8C1381BFF2B23",
-                "resource_id": "6798320778182922760",
-                "start": 0,
-                "type": "in"
-            }
-        ],
-        "id": "D5B4CCEA-82BE-4295-8404-C33208A78B7D",
-        "multi_language_current": "none",
-        "type": "sticker_animation"
-    }
-]
-
-// 存在过动画但是又删除了入场动画
-[
-    {
-        "animations": [],
-        "id": "D5B4CCEA-82BE-4295-8404-C33208A78B7D",
-        "multi_language_current": "none",
-        "type": "sticker_animation"
-    }
-]
-*/
     // 添加到素材中
     // 初始化结构
     data.materials.material_animations[i] = getMaterialAnimationLayout();
