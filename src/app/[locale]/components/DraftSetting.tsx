@@ -41,7 +41,7 @@ export default function DraftSetting() {
     { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
   ];
 
-  
+
   const [videoRatio, setVideoRatio] = useState("auto");
   useEffect(() => {
     // 只在浏览器端访问 localStorage
@@ -68,45 +68,66 @@ export default function DraftSetting() {
     }
   }, []);
 
-// 关键帧类型
-const inKeyframeTypeOptions = [{value: "scaleDown", label: t("LargeToSmall")}, {value: "scaleUp", label: t("SmallToLarge")}, {value: "leftToRight", label: t("LeftToRight")}, {value: "rightToLeft", label: t("RightToLeft")}, {value: "topToBottom", label: t("TopToBottom")}, {value: "bottomToTop", label: t("BottomToTop")}];
-const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
-  []
-);
-useEffect(() => {
-  const defaultCheckedList = ["scaleDown", "scaleUp", "leftToRight", "rightToLeft", "topToBottom", "bottomToTop"];
-  const storedCheckedList = localStorage.getItem("inKeyframeTypeCheckedList");
-  if (storedCheckedList) {
-    setInKeyframeTypeCheckedList(JSON.parse(storedCheckedList));
-  } else {
-    setInKeyframeTypeCheckedList(defaultCheckedList);
-  }
-}, []); // 空数组确保只在组件挂载时执行
+  // 关键帧类型
+  const inKeyframeTypeOptions = [{ value: "scaleDown", label: t("LargeToSmall") }, { value: "scaleUp", label: t("SmallToLarge") }, { value: "leftToRight", label: t("LeftToRight") }, { value: "rightToLeft", label: t("RightToLeft") }, { value: "topToBottom", label: t("TopToBottom") }, { value: "bottomToTop", label: t("BottomToTop") }];
+  const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
+    []
+  );
+  useEffect(() => {
+    const defaultCheckedList = ["scaleDown", "scaleUp", "leftToRight", "rightToLeft", "topToBottom", "bottomToTop"];
+    const storedCheckedList = localStorage.getItem("inKeyframeTypeCheckedList");
+    if (storedCheckedList) {
+      setInKeyframeTypeCheckedList(JSON.parse(storedCheckedList));
+    } else {
+      setInKeyframeTypeCheckedList(defaultCheckedList);
+    }
+  }, []); // 空数组确保只在组件挂载时执行
 
-const inKeyframeTypeCheckedChangeHandle = (
-  event: React.ChangeEvent<HTMLInputElement>
-) => {
-  const checkedList = [...inKeyframeTypeCheckedList];
-  if (event.target.checked) {
-    checkedList.push(event.target.value);
-  } else {
-    checkedList.splice(checkedList.indexOf(event.target.value), 1);
-  }
-  setInKeyframeTypeCheckedList(checkedList);
+  const inKeyframeTypeCheckedChangeHandle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checkedList = [...inKeyframeTypeCheckedList];
+    if (event.target.checked) {
+      checkedList.push(event.target.value);
+    } else {
+      checkedList.splice(checkedList.indexOf(event.target.value), 1);
+    }
+    setInKeyframeTypeCheckedList(checkedList);
 
-  // 更新 localStorage
-  localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(checkedList));
-};
+    // 更新 localStorage
+    localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(checkedList));
+  };
 
-const [isClearKeyframes, setIsClearKeyframes] = useState(true);
-useEffect(() => {
-  // 只在浏览器端访问 localStorage
-  const storedIsClearKeyframes = localStorage.getItem("isClearKeyframes");
-  if (storedIsClearKeyframes) {
-    setIsClearKeyframes(storedIsClearKeyframes === "false" ? false : true);
-  }
-}, []);
+  const [isClearKeyframes, setIsClearKeyframes] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsClearKeyframes = localStorage.getItem("isClearKeyframes");
+    if (storedIsClearKeyframes) {
+      setIsClearKeyframes(storedIsClearKeyframes === "false" ? false : true);
+    }
+  }, []);
 
+  // 入场动画开关
+  const [isInAnimation, setIsInAnimation] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsInAnimation = localStorage.getItem("isInAnimation");
+    if (storedIsInAnimation) {
+      setIsInAnimation(storedIsInAnimation === "false" ? false : true);
+    }
+  }, []);
+
+  // 是否清理动画
+  const [isClearAnimations, setIsClearAnimations] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsClearAnimations = localStorage.getItem("isClearAnimations");
+    if (storedIsClearAnimations) {
+      setIsClearAnimations(storedIsClearAnimations === "false" ? false : true);
+    }
+  }, []);
+
+  // 随机入场动画开关
   const [isRandomInAnimation, setIsRandomInAnimation] = useState(true);
   useEffect(() => {
     // 只在浏览器端访问 localStorage
@@ -134,33 +155,6 @@ useEffect(() => {
       setInAnimationSpeed(parseInt(storedInAnimationSpeed));
     }
   }, []);
-
-  // const [inAnimationCheckedList, setInAnimationCheckedList] = useState<
-  //   string[]
-  // >(() => {
-  //   const defaultCheckedList = Object.keys(InAnimations);
-  //   if (localStorage.getItem("inAnimationCheckedList")) {
-  //     return JSON.parse(
-  //       localStorage.getItem("inAnimationCheckedList") as string
-  //     );
-  //   } else {
-  //     return defaultCheckedList;
-  //   }
-  // });
-  
-  // const inAnimationCheckedChangeHandle = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const checkedList = [...inAnimationCheckedList];
-  //   // console.log("event.target.value", event.target.value);
-  //   // console.log("event.target.checked", event.target.checked);
-  //   if (event.target.checked) {
-  //     checkedList.push(event.target.value);
-  //   } else {
-  //     checkedList.splice(checkedList.indexOf(event.target.value), 1);
-  //   }
-  //   setInAnimationCheckedList(checkedList);
-  // };
 
   const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
     []
@@ -190,7 +184,7 @@ useEffect(() => {
     // 更新 localStorage
     localStorage.setItem("inAnimationCheckedList", JSON.stringify(checkedList));
   };
-  
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -198,6 +192,8 @@ useEffect(() => {
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
       localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(inKeyframeTypeCheckedList));
       localStorage.setItem("isClearKeyframes", isClearKeyframes.toString());
+      localStorage.setItem("isInAnimation", isInAnimation.toString());
+      localStorage.setItem("isClearAnimations", isClearAnimations.toString());
       localStorage.setItem(
         "isRandomInAnimation",
         isRandomInAnimation.toString()
@@ -219,6 +215,8 @@ useEffect(() => {
           inKeyframeTypeCheckedList,
           isClearKeyframes,
           isRandomInAnimation,
+          isInAnimation,
+          isClearAnimations,
           inAnimation,
           inAnimationSpeed,
           inAnimationCheckedList,
@@ -234,6 +232,8 @@ useEffect(() => {
     keyframeSpeed,
     inKeyframeTypeCheckedList,
     isClearKeyframes,
+    isInAnimation,
+    isClearAnimations,
     isRandomInAnimation,
     inAnimation,
     inAnimationSpeed,
@@ -297,67 +297,99 @@ useEffect(() => {
                 />
               </div>
 
-        {/* 选择关键帧类型，至少选择一个 */}
-        <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="inKeyframeType"
-                value={t("inKeyframeType")}
-              />
-            </div>
-            <div className="flex max-w-md gap-2 flex-wrap">
-              {inKeyframeTypeOptions.map((option) => (
-                <div
-                  key={option.value}
-                  className="flex items-center gap-1 w-1/3"
-                >
-                  <Checkbox
-                    checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
-                    id={"animation" + option.value}
-                    value={option.value}
-                    onChange={inKeyframeTypeCheckedChangeHandle}
-                  />
-                  <Label
-                    htmlFor={"animation" + option.value}
-                    className="flex"
-                  >
-                    {option.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        {/* 清理旧关键帧开关 */}
-        <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="isClearKeyframes"
-              value={t("isClearKeyframes")}
-            />
-          </div>
-          <ToggleSwitch
-            checked={isClearKeyframes}
-            onChange={setIsClearKeyframes}
-          />
-        </div>
-
-
+              {/* 选择关键帧类型，至少选择一个 */}
               <div>
                 <div className="mb-2 block">
                   <Label
-                    htmlFor="isRandomInAnimation"
-                    value={t("isRandomInAnimation")}
+                    htmlFor="inKeyframeType"
+                    value={t("inKeyframeType")}
+                  />
+                </div>
+                <div className="flex max-w-md gap-2 flex-wrap">
+                  {inKeyframeTypeOptions.map((option) => (
+                    <div
+                      key={option.value}
+                      className="flex items-center gap-1 w-1/3"
+                    >
+                      <Checkbox
+                        checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
+                        id={"animation" + option.value}
+                        value={option.value}
+                        onChange={inKeyframeTypeCheckedChangeHandle}
+                      />
+                      <Label
+                        htmlFor={"animation" + option.value}
+                        className="flex"
+                      >
+                        {option.label}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 清理旧关键帧开关 */}
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="isClearKeyframes"
+                    value={t("isClearKeyframes")}
                   />
                 </div>
                 <ToggleSwitch
-                  checked={isRandomInAnimation}
-                  onChange={setIsRandomInAnimation}
+                  checked={isClearKeyframes}
+                  onChange={setIsClearKeyframes}
                 />
               </div>
 
+              {/* 入场动画开关 */}
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="isInAnimation"
+                    value={t("isInAnimation")}
+                  />
+                </div>
+                <ToggleSwitch
+                  checked={isInAnimation}
+                  onChange={setIsInAnimation}
+                />
+              </div>
+
+              {/* 清理动画开关 */}
+              {!isInAnimation && (
+                <div>
+                  <div className="mb-2 block">
+                    <Label
+                      htmlFor="isClearAnimations"
+                      value={t("isClearAnimations")}
+                    />
+                  </div>
+                  <ToggleSwitch
+                    checked={isClearAnimations}
+                    onChange={setIsClearAnimations}
+                  />
+                </div>
+              )}
+
+              {/* 随机入场动画开关 */}
+              {isInAnimation && (
+                <div>
+                  <div className="mb-2 block">
+                    <Label
+                      htmlFor="isRandomInAnimation"
+                      value={t("isRandomInAnimation")}
+                    />
+                  </div>
+                  <ToggleSwitch
+                    checked={isRandomInAnimation}
+                    onChange={setIsRandomInAnimation}
+                  />
+                </div>
+              )}
+
               {/* 入场动画选择，如果是随机入场动画，则不显示 */}
-              {!isRandomInAnimation ? (
+              {!isRandomInAnimation && isInAnimation ? (
                 <div>
                   <div className="mb-2 block">
                     <Label htmlFor="inAnimation" value={t("inAnimation")} />
@@ -377,7 +409,9 @@ useEffect(() => {
                     ))}
                   </Select>
                 </div>
-              ) : (
+              ) : null}
+
+              {isRandomInAnimation && isInAnimation ? (
                 <div>
                   <div className="mb-2 block">
                     <Label htmlFor="inAnimation" value={t("inAnimation")} />
@@ -406,24 +440,27 @@ useEffect(() => {
                     ))}
                   </div>
                 </div>
-              )}
+              ) : null}
 
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="inAnimationSpeed"
-                    value={t("inAnimationSpeed")}
+              {/* 入场动画速度 */}
+              {isInAnimation ? (
+                <div>
+                  <div className="mb-2 block">
+                    <Label
+                      htmlFor="inAnimationSpeed"
+                      value={t("inAnimationSpeed")}
+                    />
+                  </div>
+                  <TextInput
+                    type="number"
+                    value={inAnimationSpeed}
+                    required
+                    onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setInAnimationSpeed(e.target.value as any)
+                    }
                   />
                 </div>
-                <TextInput
-                  type="number"
-                  value={inAnimationSpeed}
-                  required
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setInAnimationSpeed(e.target.value as any)
-                  }
-                />
-              </div>
+              ) : null}
             </div>
           </Modal.Body>
         </Modal>

@@ -66,7 +66,7 @@ export default async function RootLayout({
           <GoogleAnalytics />
         </PlausibleProvider>
         <TawkChat />
-        <NativeBanner />
+        {/* <NativeBanner /> */}
         {/* <InPagePush /> */}
       </body>
     </html>

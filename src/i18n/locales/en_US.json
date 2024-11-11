@@ -107,6 +107,8 @@
     "isRandomInAnimation": "Turn on the random entry animation",
     "isClearKeyframes": "Enable cleanup of old keyframes (will delete the original keyframe data and regenerate it)",
     "inAnimation": "Select Entry Animation",
+    "isInAnimation": "Whether to add an entrance animation",
+    "isClearAnimations": "Enable cleanup of animations",
     "PleaseSelectInAnimation": "Please select the entrance animation",
     "inAnimationSpeed": "Entry animation speed (in milliseconds 1s = 1000ms)",
     "LargeToSmall": "Large=>Small",

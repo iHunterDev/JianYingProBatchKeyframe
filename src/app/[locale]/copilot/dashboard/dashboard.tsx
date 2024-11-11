@@ -121,6 +121,27 @@ export default function DashboardComponent() {
     }
   }, []);
 
+  // 入场动画开关
+  const [isInAnimation, setIsInAnimation] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsInAnimation = localStorage.getItem("isInAnimation");
+    if (storedIsInAnimation) {
+      setIsInAnimation(storedIsInAnimation === "false" ? false : true);
+    }
+  }, []);
+
+  // 是否清理动画
+  const [isClearAnimations, setIsClearAnimations] = useState(true);
+  useEffect(() => {
+    // 只在浏览器端访问 localStorage
+    const storedIsClearAnimations = localStorage.getItem("isClearAnimations");
+    if (storedIsClearAnimations) {
+      setIsClearAnimations(storedIsClearAnimations === "false" ? false : true);
+    }
+  }, []);
+
+  // 随机入场动画开关
   const [isRandomInAnimation, setIsRandomInAnimation] = useState(true);
   useEffect(() => {
     // 只在浏览器端访问 localStorage
@@ -183,6 +204,8 @@ export default function DashboardComponent() {
       localStorage.setItem("keyframeSpeed", keyframeSpeed.toString());
       localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(inKeyframeTypeCheckedList));
       localStorage.setItem("isClearKeyframes", isClearKeyframes.toString());
+      localStorage.setItem("isInAnimation", isInAnimation.toString());
+      localStorage.setItem("isClearAnimations", isClearAnimations.toString());
       localStorage.setItem(
         "isRandomInAnimation",
         isRandomInAnimation.toString()
@@ -203,7 +226,9 @@ export default function DashboardComponent() {
           keyframeSpeed,
           inKeyframeTypeCheckedList,
           isClearKeyframes,
+          isClearAnimations,
           isRandomInAnimation,
+          isInAnimation,
           inAnimation,
           inAnimationSpeed,
           inAnimationCheckedList,
@@ -219,6 +244,8 @@ export default function DashboardComponent() {
     keyframeSpeed,
     inKeyframeTypeCheckedList,
     isClearKeyframes,
+    isInAnimation,
+    isClearAnimations,
     isRandomInAnimation,
     inAnimation,
     inAnimationSpeed,
@@ -452,23 +479,57 @@ export default function DashboardComponent() {
           />
         </div>
 
-        {/* 随机入场动画开关 */}
+        {/* 入场动画开关 */}
         <div>
           <div className="mb-2 block">
             <Label
-              htmlFor="isRandomInAnimation"
-              value={tds("isRandomInAnimation")}
+              htmlFor="isInAnimation"
+              value={tds("isInAnimation")}
               className="text-white"
             />
           </div>
           <ToggleSwitch
-            checked={isRandomInAnimation}
-            onChange={setIsRandomInAnimation}
+            checked={isInAnimation}
+            onChange={setIsInAnimation}
           />
         </div>
 
+        {/* 清理动画开关 */}
+        {!isInAnimation && (
+          <div>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="isClearAnimations"
+                value={tds("isClearAnimations")}
+                className="text-white"
+              />
+            </div>
+            <ToggleSwitch
+              checked={isClearAnimations}
+              onChange={setIsClearAnimations}
+            />
+          </div>
+        )}
+
+        {/* 随机入场动画开关 */}
+        {isInAnimation && (
+          <div>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="isRandomInAnimation"
+                value={tds("isRandomInAnimation")}
+                className="text-white"
+              />
+            </div>
+            <ToggleSwitch
+              checked={isRandomInAnimation}
+              onChange={setIsRandomInAnimation}
+            />
+          </div>
+        )}
+
         {/* 入场动画选择，如果是随机入场动画，则不显示 */}
-        {!isRandomInAnimation ? (
+        {!isRandomInAnimation && isInAnimation ? (
           <div>
             <div className="mb-2 block">
               <Label
@@ -490,7 +551,9 @@ export default function DashboardComponent() {
               ))}
             </Select>
           </div>
-        ) : (
+        ) : null}
+
+        {isRandomInAnimation && isInAnimation ? (
           <div>
             <div className="mb-2 block">
               <Label
@@ -521,25 +584,28 @@ export default function DashboardComponent() {
               ))}
             </div>
           </div>
-        )}
+        ) : null}
 
-        <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="inAnimationSpeed"
-              value={tds("inAnimationSpeed")}
-              className="text-white"
+        {/* 入场动画速度 */}
+        {isInAnimation ? (
+          <div>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="inAnimationSpeed"
+                value={tds("inAnimationSpeed")}
+                className="text-white"
+              />
+            </div>
+            <TextInput
+              type="number"
+              value={inAnimationSpeed}
+              required
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInAnimationSpeed(e.target.value as any)
+              }
             />
           </div>
-          <TextInput
-            type="number"
-            value={inAnimationSpeed}
-            required
-            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInAnimationSpeed(e.target.value as any)
-            }
-          />
-        </div>
+        ) : null}
       </div>
 
       <button

@@ -106,6 +106,8 @@
     "isRandomInAnimation": "开启随机入场动画",
     "isClearKeyframes": "开启清理旧关键帧（会删除原有的关键帧数据，然后重新生成）",
     "inAnimation": "选择入场动画",
+    "isInAnimation": "是否添加入场动画",
+    "isClearAnimations": "开启清理动画（会删除原有的动画数据）",
     "PleaseSelectInAnimation": "请选择入场动画",
     "inAnimationSpeed": "入场动画速度（单位：毫秒 1s = 1000ms）",
     "LargeToSmall": "大=>小",

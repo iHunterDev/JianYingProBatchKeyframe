@@ -147,35 +147,40 @@ function handleDraft(data, options) {
     //+-----------------------
     // 添加入场 material_animations 关键帧
     //+-----------------------
-    let inAnimation;
+    // 是否添加入场动画
+    if (options && options.isInAnimation) {
+      let inAnimation;
 
-    if (options && options.isRandomInAnimation) {
-      const whiteList = options.inAnimationCheckedList ?? [];
-      inAnimation = getRandomMaterialAnimations(whiteList);
-    } else if (options && options.inAnimation) {
-      inAnimation = getMaterialAnimations(options.inAnimation);
-    } else {
-      throw new Error("缺少入场动画参数");
+      if (options.isRandomInAnimation) {
+        const whiteList = options.inAnimationCheckedList ?? [];
+        inAnimation = getRandomMaterialAnimations(whiteList);
+      } else if (options.inAnimation) {
+        inAnimation = getMaterialAnimations(options.inAnimation);
+      } else {
+        throw new Error("缺少入场动画参数");
+      }
+
+      // 如果有设置入场动画速度，则使用设置的入场动画速度
+      if (options.inAnimationSpeed) {
+        inAnimation.duration = Number(options.inAnimationSpeed) * 1000;
+      }
+
+      // 添加到素材中
+      // 初始化结构
+      data.materials.material_animations[i] = getMaterialAnimationLayout();
+      // console.log("data.materials.material_animations[i]", data.materials.material_animations[i]);
+
+      data.materials.material_animations[i].animations.push(inAnimation);
+      // console.log("data.materials.material_animations[i].animations.push", data.materials.material_animations[i]);
+
+      currentSegments.extra_material_refs.splice(
+        1,
+        0,
+        data.materials.material_animations[i].id
+      );
+    } else if (options && options.isClearAnimations) {
+      data.materials.material_animations[i] = [];
     }
-
-    // 如果有设置入场动画速度，则使用设置的入场动画速度
-    if (options && options.inAnimationSpeed) {
-      inAnimation.duration = Number(options.inAnimationSpeed) * 1000;
-    }
-
-    // 添加到素材中
-    // 初始化结构
-    data.materials.material_animations[i] = getMaterialAnimationLayout();
-    // console.log("data.materials.material_animations[i]", data.materials.material_animations[i]);
-
-    data.materials.material_animations[i].animations.push(inAnimation);
-    // console.log("data.materials.material_animations[i].animations.push", data.materials.material_animations[i]);
-
-    currentSegments.extra_material_refs.splice(
-      1,
-      0,
-      data.materials.material_animations[i].id
-    );
   }
 
   return data;
@@ -427,7 +432,7 @@ function getRandomMaterialAnimations(whiteList: string[] | undefined) {
   });
   let randomAnimations =
     filteredInAnimationsArr[
-      Math.floor(Math.random() * filteredInAnimationsArr.length)
+    Math.floor(Math.random() * filteredInAnimationsArr.length)
     ];
   return randomAnimations;
 }
