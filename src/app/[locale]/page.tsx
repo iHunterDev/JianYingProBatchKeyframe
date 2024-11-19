@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import FAQSection from "./components/FAQSection";
 import DraftSetting from "./components/DraftSetting";
+import NovelList from "./components/NovelList";
 
 
 export default function Home() {
@@ -84,6 +85,7 @@ export default function Home() {
             </div>
           </section>
           <FAQSection></FAQSection>
+          <NovelList></NovelList>
         </div>
       </div>
     </header>

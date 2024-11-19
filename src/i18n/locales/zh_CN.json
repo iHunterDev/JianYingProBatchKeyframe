@@ -124,5 +124,18 @@
     "termsConditions": "使用条款",
     "legal": "条款",
     "Roadmap": "功能开发计划"
+  },
+  "NovelList": {
+    "Link": "链接",
+    "NovelListTitle": "热门小说列表",
+    "NovelListDescription": "This feature is currently being tested",
+    "Nickname": "用户昵称",
+    "Description": "描述",
+    "Like": "喜欢",
+    "Comment": "评论",
+    "Collect": "收藏",
+    "Share": "分享",
+    "Action": "操作",
+    "Show More": "查看更多"
   }
 }

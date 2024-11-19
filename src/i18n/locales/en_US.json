@@ -125,5 +125,18 @@
     "termsConditions": "Terms",
     "legal": "Legal",
     "Roadmap": "Roadmap"
+  },
+  "NovelList": {
+    "Link": "Link",
+    "NovelListTitle": "Novel Hot List",
+    "NovelListDescription": "This feature is currently being tested",
+    "Nickname": "Nickname",
+    "Description": "Description",
+    "Like": "Like",
+    "Comment": "Comment",
+    "Collect": "Collect",
+    "Share": "Share",
+    "Action": "Action",
+    "Show More": "Show More"
   }
 }
