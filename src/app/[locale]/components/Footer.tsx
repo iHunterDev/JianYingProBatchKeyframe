@@ -35,6 +35,7 @@ export function FooterComponent() {
               <Footer.LinkGroup col>
                 <Footer.Link href="https://github.com/iHunterDev/JianYingProBatchKeyframe" className="text-white hover:text-[#c9fd02]">Github</Footer.Link>
                 <Footer.Link href={getLocalizedHref('/roadmap')} className="text-white hover:text-[#c9fd02]">{t("Roadmap")}</Footer.Link>
+                <Footer.Link href={getLocalizedHref('/donate')} className="text-white hover:text-[#c9fd02]">{t("Donate")}</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>

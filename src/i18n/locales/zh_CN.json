@@ -19,7 +19,8 @@
     "Home": "首页",
     "Copilot": "客户端",
     "Download": "下载",
-    "Changelog": "更新日志"
+    "Changelog": "更新日志",
+    "NovelHotList": "小说热榜"
   },
   "Faq": {
     "FaqTitle": "常见问题",
@@ -123,12 +124,13 @@
     "privacyPolicy": "隐私协议",
     "termsConditions": "使用条款",
     "legal": "条款",
-    "Roadmap": "功能开发计划"
+    "Roadmap": "功能开发计划",
+    "Donate": "捐赠"
   },
   "NovelList": {
     "Link": "链接",
     "NovelListTitle": "热门小说列表",
-    "NovelListDescription": "This feature is currently being tested",
+    "NovelListDescription": "该功能目前正在测试中",
     "Nickname": "用户昵称",
     "Description": "描述",
     "Like": "喜欢",
@@ -136,6 +138,7 @@
     "Collect": "收藏",
     "Share": "分享",
     "Action": "操作",
-    "Show More": "查看更多"
+    "Show More": "查看更多",
+    "Detail": "详情"
   }
 }

@@ -20,7 +20,8 @@
     "Copilot": "Copilot",
     "Download": "Download",
     "Notification": "Notification: Please download the Jianying Pro 5.8.0 version to use the Jianying Pro One-Click Keyframe feature (Since Jianying Pro updated its draft file encryption, only the 5.8.0 version of the client can be used) Download address: https://caiyun.139.com/m/i?2f2Tf9XM1p6b4 Extraction code: 7qbg",
-    "Changelog": "Changelog"
+    "Changelog": "Changelog",
+    "NovelHotList": "Novel Hot List"
   },
   "Faq": {
     "FaqTitle": "Frequently Asked",
@@ -124,7 +125,8 @@
     "privacyPolicy": "Privacy",
     "termsConditions": "Terms",
     "legal": "Legal",
-    "Roadmap": "Roadmap"
+    "Roadmap": "Roadmap",
+    "Donate": "Donate"
   },
   "NovelList": {
     "Link": "Link",
@@ -137,6 +139,7 @@
     "Collect": "Collect",
     "Share": "Share",
     "Action": "Action",
-    "Show More": "Show More"
+    "Show More": "Show More",
+    "Detail": "Detail"
   }
 }

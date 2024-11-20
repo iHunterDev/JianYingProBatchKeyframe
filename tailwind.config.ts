@@ -19,7 +19,8 @@ const config: Config = {
   },
   plugins: [
     // 添加 Flowbite 插件
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('daisyui'),
   ],
 }
 

@@ -36,13 +36,21 @@ export default function NavbarComponent() {
           {t("Copilot")}
           <span className="absolute top-0 right-0 text-xs bg-red-600 p-1 rounded-md">New</span>
         </Navbar.Link>
-        <Navbar.Link 
+        {/* <Navbar.Link 
           as={Link} 
           href={getLocalizedHref('/donate')} 
           className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
         >
           {t("Donate")}
+        </Navbar.Link> */}
+        <Navbar.Link 
+          as={Link} 
+          href={getLocalizedHref('/#novel-hot-list')} 
+          className={`${navLinkClass} ${mobileNavLinkClass} !text-white hover:!text-[#c9fd02]`}
+        >
+          {t("NovelHotList")}
         </Navbar.Link>
+        
         <Navbar.Link 
           as={Link} 
           href={getLocalizedHref('/changelog')} 

@@ -10,7 +10,6 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.1.1",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.6.4",
     "gray-matter": "^4.0.3",
@@ -33,6 +32,7 @@
     "@types/react-dom": "^18",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10",
+    "daisyui": "^4.12.14",
     "eslint": "^8",
     "eslint-config-next": "13.5.5",
     "postcss": "^8",
