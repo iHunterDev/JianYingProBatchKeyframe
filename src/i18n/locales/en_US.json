@@ -32,6 +32,10 @@
         "Answer": "Please download the latest version of Jianying Pro 5.8.0 to use the Jianying Pro One-Click Keyframe feature (Since Jianying Pro updated its draft file encryption, only the 5.8.0 version of the client can be used) Download address: https://caiyun.139.com/m/i?2f2Tf9XM1p6b4 Extraction code: 7qbg"
       },
       {
+        "Question": "I have already used the 5.8.0 version of Jianying Pro, but I still cannot read the draft file?",
+        "Answer": "This is because your existing draft file has been encrypted. Even if you downgrade to the 5.8.0 version, the encrypted draft file cannot be read. The solution is: use the 5.8.0 version to create a new draft file for editing."
+      },
+      {
         "Question": "What is the One-Click Keyframe feature in Jianying Pro?",
         "Answer": "The One-Click Keyframe feature in Jianying Pro is a video editing tool used to create animation effects or transformation effects. It helps enhance visual effects or emphasize specific points in video clips. Jianying Pro's One-Click Keyframe feature simplifies this complex process by allowing users to select the desired starting and ending positions for the animation, automatically creating keyframes."
       },
