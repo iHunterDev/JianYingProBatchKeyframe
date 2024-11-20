@@ -8,7 +8,7 @@ export default async function NovelList() {
   const apiUrl = "https://directus.keyframeai.top";
 
   // 最新的 15条
-  const novelListResponse = await fetch(`${apiUrl}/items/datas?limit=15&sort[]=-date_updated`);
+  const novelListResponse = await fetch(`${apiUrl}/items/datas?limit=15&sort[]=-topic_created_time`);
   const novelListData = await novelListResponse.json();
   const novelList = novelListData.data;
 
@@ -42,6 +42,7 @@ export default async function NovelList() {
                   <th className="text-[#ffffff]">{t("Comment")}</th>
                   <th className="text-[#ffffff]">{t("Collect")}</th>
                   <th className="text-[#ffffff]">{t("Share")}</th>
+                  <th className="text-[#ffffff]">{t("CreateTime")}</th>
                   <th className="text-[#ffffff]">{t("Action")}</th>
                 </tr>
               </thead>
@@ -54,6 +55,7 @@ export default async function NovelList() {
                     <td className="text-[#636262]">{item.topic_comment}</td>
                     <td className="text-[#636262]">{item.topic_collect}</td>
                     <td className="text-[#636262]">{item.topic_share}</td>
+                    <td className="text-[#636262]">{item.topic_created_time ? new Date(item.topic_created_time).toLocaleString() : ''}</td>
                     <td className="flex items-center gap-2">
                       <a href={item.topic_link} target="_blank" rel="noopener noreferrer nofollow" className="font-medium text-[#c9fd02] hover:underline">
                         {t('Link')}
