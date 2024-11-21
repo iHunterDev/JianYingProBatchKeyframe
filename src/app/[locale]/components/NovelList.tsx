@@ -8,13 +8,14 @@ export default async function NovelList() {
   const apiUrl = "https://directus.keyframeai.top";
 
   // 最新的 15条
-  const novelListResponse = await fetch(`${apiUrl}/items/datas?limit=15&sort[]=-topic_created_time`);
+  const novelListResponse = await fetch(`${apiUrl}/items/datas?limit=30&sort[]=-hot_index&sort[]=-topic_created_time`);
   const novelListData = await novelListResponse.json();
   const novelList = novelListData.data;
 
-  const handleWaiting = () => {
-    console.log('waiting');
-  }
+  // 从novelList中获取最大的 date_created
+  const maxDateCreated = novelList.reduce((max: Date, item: any) => {
+    return new Date(max) > new Date(item.date_created) ? max : item.date_created;
+  }, new Date(0));
 
   return (
     <section id="novel-hot-list">
@@ -26,7 +27,7 @@ export default async function NovelList() {
           <p className="mx-auto mt-4 max-w-lg text-[#c9fd02]">
             {t("NovelListDescription")}
             <div className="text-[#636262]">
-              最后一次数据更新时间：{new Date(novelList[0].date_created).toLocaleString()}
+              最后一次数据更新时间：{new Date(maxDateCreated).toLocaleString()}
             </div>
           </p>
         </div>
@@ -38,11 +39,12 @@ export default async function NovelList() {
                 <tr className="bg-[#1a1a1a] border-b border-gray-700">
                   <th className="text-[#ffffff]">{t("Nickname")}</th>
                   <th className="text-[#ffffff]">{t("Description")}</th>
-                  <th className="text-[#ffffff]">{t("Like")}</th>
-                  <th className="text-[#ffffff]">{t("Comment")}</th>
-                  <th className="text-[#ffffff]">{t("Collect")}</th>
-                  <th className="text-[#ffffff]">{t("Share")}</th>
-                  <th className="text-[#ffffff]">{t("CreateTime")}</th>
+                  {/* <th className="text-[#ffffff]">{t("Like")}</th> */}
+                  {/* <th className="text-[#ffffff]">{t("Comment")}</th> */}
+                  {/* <th className="text-[#ffffff]">{t("Collect")}</th> */}
+                  {/* <th className="text-[#ffffff]">{t("Share")}</th> */}
+                  {/* <th className="text-[#ffffff]">{t("CreateTime")}</th> */}
+                  <th className="text-[#ffffff]">{t("Hot Index")}</th>
                   <th className="text-[#ffffff]">{t("Action")}</th>
                 </tr>
               </thead>
@@ -50,12 +52,13 @@ export default async function NovelList() {
                 {novelList.map((item: any) =>
                   <tr key={item.id} className="bg-[#131313] hover:bg-[#1a1a1a] border-b border-gray-700">
                     <td className="text-[#636262]">{item.nickname}</td>
-                    <td className="text-[#636262]">{item.description?.slice(0, 30)}{item.description?.length > 30 ? '...' : ''}</td>
-                    <td className="text-[#636262]">{item.topic_like}</td>
-                    <td className="text-[#636262]">{item.topic_comment}</td>
-                    <td className="text-[#636262]">{item.topic_collect}</td>
-                    <td className="text-[#636262]">{item.topic_share}</td>
-                    <td className="text-[#636262]">{item.topic_created_time ? new Date(item.topic_created_time).toLocaleString() : ''}</td>
+                    <td className="text-[#636262]">{item.description?.slice(0, 45)}{item.description?.length > 45 ? '...' : ''}</td>
+                    {/* <td className="text-[#636262]">{item.topic_like}</td> */}
+                    {/* <td className="text-[#636262]">{item.topic_comment}</td> */}
+                    {/* <td className="text-[#636262]">{item.topic_collect}</td> */}
+                    {/* <td className="text-[#636262]">{item.topic_share}</td> */}
+                    {/* <td className="text-[#636262]">{item.topic_created_time ? new Date(item.topic_created_time).toLocaleString() : ''}</td> */}
+                    <td className={`${item.hot_index > 5000 ? 'text-red-500' : item.hot_index > 3000 ? 'text-orange-500' : item.hot_index > 1000 ? 'text-yellow-500' : 'text-[#636262]'} font-bold`}>{item.hot_index}</td>
                     <td className="flex items-center gap-2">
                       <a href={item.topic_link} target="_blank" rel="noopener noreferrer nofollow" className="font-medium text-[#c9fd02] hover:underline">
                         {t('Link')}
