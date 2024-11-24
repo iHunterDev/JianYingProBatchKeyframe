@@ -18,11 +18,13 @@ export default function NativeBanner() {
     <>
       {loadScript && (
         <Script
-          id="monetag-native-banner"
+          // id="monetag-native-banner"
           async={true}
           data-cfasync="false"
-          src="//thubanoa.com/1?z=7915630"
+          src="https://groleegni.net/401/8555536"
         />
+
+        
       )}
     </>
   );
