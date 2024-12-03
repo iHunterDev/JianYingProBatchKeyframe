@@ -218,12 +218,12 @@ export default async function LeaderboardPage({
                           >
                             {t('link')}
                           </a>
-                          <a
-                            href="#"
+                          <Link
+                            href={`/leaderboard/topic/${item.id}`}
                             className="font-medium text-[#c9fd02] hover:underline"
                           >
                             {t('detail')}
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                     ))}

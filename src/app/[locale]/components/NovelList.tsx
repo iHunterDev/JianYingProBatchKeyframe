@@ -70,7 +70,9 @@ export default async function NovelList() {
                       <a href={item.topic_link} target="_blank" rel="noopener noreferrer nofollow" className="font-medium text-[#c9fd02] hover:underline">
                         {t('Link')}
                       </a>
-                      <a href="#" className="font-medium text-[#c9fd02] hover:underline">{t('Detail')}</a>
+                      <a href={getLocalizedHref(`/leaderboard/topic/${item.id}`)} className="font-medium text-[#c9fd02] hover:underline">
+                        {t('Detail')}
+                      </a>
                     </td>
                   </tr>
                 )}

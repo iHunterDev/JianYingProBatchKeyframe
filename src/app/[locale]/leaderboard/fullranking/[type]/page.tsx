@@ -187,7 +187,7 @@ export default async function FullRankingPage({ params, searchParams }: PageProp
                         {t('link')}
                       </a>
                       <Link
-                        href=""
+                        href={`/leaderboard/topic/${item.id}`}
                         className="font-medium text-[#c9fd02] hover:underline"
                       >
                         {t('details')}

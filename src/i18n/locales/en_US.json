@@ -178,7 +178,21 @@
     "invalidRankingType": "Invalid ranking type",
     "backToLeaderboard": "Back to Leaderboard",
     "ranking": "Ranking",
-    "details": "Details"
+    "details": "Details",
+    "topicDetails": {
+      "backToLeaderboard": "Back to Leaderboard",
+      "published": "Published",
+      "likes": "Likes",
+      "comments": "Comments",
+      "collects": "Collects",
+      "shares": "Shares",
+      "hotIndex": "Hot Index",
+      "topicId": "Topic ID",
+      "link": "Link",
+      "lastUpdated": "Last updated",
+      "backToPrevious": "Back",
+      "author": "Author"
+    }
   },
   "Pagination": {
     "previous": "Previous",
