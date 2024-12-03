@@ -17,14 +17,18 @@ const Navbar =  () => {
     { 
       href: '/copilot', 
       label: t('Copilot'),
+      // badge: 'New'
+    },
+    {
+      href: '/leaderboard',
+      label: t('NovelHotList'),
       badge: 'New'
     },
-    { href: '/#novel-hot-list', label: t('NovelHotList') },
     { href: '/changelog', label: t('Changelog') },
   ];
 
   return (
-    <div className="navbar bg-black text-white fixed top-0 z-50 px-6 py-4 lg:px-10 xl:px-20">
+    <div className="navbar bg-black text-white px-6 py-4 lg:px-10 xl:px-20">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">

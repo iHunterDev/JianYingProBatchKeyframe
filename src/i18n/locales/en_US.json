@@ -147,5 +147,33 @@
     "Detail": "Detail",
     "CreateTime": "Created Time",
     "Hot Index": "Hot Index"
+  },
+  "Leaderboard": {
+    "pageTitle": "Novel Rankings",
+    "pageDescription": "Discover the most popular novels across different categories",
+    "hotRanking": "Hot Ranking",
+    "likesRanking": "Likes Ranking",
+    "commentsRanking": "Comments Ranking",
+    "favoritesRanking": "Favorites Ranking",
+    "sharesRanking": "Shares Ranking",
+    "latestRanking": "Latest Ranking",
+    "nickname": "Nickname",
+    "description": "Description",
+    "hotIndex": "Hot Index",
+    "action": "Action",
+    "link": "Link",
+    "detail": "Detail",
+    "timeRange": "Time Range",
+    "last7Days": "Last 7 Days",
+    "last14Days": "Last 14 Days",
+    "last30Days": "Last 30 Days",
+    "likes": "Likes",
+    "comments": "Comments",
+    "collects": "Collects",
+    "shares": "Shares",
+    "publishTime": "Publish Time",
+    "lastUpdateTime": "Last Data Update Time",
+    "viewFullRanking": "View Full Ranking",
+    "fullRankingComingSoon": "Full ranking feature is under development"
   }
 }

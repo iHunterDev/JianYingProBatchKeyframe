@@ -1,8 +1,15 @@
 // import { Table } from "flowbite-react";
 import { useTranslations } from "next-intl";
 // import { useEffect, useState } from "react";
+import { headers } from 'next/headers';
+import { useLocale } from "@/hooks/useLocale";
 
 export default async function NovelList() {
+  // 服务端获取当前语言
+  const headersList = headers();
+  const locale = headersList.get('x-next-intl-locale') || 'default';
+  const { getLocalizedHref } = useLocale(locale);
+
   const t = useTranslations("NovelList");
 
   const apiUrl = "https://directus.keyframeai.top";
@@ -71,7 +78,7 @@ export default async function NovelList() {
             </table>
           </div>
         </div>
-        <p className="text-center text-[#636262] py-2"><a href="#" className="text-[#c9fd02]">{t('Show More')}</a></p>
+        <p className="text-center text-[#636262] py-2"><a href={getLocalizedHref("/leaderboard")} className="text-[#c9fd02]">{t('Show More')}</a></p>
       </div>
     </section>
   );
