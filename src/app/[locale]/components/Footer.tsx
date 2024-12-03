@@ -3,16 +3,13 @@
 import { Footer } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { BsGithub, BsTwitter } from "react-icons/bs";
-import { useLocale } from "@/hooks/useLocale";
-import { headers } from 'next/headers';
+import { useLocale } from "@/hooks/useLocaleClient";
 
 
 export function FooterComponent() {
   const t = useTranslations("Footer");
   // 服务端获取当前语言
-  const headersList = headers();
-  const locale = headersList.get('x-next-intl-locale') || 'default';
-  const { getLocalizedHref } = useLocale(locale);
+  const { getLocalizedHref } = useLocale();
 
   return (
     <Footer container className="rounded-none bg-black text-white">
