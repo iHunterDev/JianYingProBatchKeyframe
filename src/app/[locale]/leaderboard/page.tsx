@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import BackToTop from '../components/BackToTop';
 import TimeFilter from './components/TimeFilter';
+import Link from 'next/link';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Leaderboard');
@@ -230,12 +231,12 @@ export default async function LeaderboardPage({
                 </table>
               </div>
               <div className="mt-4 flex items-center justify-center text-sm">
-                <a href="#" className="text-[#c9fd02] hover:underline">
+                <Link 
+                  href={`/leaderboard/fullranking/${ranking.id}?days=${validDays}`} 
+                  className="text-[#c9fd02] hover:underline"
+                >
                   {t('viewFullRanking')}
-                </a>
-                <span className="text-[#636262] text-xs italic">
-                  {t('fullRankingComingSoon')}
-                </span>
+                </Link>
               </div>
             </section>
           ))}
