@@ -5,26 +5,29 @@ import Script from "next/script";
 
 export default function NativeBanner() {
   const [loadScript, setLoadScript] = useState(false);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadScript(true);
-    }, 5000); // 延迟 5 秒
+    
+    if (process.env.NODE_ENV === 'production') {
+      const timer = setTimeout(() => {
+        setLoadScript(true);
+      }, 5000);
 
-    return () => clearTimeout(timer); // 清理定时器
+      return () => clearTimeout(timer);
+    }
   }, []);
+
+  if (process.env.NODE_ENV !== 'production') {
+    return null;
+  }
 
   return (
     <>
       {loadScript && (
         <Script
-          // id="monetag-native-banner"
           async={true}
           data-cfasync="false"
           src="https://groleegni.net/401/8555536"
         />
-
-        
       )}
     </>
   );

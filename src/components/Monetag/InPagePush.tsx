@@ -4,15 +4,22 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 
 export default function InPagePush() {
+
   const [loadScript, setLoadScript] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadScript(true);
-    }, 1000); // 延迟 1 秒
-
-    return () => clearTimeout(timer); // 清理定时器
+    if (process.env.NODE_ENV === 'production') {
+      const timer = setTimeout(() => {
+        setLoadScript(true);
+      }, 1000);
+  
+      return () => clearTimeout(timer);
+    }
   }, []);
+
+  if (process.env.NODE_ENV !== 'production') {
+    return null;
+  }
 
   return (
     <>
