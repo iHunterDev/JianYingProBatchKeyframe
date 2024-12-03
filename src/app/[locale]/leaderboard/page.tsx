@@ -42,6 +42,30 @@ async function getNovelData(type: string, days: number = 7) {
   }
 }
 
+// 首先添加类型定义
+interface NovelItem {
+  id: string;
+  date_created: string;
+  hot_index: number;
+  nickname: string;
+  description?: string;
+  topic_link: string;
+  topic_like?: number;
+  topic_comment?: number;
+  topic_collect?: number;
+  topic_share?: number;
+  topic_created_time?: string;
+}
+
+interface Ranking {
+  id: string;
+  title: string;
+  data: NovelItem[];
+  showField: string;
+  fieldTitle: string;
+  hideField?: boolean;
+}
+
 export default async function LeaderboardPage({
   searchParams = { days: '7' },
 }: {
@@ -52,7 +76,7 @@ export default async function LeaderboardPage({
   const days = Number(searchParams?.days) || 7;
   const validDays = [7, 14, 30].includes(days) ? days : 7;
 
-  const rankings = [
+  const rankings: Ranking[] = [
     {
       id: "hot",
       title: t('hotRanking'),
@@ -98,8 +122,8 @@ export default async function LeaderboardPage({
     }
   ];
 
-  const lastUpdateTime = rankings.reduce((latestTime, ranking) => {
-    const rankingLatestTime = ranking.data.reduce((maxTime, item) => {
+  const lastUpdateTime = rankings.reduce((latestTime: Date, ranking: Ranking) => {
+    const rankingLatestTime = ranking.data.reduce((maxTime: Date, item: NovelItem) => {
       const itemTime = new Date(item.date_created);
       return maxTime > itemTime ? maxTime : itemTime;
     }, new Date(0));
