@@ -109,7 +109,7 @@
     "keyframeSpeed": "关键帧速度（建议范围 1-10）",
     "inKeyframeType": "选择关键帧类型（不选则不会添加关键帧）",
     "isRandomInAnimation": "开启随机入场动画",
-    "isClearKeyframes": "开启清理旧关键帧（会删除原有的关���，然后重新生成）",
+    "isClearKeyframes": "开启清理旧关键帧（会删除原有的关，然后重新生成）",
     "inAnimation": "选择入场动画",
     "isInAnimation": "是否添加入场动画",
     "isClearAnimations": "开启清理动画（会删除原有的动画数据）",
@@ -176,7 +176,8 @@
     "fullRankingComingSoon": "完整榜单功能开发中",
     "invalidRankingType": "无效的排行榜类型",
     "backToLeaderboard": "返回排行榜",
-    "ranking": "排名"
+    "ranking": "排名",
+    "details": "详情"
   },
   "Pagination": {
     "previous": "上一页",

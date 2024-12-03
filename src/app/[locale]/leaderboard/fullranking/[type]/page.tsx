@@ -177,14 +177,22 @@ export default async function FullRankingPage({ params, searchParams }: PageProp
                     </td>
                   )}
                   <td>
-                    <a
-                      href={item.topic_link}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="font-medium text-[#c9fd02] hover:underline"
-                    >
-                      {t('link')}
-                    </a>
+                    <div className="flex gap-2">
+                      <a
+                        href={item.topic_link}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="font-medium text-[#c9fd02] hover:underline"
+                      >
+                        {t('link')}
+                      </a>
+                      <Link
+                        href=""
+                        className="font-medium text-[#c9fd02] hover:underline"
+                      >
+                        {t('details')}
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))}

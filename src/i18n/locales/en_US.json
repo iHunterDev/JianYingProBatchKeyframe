@@ -177,7 +177,8 @@
     "fullRankingComingSoon": "Full ranking feature is under development",
     "invalidRankingType": "Invalid ranking type",
     "backToLeaderboard": "Back to Leaderboard",
-    "ranking": "Ranking"
+    "ranking": "Ranking",
+    "details": "Details"
   },
   "Pagination": {
     "previous": "Previous",
