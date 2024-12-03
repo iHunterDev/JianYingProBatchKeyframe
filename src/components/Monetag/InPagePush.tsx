@@ -9,7 +9,7 @@ export default function InPagePush() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadScript(true);
-    }, 10000); // 延迟 5 秒
+    }, 1000); // 延迟 1 秒
 
     return () => clearTimeout(timer); // 清理定时器
   }, []);
@@ -22,12 +22,10 @@ export default function InPagePush() {
           async={true}
         >
           {`
-            (function (d, z, s) {
-              s.src = "https://" + d + "/400/" + z;
-              try {
-                (document.body || document.documentElement).appendChild(s);
-              } catch (e) {}
-            })("fortorterrar.com", 7915663, document.createElement("script"));
+            (function(d, z, s) {
+              s.src = 'https://' + d + '/400/' + z;
+              try { (document.body || document.documentElement).appendChild(s) } catch(e) {}
+            })('vemtoutcheeg.com', 8600008, document.createElement('script'))
           `}
         </Script>
       )}
