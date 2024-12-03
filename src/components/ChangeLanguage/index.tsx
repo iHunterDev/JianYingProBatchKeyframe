@@ -1,3 +1,4 @@
+"use client"
 import { ChangeLanguageDropdown, ChangeLanguageDropdownItem } from './ChangeLanguageDropdown';
 import Link from "next/link";
 import { usePathname } from 'next/navigation';

@@ -26,10 +26,10 @@ export default async function NovelList() {
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-[#c9fd02]">
             {t("NovelListDescription")}
-            <div className="text-[#636262]">
+          </p>
+          <div className="text-[#636262]">
               最后一次数据更新时间：{new Date(maxDateCreated).toLocaleString()}
             </div>
-          </p>
         </div>
 
         <div className="overflow-x-auto rounded-lg">
@@ -63,7 +63,7 @@ export default async function NovelList() {
                       <a href={item.topic_link} target="_blank" rel="noopener noreferrer nofollow" className="font-medium text-[#c9fd02] hover:underline">
                         {t('Link')}
                       </a>
-                      <a href="javascript:alert('正在开发，马上就来！')" className="font-medium text-[#c9fd02] hover:underline">{t('Detail')}</a>
+                      <a href="#" className="font-medium text-[#c9fd02] hover:underline">{t('Detail')}</a>
                     </td>
                   </tr>
                 )}
@@ -71,7 +71,7 @@ export default async function NovelList() {
             </table>
           </div>
         </div>
-        <p className="text-center text-[#636262] py-2"><a href="javascript:alert('正在开发，马上就来！')" className="text-[#c9fd02]">{t('Show More')}</a></p>
+        <p className="text-center text-[#636262] py-2"><a href="#" className="text-[#c9fd02]">{t('Show More')}</a></p>
       </div>
     </section>
   );

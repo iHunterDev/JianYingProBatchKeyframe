@@ -1,13 +1,16 @@
-"use client";
-
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useLocale } from "@/hooks/useLocale";
 import ChangeLanguage from "../ChangeLanguage";
+import { headers } from 'next/headers';
 
-const Navbar = () => {
+const Navbar =  () => {
   const t = useTranslations('Home');
-  const { currentLocale, getLocalizedHref } = useLocale();
+  
+  // 服务端获取当前语言
+  const headersList = headers();
+  const locale = headersList.get('x-next-intl-locale') || 'default';
+  const { currentLocale, getLocalizedHref } = useLocale(locale);
 
   const navItems = [
     { href: '/', label: t('Home') },
