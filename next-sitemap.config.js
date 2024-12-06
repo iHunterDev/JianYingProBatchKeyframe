@@ -45,6 +45,34 @@ function generateLeaderboardRoutes() {
   return routes;
 }
 
+// 新增：获取所有话题ID的函数
+async function fetchAllTopicIds() {
+  try {
+    const apiUrl = "https://directus.keyframeai.top";
+    const response = await fetch(
+      `${apiUrl}/items/datas?fields=id&limit=-1`,
+      { next: { revalidate: 3600 } }
+    );
+    
+    if (!response.ok) {
+      console.error('Failed to fetch topic IDs');
+      return [];
+    }
+    
+    const data = await response.json();
+    return data.data.map(item => item.id);
+  } catch (error) {
+    console.error('Error fetching topic IDs:', error);
+    return [];
+  }
+}
+
+// 新增：生成话题路由
+async function generateTopicRoutes() {
+  const topicIds = await fetchAllTopicIds();
+  return topicIds.map(id => `/leaderboard/topic/${id}`);
+}
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://keyframeai.top',
@@ -54,7 +82,7 @@ module.exports = {
     const result = [];
 
     // 定义支持的语言
-    const languages = ['', 'en_US']; // 空字符串表示默认语言（根路径）
+    const languages = ['', 'en_US'];
 
     // 从 app 目录获取路由
     const appDir = path.join(process.cwd(), 'src/app/[locale]');
@@ -64,6 +92,10 @@ module.exports = {
     const leaderboardRoutes = generateLeaderboardRoutes();
     routes.push(...leaderboardRoutes);
 
+    // 获取话题详情页路由
+    const topicRoutes = await generateTopicRoutes();
+    routes.push(...topicRoutes);
+
     // 生成所有语言和路由的组合
     for (const lang of languages) {
       for (const route of routes) {
@@ -71,8 +103,10 @@ module.exports = {
         result.push({
           loc: path,
           priority: route === '/' ? 1.0 : Math.max(0.1, 0.9 - (route.split('/').length - 1) * 0.1),
-          // 动态路由的更新频率可以设置得更频繁
-          changefreq: route.includes('/leaderboard/') ? 'daily' : 'weekly',
+          // 话题详情页和排行榜的更新频率设置为每天
+          changefreq: (route.includes('/leaderboard/') || route.includes('/topic/')) ? 'daily' : 'weekly',
+          // 为话题详情页设置较低的优先级，因为内容可能会过时
+          ...(route.includes('/topic/') && { priority: 0.6 }),
         });
       }
     }
