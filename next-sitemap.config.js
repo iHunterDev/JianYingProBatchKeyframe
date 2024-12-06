@@ -6,6 +6,11 @@ function getRoutes(dir, basePath = '') {
   const files = fs.readdirSync(dir);
 
   for (const file of files) {
+    // 跳过以 [ 开头的动态路由目录
+    if (file.startsWith('[')) {
+      continue;
+    }
+
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
 
@@ -19,6 +24,22 @@ function getRoutes(dir, basePath = '') {
         routes.push(route || '/');
       }
     }
+  }
+
+  return routes;
+}
+
+// 生成排行榜动态路由
+function generateLeaderboardRoutes() {
+  const rankingTypes = ['hot', 'likes', 'comments', 'favorites', 'shares', 'latest'];
+  const routes = [];
+
+  // 基础排行榜页面
+  routes.push('/leaderboard');
+
+  // 完整排行榜页面
+  for (const type of rankingTypes) {
+    routes.push(`/leaderboard/fullranking/${type}`);
   }
 
   return routes;
@@ -39,13 +60,19 @@ module.exports = {
     const appDir = path.join(process.cwd(), 'src/app/[locale]');
     const routes = getRoutes(appDir);
 
+    // 生成排行榜相关的动态路由
+    const leaderboardRoutes = generateLeaderboardRoutes();
+    routes.push(...leaderboardRoutes);
+
     // 生成所有语言和路由的组合
     for (const lang of languages) {
       for (const route of routes) {
-        const path = lang ? `/${lang}/${route}` : route;
+        const path = lang ? `/${lang}${route}` : route;
         result.push({
           loc: path,
-          priority: route === '/' ? 1.0 : Math.max(0.1, 0.9 - (route.split('/').length - 1) * 0.1), // 首页优先级为1，其他页面按层级递减0.1，最低为0.1
+          priority: route === '/' ? 1.0 : Math.max(0.1, 0.9 - (route.split('/').length - 1) * 0.1),
+          // 动态路由的更新频率可以设置得更频繁
+          changefreq: route.includes('/leaderboard/') ? 'daily' : 'weekly',
         });
       }
     }
