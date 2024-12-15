@@ -35,7 +35,7 @@ export default async function NovelList() {
             {t("NovelListDescription")}
           </p>
           <div className="text-[#636262]">
-              最后一次数据更新时间：{new Date(maxDateCreated).toLocaleString()}
+              最后一次数据更新时间（数据更新时间不确定，全靠手动整理，还请见谅）：{new Date(maxDateCreated).toLocaleString()}
             </div>
         </div>
 
