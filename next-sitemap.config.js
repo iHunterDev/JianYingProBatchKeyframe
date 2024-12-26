@@ -77,6 +77,12 @@ async function generateTopicRoutes() {
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://keyframeai.top',
   generateRobotsTxt: true,
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/' },
+      { userAgent: '*', disallow: '/leaderboard/topic/*' },
+    ],
+  },
   // ... 其他选项 ...
   additionalPaths: async (config) => {
     const result = [];
@@ -99,14 +105,17 @@ module.exports = {
     // 生成所有语言和路由的组合
     for (const lang of languages) {
       for (const route of routes) {
+        // 跳过话题详情页路由
+        if (route.includes('/leaderboard/topic/')) {
+          continue;
+        }
+
         const path = lang ? `/${lang}${route}` : route;
         result.push({
           loc: path,
           priority: route === '/' ? 1.0 : Math.max(0.1, 0.9 - (route.split('/').length - 1) * 0.1),
-          // 话题详情页和排行榜的更新频率设置为每天
-          changefreq: (route.includes('/leaderboard/') || route.includes('/topic/')) ? 'daily' : 'weekly',
-          // 为话题详情页设置较低的优先级，因为内容可能会过时
-          ...(route.includes('/topic/') && { priority: 0.6 }),
+          // 排行榜的更新频率设置为每天
+          changefreq: route.includes('/leaderboard/') ? 'daily' : 'weekly',
         });
       }
     }
