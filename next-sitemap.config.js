@@ -77,6 +77,12 @@ async function generateTopicRoutes() {
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://keyframeai.top',
   generateRobotsTxt: true,
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/' },
+      { userAgent: '*', disallow: '/leaderboard/topic/*' },
+    ],
+  },
   // ... 其他选项 ...
   additionalPaths: async (config) => {
     const result = [];
