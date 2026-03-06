@@ -2,26 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  /* --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255; */
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 94%;
+    --card: 0 0% 7.5%;
+    --card-foreground: 0 0% 94%;
+    --popover: 0 0% 7.5%;
+    --popover-foreground: 0 0% 94%;
+    --primary: 72 98% 50%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 94%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 12%;
+    --accent-foreground: 0 0% 94%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 72 98% 50%;
+    --radius: 0.125rem;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: #0d0d0d;
+    color: #f0f0f0;
+  }
+}
+
+@layer utilities {
+  .bg-grid-subtle {
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,253,2,0.035) 39px, rgba(201,253,2,0.035) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,253,2,0.035) 39px, rgba(201,253,2,0.035) 40px);
+  }
 }

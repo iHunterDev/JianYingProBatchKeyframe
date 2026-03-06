@@ -23,7 +23,7 @@ function ChangeLanguage({ currentLocale }: { currentLocale: string }) {
         return (
           <ChangeLanguageDropdownItem key={index}>
             <Link
-              className="font-inter rounded-lg hover:text-[#c9fd02] lg:px-6 lg:py-4"
+              className="font-inter rounded-lg hover:text-brand lg:px-6 lg:py-4"
               href={getLocalizedHref(langName)}
             >
               {localesName[langName as keyof typeof localesName]}

@@ -1,14 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import {
-  Spinner,
-} from "flowbite-react";
+import { Loader2 } from "lucide-react";
 
 export default function SelectDraft() {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const t = useTranslations("Home");
   const [processing, setProcessing] = useState(false);
+
   async function handleUploadDraft() {
     try {
       setProcessing(true);
@@ -18,7 +17,6 @@ export default function SelectDraft() {
 
       const file = inputFileRef.current.files[0];
 
-      // 使用 FileReader 读取文件
       const fileReader = new FileReader();
 
       const fileContent = await new Promise<string>((resolve, reject) => {
@@ -26,7 +24,7 @@ export default function SelectDraft() {
           try {
             const result = event.target?.result;
             if (typeof result === "string") {
-              resolve(result); // 成功读取文件内容
+              resolve(result);
             } else {
               reject("FileReader result is not a string");
             }
@@ -39,26 +37,21 @@ export default function SelectDraft() {
           reject("Error reading file");
         };
 
-        fileReader.readAsText(file); // 将文件读取为文本
+        fileReader.readAsText(file);
       });
 
-      // 解析读取到的 JSON 数据
       const jsonData = JSON.parse(fileContent);
 
-      // 获取草稿处理设置
       const options = JSON.parse(localStorage.getItem("draftOptions") || "{}");
 
-      // 将 JSON 数据通过 fetch 发送到后端
       const response = await fetch(`/api/generate?filename=${file.name}`, {
         method: "POST",
         body: JSON.stringify({
-          options: {
-            ...options
-          },
-          draft: jsonData, // 发送解析后的 JSON 数据
+          options: { ...options },
+          draft: jsonData,
         }),
         headers: {
-          "Content-Type": "application/json", // 确保是 JSON 类型
+          "Content-Type": "application/json",
         },
       });
 
@@ -71,18 +64,16 @@ export default function SelectDraft() {
         );
       }
 
-      // 前端下载文件
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
 
-      // 执行下载 for react
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", file.name);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       setProcessing(false);
     } catch (error: any) {
       setProcessing(false);
@@ -92,19 +83,16 @@ export default function SelectDraft() {
   }
 
   return (
-    <a
-      href="#"
-      className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white relative"
-    >
-      {processing ? <Spinner aria-label="Spinner button" className="mx-3" color="success" size="lg" /> : ""}
+    <button className="relative inline-flex items-center gap-2.5 bg-brand px-8 py-4 font-display font-bold text-black text-sm tracking-wide uppercase transition-all hover:bg-white active:scale-[0.98]">
+      {processing && <Loader2 className="h-4 w-4 animate-spin" />}
       <span>{t("SelectDraft")}</span>
       <input
         type="file"
-        className="opacity-0 absolute inset-x-0 inset-y-0"
+        className="opacity-0 absolute inset-0 cursor-pointer"
         accept="application/json, .*"
         ref={inputFileRef}
         onChange={handleUploadDraft}
       />
-    </a>
+    </button>
   );
 }

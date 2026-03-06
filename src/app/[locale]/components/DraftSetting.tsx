@@ -1,78 +1,55 @@
 "use client";
 
-import {
-  ToggleSwitch,
-  Label,
-  Modal,
-  TextInput,
-  Select,
-  Checkbox,
-  Radio,
-} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { InAnimations } from "@/jianying/effects/animations";
 import { useTranslations } from "next-intl";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function DraftSetting() {
   const t = useTranslations("DraftSetting");
 
   const [openModal, setOpenModal] = useState(false);
 
-  function onCloseModal() {
-    setOpenModal(false);
-  }
-
   const videoRatioOptions = [
     { id: "ratio_auto", value: "auto", label: t("Auto") },
-    {
-      id: "ratio_16_9",
-      value: "16:9",
-      label: "16:9",
-      width: 1920,
-      height: 1080,
-    },
-    {
-      id: "ratio_9_16",
-      value: "9:16",
-      label: "9:16",
-      width: 1080,
-      height: 1920,
-    },
+    { id: "ratio_16_9", value: "16:9", label: "16:9", width: 1920, height: 1080 },
+    { id: "ratio_9_16", value: "9:16", label: "9:16", width: 1080, height: 1920 },
     { id: "ratio_4_3", value: "4:3", label: "4:3", width: 1920, height: 1440 },
   ];
 
-
   const [videoRatio, setVideoRatio] = useState("auto");
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedVideoRatio = localStorage.getItem("videoRatio");
-    if (storedVideoRatio) {
-      setVideoRatio(storedVideoRatio);
-    }
+    if (storedVideoRatio) setVideoRatio(storedVideoRatio);
   }, []);
-
-  const videoRatioCheckedChangeHandle = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newRatio = event.target.value;
-    setVideoRatio(newRatio);
-  };
-
 
   const [keyframeSpeed, setKeyframeSpeed] = useState(3);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedKeyframeSpeed = localStorage.getItem("keyframeSpeed");
-    if (storedKeyframeSpeed) {
-      setKeyframeSpeed(parseInt(storedKeyframeSpeed));
-    }
+    if (storedKeyframeSpeed) setKeyframeSpeed(parseInt(storedKeyframeSpeed));
   }, []);
 
-  // 关键帧类型
-  const inKeyframeTypeOptions = [{ value: "scaleDown", label: t("LargeToSmall") }, { value: "scaleUp", label: t("SmallToLarge") }, { value: "leftToRight", label: t("LeftToRight") }, { value: "rightToLeft", label: t("RightToLeft") }, { value: "topToBottom", label: t("TopToBottom") }, { value: "bottomToTop", label: t("BottomToTop") }];
-  const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>(
-    []
-  );
+  const inKeyframeTypeOptions = [
+    { value: "scaleDown", label: t("LargeToSmall") },
+    { value: "scaleUp", label: t("SmallToLarge") },
+    { value: "leftToRight", label: t("LeftToRight") },
+    { value: "rightToLeft", label: t("RightToLeft") },
+    { value: "topToBottom", label: t("TopToBottom") },
+    { value: "bottomToTop", label: t("BottomToTop") },
+  ];
+  const [inKeyframeTypeCheckedList, setInKeyframeTypeCheckedList] = useState<string[]>([]);
   useEffect(() => {
     const defaultCheckedList = ["scaleDown", "scaleUp", "leftToRight", "rightToLeft", "topToBottom", "bottomToTop"];
     const storedCheckedList = localStorage.getItem("inKeyframeTypeCheckedList");
@@ -81,85 +58,56 @@ export default function DraftSetting() {
     } else {
       setInKeyframeTypeCheckedList(defaultCheckedList);
     }
-  }, []); // 空数组确保只在组件挂载时执行
+  }, []);
 
-  const inKeyframeTypeCheckedChangeHandle = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const inKeyframeTypeCheckedChangeHandle = (value: string, checked: boolean) => {
     const checkedList = [...inKeyframeTypeCheckedList];
-    if (event.target.checked) {
-      checkedList.push(event.target.value);
+    if (checked) {
+      checkedList.push(value);
     } else {
-      checkedList.splice(checkedList.indexOf(event.target.value), 1);
+      checkedList.splice(checkedList.indexOf(value), 1);
     }
     setInKeyframeTypeCheckedList(checkedList);
-
-    // 更新 localStorage
     localStorage.setItem("inKeyframeTypeCheckedList", JSON.stringify(checkedList));
   };
 
   const [isClearKeyframes, setIsClearKeyframes] = useState(true);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedIsClearKeyframes = localStorage.getItem("isClearKeyframes");
-    if (storedIsClearKeyframes) {
-      setIsClearKeyframes(storedIsClearKeyframes === "false" ? false : true);
-    }
+    if (storedIsClearKeyframes) setIsClearKeyframes(storedIsClearKeyframes !== "false");
   }, []);
 
-  // 入场动画开关
   const [isInAnimation, setIsInAnimation] = useState(true);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedIsInAnimation = localStorage.getItem("isInAnimation");
-    if (storedIsInAnimation) {
-      setIsInAnimation(storedIsInAnimation === "false" ? false : true);
-    }
+    if (storedIsInAnimation) setIsInAnimation(storedIsInAnimation !== "false");
   }, []);
 
-  // 是否清理动画
   const [isClearAnimations, setIsClearAnimations] = useState(true);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedIsClearAnimations = localStorage.getItem("isClearAnimations");
-    if (storedIsClearAnimations) {
-      setIsClearAnimations(storedIsClearAnimations === "false" ? false : true);
-    }
+    if (storedIsClearAnimations) setIsClearAnimations(storedIsClearAnimations !== "false");
   }, []);
 
-  // 随机入场动画开关
   const [isRandomInAnimation, setIsRandomInAnimation] = useState(true);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedIsRandomInAnimation = localStorage.getItem("isRandomInAnimation");
-    if (storedIsRandomInAnimation) {
-      setIsRandomInAnimation(storedIsRandomInAnimation === "false" ? false : true);
-    }
+    if (storedIsRandomInAnimation) setIsRandomInAnimation(storedIsRandomInAnimation !== "false");
   }, []);
-
 
   const inAnimationsOptions = Object.values(InAnimations);
   const [inAnimation, setInAnimation] = useState("");
   const [inAnimationSpeed, setInAnimationSpeed] = useState(500);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedInAnimation = localStorage.getItem("inAnimation");
-    if (storedInAnimation) {
-      setInAnimation(storedInAnimation);
-    }
+    if (storedInAnimation) setInAnimation(storedInAnimation);
   }, []);
   useEffect(() => {
-    // 只在浏览器端访问 localStorage
     const storedInAnimationSpeed = localStorage.getItem("inAnimationSpeed");
-    if (storedInAnimationSpeed) {
-      setInAnimationSpeed(parseInt(storedInAnimationSpeed));
-    }
+    if (storedInAnimationSpeed) setInAnimationSpeed(parseInt(storedInAnimationSpeed));
   }, []);
 
-  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>(
-    []
-  );
-
+  const [inAnimationCheckedList, setInAnimationCheckedList] = useState<string[]>([]);
   useEffect(() => {
     const defaultCheckedList = Object.keys(InAnimations);
     const storedCheckedList = localStorage.getItem("inAnimationCheckedList");
@@ -168,23 +116,18 @@ export default function DraftSetting() {
     } else {
       setInAnimationCheckedList(defaultCheckedList);
     }
-  }, []); // 空数组确保只在组件挂载时执行
+  }, []);
 
-  const inAnimationCheckedChangeHandle = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const inAnimationCheckedChangeHandle = (value: string, checked: boolean) => {
     const checkedList = [...inAnimationCheckedList];
-    if (event.target.checked) {
-      checkedList.push(event.target.value);
+    if (checked) {
+      checkedList.push(value);
     } else {
-      checkedList.splice(checkedList.indexOf(event.target.value), 1);
+      checkedList.splice(checkedList.indexOf(value), 1);
     }
     setInAnimationCheckedList(checkedList);
-
-    // 更新 localStorage
     localStorage.setItem("inAnimationCheckedList", JSON.stringify(checkedList));
   };
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -194,23 +137,14 @@ export default function DraftSetting() {
       localStorage.setItem("isClearKeyframes", isClearKeyframes.toString());
       localStorage.setItem("isInAnimation", isInAnimation.toString());
       localStorage.setItem("isClearAnimations", isClearAnimations.toString());
-      localStorage.setItem(
-        "isRandomInAnimation",
-        isRandomInAnimation.toString()
-      );
+      localStorage.setItem("isRandomInAnimation", isRandomInAnimation.toString());
       localStorage.setItem("inAnimation", inAnimation);
       localStorage.setItem("inAnimationSpeed", inAnimationSpeed.toString());
-      localStorage.setItem(
-        "inAnimationCheckedList",
-        JSON.stringify(inAnimationCheckedList)
-      );
-
+      localStorage.setItem("inAnimationCheckedList", JSON.stringify(inAnimationCheckedList));
       localStorage.setItem(
         "draftOptions",
         JSON.stringify({
-          videoRatio: videoRatioOptions.find(
-            (option) => option.value === videoRatio
-          ),
+          videoRatio: videoRatioOptions.find((option) => option.value === videoRatio),
           keyframeSpeed,
           inKeyframeTypeCheckedList,
           isClearKeyframes,
@@ -223,10 +157,7 @@ export default function DraftSetting() {
         })
       );
     }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [
     videoRatio,
     keyframeSpeed,
@@ -243,84 +174,64 @@ export default function DraftSetting() {
   return (
     <>
       <div className="mt-3">
-        <a
-          href="#"
+        <button
           onClick={() => setOpenModal(true)}
-          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          className="text-xs font-bold text-white/30 hover:text-brand transition-colors uppercase tracking-[0.15em]"
         >
           {t("DraftSetting")}
-        </a>
-        <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-          <Modal.Header />
-          <Modal.Body>
-            <div className="space-y-6">
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                {t("DraftSetting")}
-              </h3>
+        </button>
 
+        <Dialog open={openModal} onOpenChange={setOpenModal}>
+          <DialogContent className="max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{t("DraftSetting")}</DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6">
               {/* 视频比例 */}
               <div>
-                <div className="mb-2 block">
-                  <Label value={t("VideoRatio")} />
-                </div>
-                <div className="flex flex-wrap gap-4">
+                <Label className="mb-2 block">{t("VideoRatio")}</Label>
+                <RadioGroup
+                  value={videoRatio}
+                  onValueChange={setVideoRatio}
+                  className="flex flex-wrap gap-4"
+                >
                   {videoRatioOptions.map((option) => (
                     <div key={option.id} className="flex items-center gap-2">
-                      <Radio
-                        id={option.id}
-                        name="ratio"
-                        value={option.value}
-                        checked={videoRatio === option.value}
-                        onChange={videoRatioCheckedChangeHandle}
-                      />
+                      <RadioGroupItem id={option.id} value={option.value} />
                       <Label htmlFor={option.id}>{option.label}</Label>
                     </div>
                   ))}
-                </div>
+                </RadioGroup>
               </div>
 
               {/* 关键帧速度 */}
               <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="keyframeSpeed"
-                    value={t("keyframeSpeed")}
-                  />
-                </div>
-                <TextInput
+                <Label htmlFor="keyframeSpeed" className="mb-2 block">
+                  {t("keyframeSpeed")}
+                </Label>
+                <Input
+                  id="keyframeSpeed"
                   type="number"
                   value={keyframeSpeed}
-                  required
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setKeyframeSpeed(e.target.value as any)
-                  }
+                  onChange={(e) => setKeyframeSpeed(e.target.value as any)}
                 />
               </div>
 
-              {/* 选择关键帧类型，至少选择一个 */}
+              {/* 选择关键帧类型 */}
               <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="inKeyframeType"
-                    value={t("inKeyframeType")}
-                  />
-                </div>
+                <Label className="mb-2 block">{t("inKeyframeType")}</Label>
                 <div className="flex max-w-md gap-2 flex-wrap">
                   {inKeyframeTypeOptions.map((option) => (
-                    <div
-                      key={option.value}
-                      className="flex items-center gap-1 w-1/3"
-                    >
+                    <div key={option.value} className="flex items-center gap-1 w-1/3">
                       <Checkbox
-                        checked={inKeyframeTypeCheckedList.indexOf(option.value) != -1}
                         id={"animation" + option.value}
-                        value={option.value}
-                        onChange={inKeyframeTypeCheckedChangeHandle}
+                        checked={inKeyframeTypeCheckedList.indexOf(option.value) !== -1}
+                        onCheckedChange={(checked) =>
+                          inKeyframeTypeCheckedChangeHandle(option.value, !!checked)
+                        }
                       />
-                      <Label
-                        htmlFor={"animation" + option.value}
-                        className="flex"
-                      >
+                      <Label htmlFor={"animation" + option.value} className="flex">
                         {option.label}
                       </Label>
                     </div>
@@ -330,44 +241,38 @@ export default function DraftSetting() {
 
               {/* 清理旧关键帧开关 */}
               <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="isClearKeyframes"
-                    value={t("isClearKeyframes")}
-                  />
-                </div>
-                <ToggleSwitch
+                <Label htmlFor="isClearKeyframes" className="mb-2 block">
+                  {t("isClearKeyframes")}
+                </Label>
+                <Switch
+                  id="isClearKeyframes"
                   checked={isClearKeyframes}
-                  onChange={setIsClearKeyframes}
+                  onCheckedChange={setIsClearKeyframes}
                 />
               </div>
 
               {/* 入场动画开关 */}
               <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="isInAnimation"
-                    value={t("isInAnimation")}
-                  />
-                </div>
-                <ToggleSwitch
+                <Label htmlFor="isInAnimation" className="mb-2 block">
+                  {t("isInAnimation")}
+                </Label>
+                <Switch
+                  id="isInAnimation"
                   checked={isInAnimation}
-                  onChange={setIsInAnimation}
+                  onCheckedChange={setIsInAnimation}
                 />
               </div>
 
               {/* 清理动画开关 */}
               {!isInAnimation && (
                 <div>
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="isClearAnimations"
-                      value={t("isClearAnimations")}
-                    />
-                  </div>
-                  <ToggleSwitch
+                  <Label htmlFor="isClearAnimations" className="mb-2 block">
+                    {t("isClearAnimations")}
+                  </Label>
+                  <Switch
+                    id="isClearAnimations"
                     checked={isClearAnimations}
-                    onChange={setIsClearAnimations}
+                    onCheckedChange={setIsClearAnimations}
                   />
                 </div>
               )}
@@ -375,95 +280,78 @@ export default function DraftSetting() {
               {/* 随机入场动画开关 */}
               {isInAnimation && (
                 <div>
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="isRandomInAnimation"
-                      value={t("isRandomInAnimation")}
-                    />
-                  </div>
-                  <ToggleSwitch
+                  <Label htmlFor="isRandomInAnimation" className="mb-2 block">
+                    {t("isRandomInAnimation")}
+                  </Label>
+                  <Switch
+                    id="isRandomInAnimation"
                     checked={isRandomInAnimation}
-                    onChange={setIsRandomInAnimation}
+                    onCheckedChange={setIsRandomInAnimation}
                   />
                 </div>
               )}
 
-              {/* 入场动画选择，如果是随机入场动画，则不显示 */}
-              {!isRandomInAnimation && isInAnimation ? (
+              {/* 入场动画选择（非随机） */}
+              {!isRandomInAnimation && isInAnimation && (
                 <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="inAnimation" value={t("inAnimation")} />
-                  </div>
-                  <Select
-                    onChange={(value) => setInAnimation(value.target.value)}
-                  >
-                    <option value="">-- {t("PleaseSelectInAnimation")} --</option>
-                    {inAnimationsOptions.map((option) => (
-                      <option
-                        key={option.resource_id}
-                        value={option.id}
-                        selected={option.id == inAnimation}
-                      >
-                        {option.name}
-                      </option>
-                    ))}
+                  <Label htmlFor="inAnimation" className="mb-2 block">
+                    {t("inAnimation")}
+                  </Label>
+                  <Select value={inAnimation} onValueChange={setInAnimation}>
+                    <SelectTrigger id="inAnimation">
+                      <SelectValue placeholder={`-- ${t("PleaseSelectInAnimation")} --`} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {inAnimationsOptions.map((option) => (
+                        <SelectItem key={option.resource_id} value={option.id}>
+                          {option.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </div>
-              ) : null}
+              )}
 
-              {isRandomInAnimation && isInAnimation ? (
+              {/* 随机入场动画勾选列表 */}
+              {isRandomInAnimation && isInAnimation && (
                 <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="inAnimation" value={t("inAnimation")} />
-                  </div>
+                  <Label className="mb-2 block">{t("inAnimation")}</Label>
                   <div className="flex max-w-md gap-2 flex-wrap">
                     {inAnimationsOptions.map((option) => (
-                      <div
-                        key={option.resource_id}
-                        className="flex items-center gap-1 w-1/4"
-                      >
+                      <div key={option.resource_id} className="flex items-center gap-1 w-1/4">
                         <Checkbox
-                          checked={
-                            inAnimationCheckedList.indexOf(option.id) != -1
-                          }
                           id={"animation" + option.id}
-                          value={option.id}
-                          onChange={inAnimationCheckedChangeHandle}
+                          checked={inAnimationCheckedList.indexOf(option.id) !== -1}
+                          onCheckedChange={(checked) =>
+                            inAnimationCheckedChangeHandle(option.id, !!checked)
+                          }
                         />
-                        <Label
-                          htmlFor={"animation" + option.id}
-                          className="flex"
-                        >
+                        <Label htmlFor={"animation" + option.id} className="flex">
                           {option.name}
                         </Label>
                       </div>
                     ))}
                   </div>
                 </div>
-              ) : null}
+              )}
 
               {/* 入场动画速度 */}
-              {isInAnimation ? (
+              {isInAnimation && (
                 <div>
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="inAnimationSpeed"
-                      value={t("inAnimationSpeed")}
-                    />
-                  </div>
-                  <TextInput
+                  <Label htmlFor="inAnimationSpeed" className="mb-2 block">
+                    {t("inAnimationSpeed")}
+                  </Label>
+                  <Input
+                    id="inAnimationSpeed"
                     type="number"
                     value={inAnimationSpeed}
-                    required
-                    onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setInAnimationSpeed(e.target.value as any)
-                    }
+                    onChange={(e) => setInAnimationSpeed(e.target.value as any)}
                   />
                 </div>
-              ) : null}
+              )}
             </div>
-          </Modal.Body>
-        </Modal>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
