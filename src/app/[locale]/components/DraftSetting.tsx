@@ -176,7 +176,7 @@ export default function DraftSetting() {
       <div className="mt-3">
         <button
           onClick={() => setOpenModal(true)}
-          className="font-medium text-blue-400 hover:underline"
+          className="text-xs font-bold text-white/30 hover:text-brand transition-colors uppercase tracking-[0.15em]"
         >
           {t("DraftSetting")}
         </button>

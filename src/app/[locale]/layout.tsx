@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "../globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { notFound } from "next/navigation";
@@ -14,7 +14,8 @@ import Chatway from "@/components/Chatway";
 import NativeBanner from "@/components/Monetag/NativeBanner";
 import InPagePush from "@/components/Monetag/InPagePush";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const syne = Syne({ subsets: ["latin"], variable: "--font-syne", weight: ["400", "700", "800"] });
 
 type Props = {
   params: { locale: string };
@@ -51,7 +52,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${syne.variable} font-sans`}>
         <PlausibleProvider
           domain="keyframeai.top"
           customDomain="https://plausible.talkloop.top"

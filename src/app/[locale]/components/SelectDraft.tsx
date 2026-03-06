@@ -83,12 +83,12 @@ export default function SelectDraft() {
   }
 
   return (
-    <button className="inline-block rounded-full bg-brand px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white relative">
-      {processing && <Loader2 className="inline-block mr-2 h-5 w-5 animate-spin" />}
+    <button className="relative inline-flex items-center gap-2.5 bg-brand px-8 py-4 font-display font-bold text-black text-sm tracking-wide uppercase transition-all hover:bg-white active:scale-[0.98]">
+      {processing && <Loader2 className="h-4 w-4 animate-spin" />}
       <span>{t("SelectDraft")}</span>
       <input
         type="file"
-        className="opacity-0 absolute inset-x-0 inset-y-0"
+        className="opacity-0 absolute inset-0 cursor-pointer"
         accept="application/json, .*"
         ref={inputFileRef}
         onChange={handleUploadDraft}
