@@ -1,66 +1,86 @@
 "use client";
 
-import { Footer } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { BsGithub, BsTwitter } from "react-icons/bs";
 import { useLocale } from "@/hooks/useLocaleClient";
 
-
 export function FooterComponent() {
   const t = useTranslations("Footer");
-  // 服务端获取当前语言
   const { getLocalizedHref } = useLocale();
 
   return (
-    <Footer container className="rounded-none bg-black text-white">
+    <footer className="bg-black text-white px-6 py-10 lg:px-20">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
-            {/* <Footer.Brand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
-              className="text-white"
-            /> */}
-          </div>
+          <div />
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-            {/* <div>
-              <Footer.Title title={t("about")} className="text-white" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">Flowbite</Footer.Link>
-                <Footer.Link href="#" className="text-white hover:text-[#c9fd02]">Tailwind CSS</Footer.Link>
-              </Footer.LinkGroup>
-            </div> */}
             <div>
-              <Footer.Title title={t("followUs")} className="text-white" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="https://github.com/iHunterDev/JianYingProBatchKeyframe" className="text-white hover:text-[#c9fd02]">Github</Footer.Link>
-                <Footer.Link href={getLocalizedHref('/roadmap')} className="text-white hover:text-[#c9fd02]">{t("Roadmap")}</Footer.Link>
-                <Footer.Link href={getLocalizedHref('/donate')} className="text-white hover:text-[#c9fd02]">{t("Donate")}</Footer.Link>
-              </Footer.LinkGroup>
+              <h3 className="mb-4 text-sm font-semibold uppercase text-white">{t("followUs")}</h3>
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <a href="https://github.com/iHunterDev/JianYingProBatchKeyframe" className="text-white hover:text-brand transition-colors">
+                    Github
+                  </a>
+                </li>
+                <li>
+                  <a href={getLocalizedHref('/roadmap')} className="text-white hover:text-brand transition-colors">
+                    {t("Roadmap")}
+                  </a>
+                </li>
+                <li>
+                  <a href={getLocalizedHref('/donate')} className="text-white hover:text-brand transition-colors">
+                    {t("Donate")}
+                  </a>
+                </li>
+              </ul>
             </div>
             <div>
-              <Footer.Title title={t("legal")} className="text-white" />
-              <Footer.LinkGroup col>
-                <Footer.Link href={getLocalizedHref('/privacy-policy')} className="text-white hover:text-[#c9fd02]">{t("privacyPolicy")}</Footer.Link>
-                <Footer.Link href={getLocalizedHref('/terms-conditions')} className="text-white hover:text-[#c9fd02]">{t("termsConditions")}</Footer.Link>
-              </Footer.LinkGroup>
+              <h3 className="mb-4 text-sm font-semibold uppercase text-white">{t("legal")}</h3>
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <a href={getLocalizedHref('/privacy-policy')} className="text-white hover:text-brand transition-colors">
+                    {t("privacyPolicy")}
+                  </a>
+                </li>
+                <li>
+                  <a href={getLocalizedHref('/terms-conditions')} className="text-white hover:text-brand transition-colors">
+                    {t("termsConditions")}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <Footer.Divider className="my-6 border-gray-700" />
+
+        <hr className="my-6 border-gray-700" />
+
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="https://keyframeai.top/" by="KeyframeAi™" year={2023} className="text-white" />
+          <span className="text-white">
+            © 2023{" "}
+            <a href="https://keyframeai.top/" className="hover:text-brand transition-colors">
+              KeyframeAi™
+            </a>
+          </span>
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            {/* <Footer.Icon href="#" icon={BsFacebook} className="text-white hover:text-[#c9fd02]" /> */}
-            {/* <Footer.Icon href="#" icon={BsInstagram} className="text-white hover:text-[#c9fd02]" /> */}
-            <Footer.Icon href="https://twitter.com/iHunterDev" icon={BsTwitter} className="text-white hover:text-[#c9fd02]" />
-            <Footer.Icon href="https://github.com/iHunterDev/JianYingProBatchKeyframe" icon={BsGithub} className="text-white hover:text-[#c9fd02]" />
-            {/* <Footer.Icon href="#" icon={BsDribbble} className="text-white hover:text-[#c9fd02]" /> */}
+            <a
+              href="https://twitter.com/iHunterDev"
+              className="text-white hover:text-brand transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsTwitter className="h-5 w-5" />
+            </a>
+            <a
+              href="https://github.com/iHunterDev/JianYingProBatchKeyframe"
+              className="text-white hover:text-brand transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsGithub className="h-5 w-5" />
+            </a>
           </div>
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 }

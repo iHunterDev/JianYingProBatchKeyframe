@@ -4,10 +4,16 @@ import Image from "next/image";
 import FAQSection from "./components/FAQSection";
 import DraftSetting from "./components/DraftSetting";
 import NovelList from "./components/NovelList";
-
+import TutorialSteps from "./components/TutorialSteps";
 
 export default function Home() {
   const t = useTranslations("Home");
+
+  const steps = [
+    { title: t("TutorialStep1Title"), description: t("TutorialStep1Description") },
+    { title: t("TutorialStep2Title"), description: t("TutorialStep2Description") },
+    { title: t("TutorialStep3Title"), description: t("TutorialStep3Description") },
+  ];
 
   return (
     <header className="relative">
@@ -26,66 +32,28 @@ export default function Home() {
               {t("Title")}
             </h1>
             <div className="mx-auto mb-3 max-w-[528px] md:mb-6 lg:mb-8">
-              <p className="text-xl text-[#636262]">{t("Description")}</p>
+              <p className="text-xl text-muted">{t("Description")}</p>
             </div>
 
-            <SelectDraft></SelectDraft>
-            <DraftSetting></DraftSetting>
+            <SelectDraft />
+            <DraftSetting />
           </div>
 
           <section className="relative">
             <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-24">
               <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12 lg:mb-16">
-                <p className="text-sm font-bold uppercase text-[#c9fd02]">
+                <p className="text-sm font-bold uppercase text-brand">
                   {t("TutorialStep")}
                 </p>
                 <h2 className="mb-4 mt-6 text-3xl font-extrabold text-white md:text-5xl">
                   {t("HowUse")}
                 </h2>
-                {/* <p className="mx-auto mt-4 max-w-[528px] text-[#aeaeae]">
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit ut
-                  aliquam,purus sit amet luctus magna fringilla urna
-                </p> */}
               </div>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
-                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
-                    <p className="text-xl font-bold">1</p>
-                  </div>
-                  <p className="text-xl font-semibold text-white">
-                    {t("TutorialStep1Title")}
-                  </p>
-                  <p className="text-sm text-[#636262]">
-                    {t("TutorialStep1Description")}
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
-                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
-                    <p className="text-xl font-bold">2</p>
-                  </div>
-                  <p className="text-xl font-semibold text-white">
-                    {t("TutorialStep2Title")}
-                  </p>
-                  <p className="text-sm text-[#636262]">
-                    {t("TutorialStep2Description")}
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 gap-4 rounded-xl bg-[#131313] p-8">
-                  <div className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#c9fd02]">
-                    <p className="text-xl font-bold">3</p>
-                  </div>
-                  <p className="text-xl font-semibold text-white">
-                    {t("TutorialStep3Title")}
-                  </p>
-                  <p className="text-sm text-[#636262]">
-                    {t("TutorialStep3Description")}
-                  </p>
-                </div>
-              </div>
+              <TutorialSteps steps={steps} />
             </div>
           </section>
-          <FAQSection></FAQSection>
-          <NovelList></NovelList>
+          <FAQSection />
+          <NovelList />
         </div>
       </div>
     </header>
