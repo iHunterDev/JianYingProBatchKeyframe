@@ -9,19 +9,19 @@ type TutorialStepsProps = {
 
 export default function TutorialSteps({ steps }: TutorialStepsProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.06]">
+    <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
       {steps.map((step, index) => (
         <div key={index} className="relative flex flex-col gap-5 px-0 py-8 md:px-10 md:py-0 first:md:pl-0 last:md:pr-0">
           {/* Step number — large ghost */}
-          <span className="font-display text-[80px] font-extrabold leading-none text-brand/10 select-none -mb-4">
+          <span className="font-display text-[80px] font-extrabold leading-none text-primary/25 select-none -mb-4">
             0{index + 1}
           </span>
           {/* Active dot */}
           <div className="flex items-center gap-3">
             <span className="block w-1.5 h-1.5 bg-brand flex-shrink-0" />
-            <p className="font-display text-lg font-bold text-white">{step.title}</p>
+            <p className="font-display text-lg font-bold text-foreground">{step.title}</p>
           </div>
-          <p className="text-sm text-white/40 leading-relaxed">{step.description}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
         </div>
       ))}
     </div>

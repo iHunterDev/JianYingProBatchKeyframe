@@ -1,0 +1,26 @@
+.markdown-body { color: hsl(var(--foreground)); font-size: 1rem; line-height: 1.85; overflow-wrap: anywhere; }
+.markdown-body h2, .markdown-body h3, .markdown-body h4 { font-weight: 600; line-height: 1.35; letter-spacing: -.025em; margin-top: 2.5em; margin-bottom: .9em; text-wrap: balance; scroll-margin-top: 6rem; }
+.markdown-body h2 { font-size: clamp(1.4rem, 2.5vw, 1.75rem); }
+.markdown-body h3 { font-size: 1.125rem; }
+.markdown-body h4 { font-size: 1rem; }
+.markdown-body > :first-child { margin-top: 0; }
+.markdown-body p { margin-block: 0 1.25em; }
+.markdown-body strong { font-weight: 600; }
+.markdown-body a { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; }
+.markdown-body a:hover { text-decoration-thickness: 2px; }
+.markdown-body ul, .markdown-body ol { padding-left: 1.4em; margin-block: 0 1.5em; }
+.markdown-body ul { list-style: disc; }
+.markdown-body ol { list-style: decimal; }
+.markdown-body li { padding-left: .3em; margin-bottom: .65em; }
+.markdown-body li::marker { color: hsl(var(--muted-foreground)); }
+.markdown-body li > p { margin-bottom: .5em; }
+.markdown-body hr { border-top: 1px solid hsl(var(--border)); margin-block: 2.5rem; }
+.markdown-body blockquote { margin-block: 1.5em; padding: 1em 1.5em; border-left: 2px solid hsl(var(--primary)); background: hsl(var(--accent)); }
+.markdown-body code { background: hsl(var(--secondary)); border-radius: .3rem; padding: .15em .35em; font-size: .9em; }
+.markdown-body pre { margin-block: 1.5em; padding: 1.25rem; overflow-x: auto; border-radius: .75rem; background: hsl(var(--secondary)); }
+.markdown-body pre code { padding: 0; }
+.markdown-body table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin-block: 1.5em; }
+.markdown-body th, .markdown-body td { border-bottom: 1px solid hsl(var(--border)); padding: .75em 1em; text-align: left; }
+.markdown-body img { max-width: 100%; height: auto; border-radius: .75rem; }
+.changelog-body h2 { border-top: 1px solid hsl(var(--border)); padding-top: 1.5em; }
+.changelog-body h2:first-child { border-top: 0; padding-top: 0; }

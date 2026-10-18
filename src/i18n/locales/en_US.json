@@ -105,7 +105,7 @@
   },
   "DraftSetting": {
     "Auto": "Auto",
-    "DraftSetting": "DraftSetting",
+    "DraftSetting": "Draft settings",
     "VideoRatio": "Video ratio (default follows the ratio set in the cutscene)",
     "keyframeSpeed": "Keyframe speed (recommended range 1-10)",
     "inKeyframeType": "Select the keyframe type (unchecked no keyframes will be added)",
@@ -121,7 +121,33 @@
     "LeftToRight": "Left=>Right",
     "RightToLeft": "Right=>Left",
     "TopToBottom": "Top=>Bottom",
-    "BottomToTop": "Bottom=>Top"
+    "BottomToTop": "Bottom=>Top",
+    "SavedAutomatically": "Changes are saved automatically in this browser.",
+    "Animations": {
+      "431636": "Swing in right",
+      "431638": "Swing in down",
+      "431640": "Swing in down-right",
+      "431642": "Swing in down-left",
+      "431644": "Swing in up-right",
+      "431648": "Swing in up-left",
+      "431650": "Gentle shake II",
+      "431652": "Vertical shake",
+      "431654": "Horizontal shake",
+      "431658": "Dynamic zoom out",
+      "431662": "Dynamic zoom in",
+      "431664": "Gentle shake",
+      "503136": "Gentle shake III",
+      "624705": "Fade in",
+      "624755": "Zoom out",
+      "629085": "Gentle zoom in",
+      "634681": "Wiper",
+      "636115": "Pendulum",
+      "640101": "Wiper II",
+      "645307": "Rotate in up",
+      "699157": "Rotate in left",
+      "701961": "Rotate in up II",
+      "703281": "Swirl"
+    }
   },
   "Footer": {
     "about": "About",
@@ -197,5 +223,32 @@
   "Pagination": {
     "previous": "Previous",
     "next": "Next"
+  },
+  "Connection": {
+    "Title": "Dashboard",
+    "Description": "Connect to Copilot on your computer, choose a draft, and process it with your settings.",
+    "ServerAddress": "Copilot server address",
+    "Connected": "Connected to Copilot",
+    "Checking": "Connecting to Copilot…",
+    "InvalidAddress": "Enter a valid HTTP or HTTPS address",
+    "Offline": "Unable to connect to Copilot",
+    "CheckingHelp": "Checking the client service. This may take a moment.",
+    "OfflineHelp": "Start the Copilot service and check that the address below matches the one shown in the client, then try again.",
+    "Retry": "Connect again",
+    "Reconnect": "Check connection",
+    "Download": "Download Copilot",
+    "LoadingDrafts": "Loading drafts…",
+    "DraftLoadError": "Unable to load drafts. Check that Copilot is running, then refresh.",
+    "EmptyDrafts": "No drafts found. Create a draft in JianyingPro and check the draft folder in Copilot, then refresh the list.",
+    "RefreshDrafts": "Refresh drafts",
+    "Processing": "Processing…",
+    "ProcessError": "Processing or saving failed. Check the client connection and draft file, close JianyingPro, and try again."
+  },
+  "Upload": {
+    "Processing": "Processing…",
+    "Success": "Processing complete. Your download has started. Back up the original draft before replacing it.",
+    "InvalidJson": "Unable to read JSON. Choose an unencrypted draft_info.json or draft_content.json file.",
+    "ProcessError": "Unable to process this draft. Drafts from JianyingPro 6.0 and later are encrypted. Create a new draft in version 5.8; see the FAQ below for the download link.",
+    "ConnectionError": "The connection failed or processing timed out. Check your network and select the file again."
   }
 }

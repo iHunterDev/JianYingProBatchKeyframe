@@ -1,94 +1,50 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import type { Metadata } from "next";
 import { createTranslator } from "next-intl";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const messages = (await import(`../../../../i18n/locales/${locale}.json`)).default;
-  const t = createTranslator({ locale, messages });
+  const t = createTranslator({ locale: locale.replace("_", "-"), messages });
 
   return {
     title: t("Copilot.DownloadClient") + " - " + t("Home.Title"),
     description: t("Copilot.CopilotDescription") + " - " + t("Copilot.DownloadClient") + " - " + t("Home.Title"),
   };
 }
-export default function Copilot() {
-  const tCopilot = useTranslations("Copilot");
-  const tCopilotDwonload = useTranslations("CopilotDwonload");
-  return (
-    <>
-      <section className="relative">
-        {/* BG Image */}
-        <img
-          src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f68133fc5cb4e29ed28f2_Background%20Image1%20(1).svg"
-          alt=""
-          className="absolute -z-10 inline-block h-full w-full object-cover"
-        />
-        {/* Container */}
-        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-          {/* Component */}
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 pb-4 text-4xl font-bold text-white md:text-6xl">
-              {tCopilot("DownloadClient")}
-            </h1>
-            <div className="mx-auto mb-3 max-w-[528px] md:mb-6 lg:mb-8">
-              <p className="text-xl text-[#636262]">
-                {tCopilot("CopilotDescription")}
-              </p>
-            </div>
+import Link from "next/link";
+import { Download, Monitor, Laptop, ArrowUpRight } from "lucide-react";
+const releases = [
+  {name: "Windows", architecture: "x64", format: ".exe", icon: Monitor, href: "https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/windows/prod/x64/jianyingpro-batch-keyframe-copilot-amd64-installer.exe"},
+  {name: "macOS", architecture: "Apple silicon", format: ".zip", icon: Laptop, href: "https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/arm64/jianyingpro-batch-keyframe-copilot.zip"},
+  {name: "macOS", architecture: "Intel", format: ".zip", icon: Laptop, href: "https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/amd64/jianyingpro-batch-keyframe-copilot.zip"},
+];
 
-            <div className="flex gap-10">
-              <div className="w-full rounded-xl bg-[#131313] p-8">
-                <div className="flex cursor-pointer justify-between">
-                  <p className="mb-4 text-xl font-bold text-[#ffffff]">
-                    Windows
-                  </p>
-                </div>
-                <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/windows/prod/x64/jianyingpro-batch-keyframe-copilot-amd64-installer.exe"
-                  target="_blank"
-                  className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
-                >
-                  {tCopilotDwonload("Download")}
-                </a>
-              </div>
-              <div className="w-full rounded-xl bg-[#131313] p-8">
-                <div className="flex cursor-pointer justify-between">
-                  <p className="mb-4 text-xl font-bold text-[#ffffff]">
-                    MacOS (Apple silicon)
-                  </p>
-                </div>
-                <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/arm64/jianyingpro-batch-keyframe-copilot.zip"
-                  target="_blank"
-                  className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
-                >
-                  {tCopilotDwonload("Download")}
-                </a>
-              </div>
-              <div className="w-full rounded-xl bg-[#131313] p-8">
-                <div className="flex cursor-pointer justify-between">
-                  <p className="mb-4 text-xl font-bold text-[#ffffff]">
-                    MacOS (Intel)
-                  </p>
-                </div>
-                <a
-                  href="https://s3.keyframeai.top/jianyingpro-batch-keyframe-copilot/macos/prod/amd64/jianyingpro-batch-keyframe-copilot.zip"
-                  target="_blank"
-                  className="w-full block rounded-full bg-[#c9fd02] px-6 py-2 text-center font-bold text-black transition hover:border-black hover:bg-white"
-                >
-                  {tCopilotDwonload("Download")}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+export default function CopilotDownload() {
+  const t = useTranslations("Copilot");
+  const download = useTranslations("CopilotDwonload");
+  const en = useLocale() === "en-US";
+  return <main id="main-content" className="page-shell section-space">
+    <header className="max-w-3xl">
+      <p className="eyebrow mb-5">KeyframeAi Copilot</p>
+      <h1 className="page-title">{t("DownloadClient")}</h1>
+      <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground">{t("CopilotDescription")}</p>
+    </header>
+    <section className="mt-14 overflow-hidden rounded-3xl border bg-card" aria-label={en ? 'Choose your platform' : '选择你的系统'}>
+      {releases.map(({name, architecture, format, icon: Icon, href}) => <div key={href} className="grid gap-6 border-b px-6 py-8 last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-center sm:px-9">
+        <div className="flex items-center gap-5"><Icon className="size-8 shrink-0 text-muted-foreground stroke-[1.25]" aria-hidden="true"/><div><h2 className="text-xl font-semibold tracking-tight">{name} <span className="ml-1 text-base font-normal text-muted-foreground">{architecture}</span></h2><p className="mt-1 text-sm text-muted-foreground">{format}</p></div></div>
+        <a href={href} className="action-primary" aria-label={`${download("Download")} ${name} ${architecture}`}><Download className="size-4" aria-hidden="true"/>{download("Download")}</a>
+      </div>)}
+    </section>
+    <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">{en ? 'Download and start Copilot, then open the dashboard to select a draft.' : '下载并启动客户端后，打开控制台选择草稿，即可开始处理。'}</p>
+      <Link href={en ? '/en_US/copilot/dashboard' : '/copilot/dashboard'} className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary hover:underline">{en ? 'Open dashboard' : '打开控制台'}<ArrowUpRight className="size-4" aria-hidden="true"/></Link>
+    </div>
+  </main>;
 }

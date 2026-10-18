@@ -84,7 +84,7 @@ module.exports = {
     ],
   },
   // ... 其他选项 ...
-  additionalPaths: async (config) => {
+  additionalPaths: async () => {
     const result = [];
 
     // 定义支持的语言

@@ -1,46 +1,45 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 94%;
-    --card: 0 0% 7.5%;
-    --card-foreground: 0 0% 94%;
-    --popover: 0 0% 7.5%;
-    --popover-foreground: 0 0% 94%;
-    --primary: 72 98% 50%;
-    --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 94%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 12%;
-    --accent-foreground: 0 0% 94%;
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
-    --ring: 72 98% 50%;
-    --radius: 0.125rem;
+    --background: 220 20% 98%;
+    --foreground: 222 22% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 22% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 22% 13%;
+    --primary: 212 100% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 18% 94%;
+    --secondary-foreground: 222 22% 13%;
+    --muted: 220 18% 94%;
+    --muted-foreground: 220 9% 40%;
+    --accent: 213 100% 96%;
+    --accent-foreground: 212 100% 36%;
+    --destructive: 0 72% 43%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 14% 87%;
+    --input: 220 14% 80%;
+    --ring: 212 100% 40%;
+    --radius: 0.875rem;
   }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 4px; }
+  button, a, input { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), summary { cursor: pointer; }
+  ::selection { background: #d9eaff; color: #123964; }
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    background-color: #0d0d0d;
-    color: #f0f0f0;
-  }
+@layer components {
+  .page-shell { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+  .section-space { padding-block: clamp(64px, 8vw, 112px); }
+  .eyebrow { @apply text-primary text-sm font-semibold; letter-spacing: .03em; }
+  .page-title { font-size: clamp(2.5rem, 5.4vw, 4.75rem); font-weight: 650; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.75rem); font-weight: 600; line-height: 1.2; letter-spacing: -.03em; text-wrap: balance; }
+  .action-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50; }
+  .action-secondary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-base font-medium transition-colors hover:bg-secondary; }
 }
-
-@layer utilities {
-  .bg-grid-subtle {
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,253,2,0.035) 39px, rgba(201,253,2,0.035) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,253,2,0.035) 39px, rgba(201,253,2,0.035) 40px);
-  }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

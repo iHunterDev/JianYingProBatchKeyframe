@@ -1,81 +1,73 @@
-"use client";
-import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import ReactLoading from "react-loading";
-import Dashboard from "./dashboard";
+'use client';
+import {useCallback, useEffect, useState, useSyncExternalStore} from 'react';
+import {useLocale, useTranslations} from 'next-intl';
+import Link from 'next/link';
+import {CheckCircle2, CircleAlert, Loader2, PlugZap, RefreshCw} from 'lucide-react';
+import {Input} from '@/components/ui/input';
+import {Label} from '@/components/ui/label';
+import {DEFAULT_COPILOT_URL, normalizeCopilotUrl, copilotFetch} from '@/lib/copilot';
+import Dashboard from './dashboard';
 
+const subscribe = () => () => {};
+const readAddress = () => {
+  try { return localStorage.getItem('copilot_api_url') || DEFAULT_COPILOT_URL; }
+  catch { return DEFAULT_COPILOT_URL; }
+};
+const saveAddress = (address: string) => {
+  try { localStorage.setItem('copilot_api_url', address); } catch { /* Connection remains usable without browser storage. */ }
+};
 export default function CopilotDashboard() {
-  const t = useTranslations("CopilotDashboard");
-
-  // 设置 Copilot 默认的 API 地址
-  useEffect(() => {
-    if (!window.localStorage.getItem("copilot_api_url")) {
-      window.localStorage.setItem("copilot_api_url", "http://localhost:9507");
+  const t = useTranslations('Connection');
+  const en = useLocale() === 'en-US';
+  const storedAddress = useSyncExternalStore(subscribe, readAddress, () => DEFAULT_COPILOT_URL);
+  const [input, setInput] = useState<string>();
+  const [status, setStatus] = useState<'checking' | 'connected' | 'offline' | 'invalid'>('checking');
+  const [connectedAddress, setConnectedAddress] = useState('');
+  const address = input ?? storedAddress;
+  const connect = useCallback(async (value: string, signal?: AbortSignal) => {
+    let base: string;
+    try { base = normalizeCopilotUrl(value); }
+    catch { setStatus('invalid'); return; }
+    saveAddress(base);
+    try {
+      const response = await copilotFetch(base, '', {signal});
+      await response.text();
+      if (signal?.aborted) return;
+      saveAddress(base);
+      setConnectedAddress(base);
+      setStatus('connected');
+    } catch {
+      if (!signal?.aborted) setStatus('offline');
     }
-  });
-
-  // 检测是否开启 Copilot
-  // 如果没开启则提示去启动，否则则显示 Copilot Dashboard
-  // 如何检测呢？ 去请求本地的 localhost:8080 接口，如果能正常响应则说明 Copilot 已经启动，同时 localhost:8080 为默认值，host 地址从 localstorage 中读取
-
-  const [isCopilotEnabled, setIsCopilotEnabled] = useState(false);
-
-  useEffect(() => {
-    const checkCopilotStatus = async () => {
-      const response = await fetch(
-        window.localStorage.getItem("copilot_api_url") as string
-      );
-      const data = await response.text();
-      console.log(data);
-
-      if (response.status === 200) {
-        setIsCopilotEnabled(true);
-      } else {
-        setIsCopilotEnabled(false);
-      }
-    };
-
-    const timer = setTimeout(() => {
-      checkCopilotStatus();
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
   }, []);
-
-  return (
-    <section className="relative">
-      {/* BG Image */}
-      <img
-        src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f68133fc5cb4e29ed28f2_Background%20Image1%20(1).svg"
-        alt=""
-        className="absolute -z-10 inline-block h-full w-full object-cover"
-      />
-      {/* Container */}
-      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-        {/* Component */}
-
-        {/* 检测到 Copilot 是否开启 */}
-        {/* 如果没开启则提示去启动，否则则显示 Copilot Dashboard */}
-        {isCopilotEnabled ? (
-          <Dashboard />
-        ) : (
-          <div className="flex flex-col items-center justify-center gap-y-10">
-            <ReactLoading type="bars" color="#ffffff" width={80} height={80} />
-            {/* <p className="text-center text-3xl font-bold text-white">{t("Copilot is not running")}</p> */}
-            <p className="text-center text-3xl font-bold text-white">
-              {t("CheckingCopilotTips")}
-            </p>
-            <p className="text-center text-sm text-white">
-              {t("CheckingCopilotHelpTips")}{" "}
-              <a href="./" className="hover:text-[#c9fd02] underline">
-                {t("DownloadClient")}
-              </a>
-            </p>
-          </div>
-        )}
+  useEffect(() => {
+    const controller = new AbortController();
+    Promise.resolve(readAddress()).then(normalizeCopilotUrl).then(async base => {
+      const response = await copilotFetch(base, '', {signal: controller.signal});
+      await response.text();
+      return base;
+    }).then(base => {
+      if (controller.signal.aborted) return;
+      saveAddress(base);
+      setConnectedAddress(base);
+      setStatus('connected');
+    }).catch(() => { if (!controller.signal.aborted) setStatus('offline'); });
+    return () => controller.abort();
+  }, []);
+  const checking = status === 'checking';
+  return <main id="main-content" className="page-shell section-space">
+    <header className="mb-10"><p className="eyebrow mb-4">KeyframeAi Copilot</p><h1 className="section-title">{t('Title')}</h1><p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">{t('Description')}</p></header>
+    <section className="mb-10 rounded-2xl border bg-card p-6 sm:p-8" aria-label={t('ServerAddress')}>
+      <div className="mb-6 flex items-start gap-3" role="status" aria-live="polite">
+        {checking ? <Loader2 className="mt-0.5 size-5 shrink-0 animate-spin text-primary"/> : status === 'connected' ? <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary"/> : <CircleAlert className="mt-0.5 size-5 shrink-0 text-destructive"/>}
+        <div><h2 className="font-semibold">{t(status === 'connected' ? 'Connected' : checking ? 'Checking' : status === 'invalid' ? 'InvalidAddress' : 'Offline')}</h2>{status !== 'connected' && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(checking ? 'CheckingHelp' : 'OfflineHelp')}</p>}</div>
       </div>
+      <form onSubmit={event => {event.preventDefault(); setStatus('checking'); void connect(address);}} className="flex flex-col items-start gap-3 sm:flex-row sm:items-end">
+        <div className="w-full sm:max-w-xl"><Label htmlFor="copilot-address" className="mb-2 block">{t('ServerAddress')}</Label><Input id="copilot-address" type="url" required value={address} onChange={event => setInput(event.target.value)} aria-invalid={status === 'invalid'} spellCheck={false} disabled={checking}/></div>
+        <button className="action-secondary w-full shrink-0 sm:w-auto" disabled={checking}>{checking ? <Loader2 className="size-4 animate-spin" aria-hidden="true"/> : <RefreshCw className="size-4" aria-hidden="true"/>}{t(status === 'connected' ? 'Reconnect' : 'Retry')}</button>
+      </form>
+      {status !== 'connected' && <Link href={en ? '/en_US/copilot/download' : '/copilot/download'} className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary hover:underline"><PlugZap className="size-4" aria-hidden="true"/>{t('Download')}</Link>}
     </section>
-  );
+    {status === 'connected' && <Dashboard key={connectedAddress} address={connectedAddress}/>}
+  </main>;
 }

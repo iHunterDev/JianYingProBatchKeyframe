@@ -69,7 +69,7 @@ Copilot source code: [github.com/iHunterDev/JianYingProBatchKeyframeCopilot](htt
 
 ## Tech Stack
 
-- [Next.js 14](https://nextjs.org/) (App Router)
+- [Next.js 16](https://nextjs.org/) (App Router)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) (Radix UI)
 - [next-intl](https://next-intl-docs.vercel.app/) for i18n
@@ -80,7 +80,8 @@ Copilot source code: [github.com/iHunterDev/JianYingProBatchKeyframeCopilot](htt
 ## Local Development
 
 ```bash
-# Install dependencies (pnpm recommended)
+# Requires Node.js 20.9+ and pnpm 10.23.0
+# Install dependencies
 pnpm install
 
 # Start dev server
@@ -154,7 +155,8 @@ Copilot 源码：[github.com/iHunterDev/JianYingProBatchKeyframeCopilot](https:/
 ### 本地开发
 
 ```bash
-# 安装依赖（推荐使用 pnpm）
+# 需要 Node.js 20.9+、pnpm 10.23.0
+# 安装依赖
 pnpm install
 
 # 启动开发服务器
@@ -162,3 +164,14 @@ pnpm dev
 ```
 
 访问 [http://localhost:3000](http://localhost:3000)。
+
+## Validation / 验证
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+BASE_URL=http://localhost:3000 pnpm test:core
+```
+
+Run the HTTP regression against a running local server.

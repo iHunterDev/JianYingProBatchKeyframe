@@ -1,98 +1,50 @@
-"use client";
-import { useRef, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Loader2 } from "lucide-react";
+'use client';
+import {useRef, useState} from 'react';
+import {useTranslations} from 'next-intl';
+import {CheckCircle2, CircleAlert, Loader2, Upload} from 'lucide-react';
+import {readSettings, toDraftOptions} from '@/lib/draft/settings';
 
 export default function SelectDraft() {
-  const inputFileRef = useRef<HTMLInputElement>(null);
-  const t = useTranslations("Home");
-  const [processing, setProcessing] = useState(false);
-
-  async function handleUploadDraft() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations('Home');
+  const tu = useTranslations('Upload');
+  const [processing,setProcessing] = useState(false);
+  const [status,setStatus] = useState<'success' | 'error' | null>(null);
+  const [error,setError] = useState('');
+  async function upload() {
+    const file = inputRef.current?.files?.[0];
+    if (!file || processing) return;
+    setProcessing(true);setStatus(null);
     try {
-      setProcessing(true);
-      if (!inputFileRef.current?.files) {
-        throw new Error("No file selected");
-      }
-
-      const file = inputFileRef.current.files[0];
-
-      const fileReader = new FileReader();
-
-      const fileContent = await new Promise<string>((resolve, reject) => {
-        fileReader.onload = (event) => {
-          try {
-            const result = event.target?.result;
-            if (typeof result === "string") {
-              resolve(result);
-            } else {
-              reject("FileReader result is not a string");
-            }
-          } catch (err) {
-            reject(err);
-          }
-        };
-
-        fileReader.onerror = () => {
-          reject("Error reading file");
-        };
-
-        fileReader.readAsText(file);
+      let draft: unknown;
+      try { draft = JSON.parse(await file.text()); }
+      catch { throw new Error(tu('InvalidJson')); }
+      const response = await fetch(`/api/generate?filename=${encodeURIComponent(file.name)}`, {
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({draft,options:toDraftOptions(readSettings())}),
+        signal:AbortSignal.timeout(60000),
       });
-
-      const jsonData = JSON.parse(fileContent);
-
-      const options = JSON.parse(localStorage.getItem("draftOptions") || "{}");
-
-      const response = await fetch(`/api/generate?filename=${file.name}`, {
-        method: "POST",
-        body: JSON.stringify({
-          options: { ...options },
-          draft: jsonData,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("response", response);
-
-      if (!response.ok) {
-        console.log("errMsg", await response.json());
-        throw new Error(
-          "处理失败，请检查文件是否正确（注意：如果你的剪映升级到了 6.0 以上版本草稿被剪映加密了，必须要降低版本才能使用，目前测试 5.8 版本可以使用。滑动到首页下面的常见问题中有 5.8 版本的下载地址"
-        );
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", file.name);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      setProcessing(false);
-    } catch (error: any) {
-      setProcessing(false);
-      console.log(error);
-      alert(error.message);
-    }
+      if (!response.ok) throw new Error(tu('ProcessError'));
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement('a');
+      link.href=url;link.download=file.name;
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),0);
+      setStatus('success');
+    } catch (error:unknown) {
+      setError(error instanceof Error && [tu('InvalidJson'),tu('ProcessError')].includes(error.message) ? error.message : tu('ConnectionError'));
+      setStatus('error');
+    } finally {setProcessing(false);if(inputRef.current) inputRef.current.value='';}
   }
-
-  return (
-    <button className="relative inline-flex items-center gap-2.5 bg-brand px-8 py-4 font-display font-bold text-black text-sm tracking-wide uppercase transition-all hover:bg-white active:scale-[0.98]">
-      {processing && <Loader2 className="h-4 w-4 animate-spin" />}
-      <span>{t("SelectDraft")}</span>
-      <input
-        type="file"
-        className="opacity-0 absolute inset-0 cursor-pointer"
-        accept="application/json, .*"
-        ref={inputFileRef}
-        onChange={handleUploadDraft}
-      />
-    </button>
-  );
+  return <div className="max-w-full">
+    <label aria-busy={processing} className={`action-primary relative cursor-pointer focus-within:outline-3 focus-within:outline-offset-4 focus-within:outline-primary ${processing?'opacity-60':''}`}>
+      {processing ? <Loader2 className="size-4 animate-spin" aria-hidden="true"/> : <Upload className="size-4" aria-hidden="true"/>}
+      <span>{processing?tu('Processing'):t('SelectDraft')}</span>
+      <input type="file" aria-label={t('SelectDraft')} disabled={processing} className="absolute inset-0 w-full cursor-pointer rounded-full opacity-0" accept=".json,application/json" ref={inputRef} onChange={()=>void upload()}/>
+    </label>
+    {status && <div role={status==='error'?'alert':'status'} className={`mt-4 flex max-w-lg items-start gap-2 text-sm leading-relaxed ${status==='error'?'text-destructive':'text-primary'}`}>
+      {status==='error'?<CircleAlert className="mt-0.5 size-4 shrink-0"/>:<CheckCircle2 className="mt-0.5 size-4 shrink-0"/>}
+      <p>{status==='error'?error:tu('Success')}</p>
+    </div>}
+  </div>;
 }

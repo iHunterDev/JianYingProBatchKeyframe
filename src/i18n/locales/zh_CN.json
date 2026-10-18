@@ -109,7 +109,7 @@
     "keyframeSpeed": "关键帧速度（建议范围 1-10）",
     "inKeyframeType": "选择关键帧类型（不选则不会添加关键帧）",
     "isRandomInAnimation": "开启随机入场动画",
-    "isClearKeyframes": "开启清理旧关键帧（会删除原有的关���后重新生成）",
+    "isClearKeyframes": "开启清理旧关键帧（会删除原有的关键帧后重新生成）",
     "inAnimation": "选择入场动画",
     "isInAnimation": "是否添加入场动画",
     "isClearAnimations": "开启清理动画（会删除原有的动画数据）",
@@ -120,7 +120,33 @@
     "LeftToRight": "左=>右",
     "RightToLeft": "右=>左",
     "TopToBottom": "上=>下",
-    "BottomToTop": "下=>上"
+    "BottomToTop": "下=>上",
+    "SavedAutomatically": "设置会自动保存在此浏览器中。",
+    "Animations": {
+      "431636": "向右甩入",
+      "431638": "向下甩入",
+      "431640": "向右下甩入",
+      "431642": "向左下甩入",
+      "431644": "向右上甩入",
+      "431648": "向左上甩入",
+      "431650": "轻微抖动 II",
+      "431652": "上下抖动",
+      "431654": "左右抖动",
+      "431658": "动感缩小",
+      "431662": "动感放大",
+      "431664": "轻微抖动",
+      "503136": "轻微抖动 III",
+      "624705": "渐显",
+      "624755": "缩小",
+      "629085": "轻微放大",
+      "634681": "雨刷",
+      "636115": "钟摆",
+      "640101": "雨刷 II",
+      "645307": "向上转入",
+      "699157": "向左转入",
+      "701961": "向上转入 II",
+      "703281": "漩涡旋转"
+    }
   },
   "Footer": {
     "about": "关于",
@@ -195,5 +221,32 @@
   "Pagination": {
     "previous": "上一页",
     "next": "下一页"
+  },
+  "Connection": {
+    "Title": "控制台",
+    "Description": "连接本机 Copilot，选择草稿并按你的设置批量处理。",
+    "ServerAddress": "客户端服务地址",
+    "Connected": "已连接客户端",
+    "Checking": "正在连接客户端…",
+    "InvalidAddress": "请输入有效的 HTTP 或 HTTPS 地址",
+    "Offline": "暂时无法连接客户端",
+    "CheckingHelp": "正在检测客户端服务，请稍候。",
+    "OfflineHelp": "请先启动 Copilot 服务，并确认下方地址与客户端显示的一致，然后重试。",
+    "Retry": "重新连接",
+    "Reconnect": "检测连接",
+    "Download": "下载客户端",
+    "LoadingDrafts": "正在读取草稿…",
+    "DraftLoadError": "读取草稿失败，请确认客户端仍在运行后刷新。",
+    "EmptyDrafts": "尚未找到草稿。请在剪映中创建草稿，并检查客户端的草稿目录，然后刷新列表。",
+    "RefreshDrafts": "刷新草稿列表",
+    "Processing": "正在处理…",
+    "ProcessError": "处理或保存失败。请检查客户端连接和草稿文件，确认关闭剪映后重试。"
+  },
+  "Upload": {
+    "Processing": "正在处理…",
+    "Success": "处理完成，已开始下载。替换前请先备份原草稿。",
+    "InvalidJson": "无法读取 JSON。请选择未加密的 draft_info.json 或 draft_content.json 文件。",
+    "ProcessError": "处理失败，请检查草稿格式。剪映 6.0 以上版本的草稿已加密，请使用 5.8 版本新建草稿；下载地址见下方常见问题。",
+    "ConnectionError": "连接中断或处理超时，请检查网络后重新选择文件。"
   }
 }

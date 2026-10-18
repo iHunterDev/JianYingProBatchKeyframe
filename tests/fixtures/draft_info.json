@@ -1,0 +1,36 @@
+{
+  "canvas_config": {
+    "width": 1920,
+    "height": 1080,
+    "ratio": "16:9"
+  },
+  "materials": {
+    "videos": [
+      {
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "material_animations": []
+  },
+  "tracks": [
+    {
+      "segments": [
+        {
+          "source_timerange": {
+            "duration": 5000000
+          },
+          "clip": {
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "common_keyframes": [],
+          "extra_material_refs": []
+        }
+      ]
+    }
+  ],
+  "fixture_metadata": "preserve"
+}
