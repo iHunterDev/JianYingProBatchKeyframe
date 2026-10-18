@@ -80,7 +80,7 @@ Copilot source code: [github.com/iHunterDev/JianYingProBatchKeyframeCopilot](htt
 ## Local Development
 
 ```bash
-# Requires Node.js 20.9+ and pnpm 10.23.0
+# Requires Node.js 22.13+ (22.x) and pnpm 10.23.0
 # Install dependencies
 pnpm install
 
@@ -155,7 +155,7 @@ Copilot 源码：[github.com/iHunterDev/JianYingProBatchKeyframeCopilot](https:/
 ### 本地开发
 
 ```bash
-# 需要 Node.js 20.9+、pnpm 10.23.0
+# 需要 Node.js 22.13+（22.x）、pnpm 10.23.0
 # 安装依赖
 pnpm install
 
