@@ -90,6 +90,16 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### Analytics configuration
+
+Copy `.env.example` to `.env.local` for local development, and set the same variables in your deployment platform before building:
+
+- `NEXT_PUBLIC_UMAMI_BASE_URL`: Umami service URL.
+- `NEXT_PUBLIC_UMAMI_WEBSITE_ID`: Website ID from the Umami dashboard.
+- `NEXT_PUBLIC_UMAMI_ENABLE_REPLAY_AND_HEATMAPS`: Set to `true` to enable session replay and heatmaps; any other value disables the recorder while keeping analytics enabled.
+
+Umami is disabled when the service URL or website ID is missing. Changes require restarting the development server or rebuilding and redeploying production. Google Analytics remains configured separately in `src/components/GoogleAnalytics.tsx`.
+
 ---
 
 ## License
